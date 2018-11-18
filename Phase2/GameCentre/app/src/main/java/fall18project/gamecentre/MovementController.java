@@ -1,0 +1,33 @@
+package fall18project.gamecentre;
+
+import android.content.Context;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.widget.Toast;
+
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+
+
+public class MovementController {
+
+    private BoardManager boardManager = null;
+
+    public MovementController() {
+    }
+
+    public void setBoardManager(BoardManager boardManager) {
+        this.boardManager = boardManager;
+    }
+
+    public void processTapMovement(Context context, int position, boolean display) {
+        if (boardManager.isValidTap(position)) {
+            boardManager.touchMove(position);
+            if (boardManager.puzzleSolved()) {
+                Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(context, "Invalid Tap", Toast.LENGTH_SHORT).show();
+        }
+    }
+}
