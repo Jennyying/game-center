@@ -73,12 +73,13 @@ class BoardManager implements Serializable {
     BoardManager(int sl, String un) {
         username = un;
 
-        List<Tile> tiles = new ArrayList<>();
+        ArrayList<Tile> tiles = new ArrayList<>();
         int numTiles = sl * sl;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
             tiles.add(new Tile(tileNum, tileNum == numTiles - 1));
         }
-        Collections.shuffle(tiles);
+        BoardShuffler bs = new BoardShuffler(tiles, numTiles, sl);
+        tiles = bs.shuffle();
         this.board = new Board(tiles, sl);
     }
 
