@@ -22,16 +22,31 @@ public class MoveStack<T> implements Serializable, Undoable {
     public boolean has_undos() {
         return undid > 0 && moves.size() != 0;
     }
+
+    /** Increments undid and returns whether there are still moves to do
+     *
+     * @return boolean - returns whether there are still moves to do
+     */
     public boolean undo() {
         if(!has_moves()) return false;
         undid++;
         return true;
     }
+
+    /** Decrements undid counter and returns whether there are undos moves to do
+     *
+     * @return boolean - returns whether there are still undos to do
+     */
     public boolean redo() {
         if(!has_undos()) return false;
         undid--;
         return true;
     }
+
+    /** Clears part of moves sublist and returns whether there are undos moves to do
+     *
+     * @return boolean - returns whether there are still undos to do
+     */
     public boolean truncate() {
         if(!has_undos()) return false;
         moves.subList(moves.size() - undid, moves.size()).clear();
