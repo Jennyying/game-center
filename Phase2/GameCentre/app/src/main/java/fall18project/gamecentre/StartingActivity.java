@@ -57,6 +57,11 @@ public class StartingActivity extends AppCompatActivity {
     private UserDatabase userDatabase;
 
     /**
+     * The current user
+     */
+    private User currentUser;
+
+    /**
      * The username box
      */
     private EditText usernameBox;
@@ -69,7 +74,7 @@ public class StartingActivity extends AppCompatActivity {
     /**
      * The current user view
      */
-    private TextView currentUser;
+    private TextView currentUserView;
 
     //public static final String EXTRA_MESSAGE = "fall18project.gamecentre.MESSAGE"
 
@@ -86,7 +91,7 @@ public class StartingActivity extends AppCompatActivity {
 
         usernameBox = (EditText)findViewById(R.id.usernameBox);
         passwordBox = (EditText)findViewById(R.id.passwordBox);
-        currentUser = (TextView)findViewById(R.id.currentUser);
+        currentUserView = (TextView)findViewById(R.id.currentUser);
 
         addStartButtonListener();
         addLoadButtonListener();
@@ -105,7 +110,7 @@ public class StartingActivity extends AppCompatActivity {
             return;
         }
 
-        if(!userDatabase.register(username, password)) Toast.makeText(
+        if(userDatabase.register(username, password) == null) Toast.makeText(
                 this,
                 "An account with that username already exists",
                 Toast.LENGTH_LONG).show();
@@ -229,17 +234,20 @@ public class StartingActivity extends AppCompatActivity {
         String username = usernameBox.getText().toString();
         String password = passwordBox.getText().toString();
 
+        int userID;
+
         if(username.isEmpty())
             Toast.makeText(this, "Please input a username", Toast.LENGTH_SHORT).show();
-        else switch(userDatabase.login(username, password)) {
-            case LOGIN_GOOD:
-                currentUser.setText("Hey, " + userDatabase.getCurrentUser() + "!");
-                break;
-            case LOGIN_BAD_PASSWORD:
+        else switch(userID = userDatabase.login(username, password)) {
+            case UserDatabase.LOGIN_BAD_PASSWORD:
                 Toast.makeText(this, "Incorrect password", Toast.LENGTH_SHORT).show();
                 break;
-            case LOGIN_NO_SUCH_USER:
+            case UserDatabase.LOGIN_NO_SUCH_USER:
                 Toast.makeText(this, "No such user", Toast.LENGTH_SHORT).show();
+                break;
+            default:
+                currentUser = userDatabase.getUserWithID(userID);
+                currentUserView.setText("Hey, " + currentUser.getUserName() + "!");
                 break;
         }
     }
@@ -270,7 +278,8 @@ public class StartingActivity extends AppCompatActivity {
      */
     private void switchToSetup() {
         Intent tmp = new Intent(this, GameSetupActivity.class);
-        tmp.putExtra("username", userDatabase.getCurrentUser());
+        if(currentUser != null)
+            tmp.putExtra("username", currentUser.getUserName());
         saveGameToFile(StartingActivity.TEMP_SAVE_FILENAME);
         saveScoresToFile(StartingActivity.SCORE_SAVE_FILENAME);
         saveUsersToFile(StartingActivity.USERS_SAVE_FILENAME);
