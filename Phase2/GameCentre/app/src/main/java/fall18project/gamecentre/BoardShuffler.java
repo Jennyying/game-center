@@ -19,13 +19,13 @@ public class BoardShuffler {
      */
     private int dimension;
 
-    /**
-    *Initialises class tiles variable, and dimension with inputed parameters. Creates a
+     /**
+     *Initialises class tiles variable, and dimension with inputed parameters. Creates a
      * list of random numbers.
-    *
+     *
      * @param dimension - the dimension of the board
      *@param numTiles - the number of tiles on the board
-    *@param tiles - an arraylist of the tiles on the board
+     *@param tiles - an arraylist of the tiles on the board
      */
     public BoardShuffler(ArrayList<Tile> tiles, int numTiles, int dimension)
     {
