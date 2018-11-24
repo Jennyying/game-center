@@ -39,8 +39,6 @@ public class StartingActivity extends AppCompatActivity {
      * The user database save file
      */
     public static final String USERS_SAVE_FILENAME = "users_file.ser";
-
-
     /**
      * The board manager.
      */
