@@ -12,8 +12,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import fall18project.gamecentre.R;
 
-import static android.support.v4.graphics.drawable.IconCompat.getResources;
-
 
 public class GameView extends View {
     //canvas
@@ -22,16 +20,10 @@ public class GameView extends View {
     private int canvasWidth;
     //rabbit
     private RabbitModel rabbitModel;
-//    //poison
-//    private Bitmap poison;
-//    private int poisonVelocity = 25;
-//    private int poisonX;
-//    private int poisonY;
-//    //carrot
-//    private Bitmap carrot;
-//    private int carrotVelocity = 17;
-//    private int carrotX;
-//    private int carrotY;
+    //poison(velocity = 25)
+    private PoisonTargetModel poisonTargetModel;
+    //carrot(velocity = 17)
+    private CarrotTargetModel carrotTargetModel;
 
     private Bitmap background;
     //life
@@ -45,9 +37,9 @@ public class GameView extends View {
         super(context);
         rabbitModel.setRabbit(BitmapFactory.decodeResource(getResources(), R.drawable.rabbit));
         background = BitmapFactory.decodeResource(getResources(), R.drawable.background);
-        CarrotTargetModel.draw();
-        BitmapFactory.decodeResource(getResources(), R.drawable.carrot);
-        BitmapFactory.decodeResource(getResources(), R.drawable.poison);
+
+        carrotTargetModel.setImage(BitmapFactory.decodeResource(getResources(), R.drawable.carrot));
+        poisonTargetModel.setImage(BitmapFactory.decodeResource(getResources(), R.drawable.poison));
 
         Paint paintScore = new Paint();
         paintScore.setColor(Color.GREEN);
@@ -88,11 +80,6 @@ public class GameView extends View {
         //carrot
        CarrotTargetModel.generate(canvas);
     }
-
-    
-   
-
-
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
