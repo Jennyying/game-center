@@ -22,7 +22,7 @@ public class GameView extends View {
     //rabbit
     private RabbitModel rabbitModel;
     //poison(velocity = 25)
-    private PoisonTargetModel poisonTargetModel;
+    private PoisonTargetModel poisonTargetModel = new PoisonTargetModel();
     //carrot(velocity = 17)
     private CarrotTargetModel carrotTargetModel;
 
@@ -33,8 +33,8 @@ public class GameView extends View {
         super(context);
         rabbitModel.setRabbit(BitmapFactory.decodeResource(getResources(), R.drawable.rabbit));
         stateModel.setBackground(BitmapFactory.decodeResource(getResources(), R.drawable.background));
-        carrotTargetModel.setImage(BitmapFactory.decodeResource(getResources(), R.drawable.carrot));
-        poisonTargetModel.setImage(BitmapFactory.decodeResource(getResources(), R.drawable.poison));
+        CarrotTargetModel.setImage(BitmapFactory.decodeResource(getResources(), R.drawable.carrot));
+        PoisonTargetModel.setImage(BitmapFactory.decodeResource(getResources(), R.drawable.poison));
         stateModel.generatePaint();
 
         stateModel.setLife(BitmapFactory.decodeResource(getResources(), R.drawable.heart));
@@ -61,11 +61,11 @@ public class GameView extends View {
 
         //poison method
 
-        int randomGeneration = (int) Math.floor(Math.random() * (rabbitModel.getMaxRabbitY() -
-                rabbitModel.getMinRabbitY())) + rabbitModel.getMinRabbitY();;
-        poisonTargetModel.imageX -= poisonTargetModel.velocity;
-        if (rabbitModel.checkCollision(poisonTargetModel.imageX, poisonTargetModel.imageY)) {
-            poisonTargetModel.imageX = -20;
+        int randomGeneration = (int) Math.floor(Math.random() * (RabbitModel.getMaxRabbitY() -
+                RabbitModel.getMinRabbitY())) + RabbitModel.getMinRabbitY();;
+        PoisonTargetModel.imageX -= PoisonTargetModel.getVelocity();
+        if (RabbitModel.checkCollision(PoisonTargetModel.imageX, PoisonTargetModel.imageY)) {
+            PoisonTargetModel.imageX = -20;
             stateModel.changeLife();
             if (stateModel.getNumLife() == 0) {
                 stateModel.changeLife();
@@ -74,26 +74,26 @@ public class GameView extends View {
                     Log.v("Message", "game over");
                 }
             }
-            if (poisonTargetModel.imageX < 0) {
-                poisonTargetModel.imageX = canvasWidth + 100;
-                poisonTargetModel.imageY = randomGeneration;
+            if (PoisonTargetModel.imageX < 0) {
+                PoisonTargetModel.imageX = canvasWidth + 100;
+                PoisonTargetModel.imageY = randomGeneration;
             }
-            canvas.drawBitmap(poisonTargetModel.image, poisonTargetModel.imageX,
-                    poisonTargetModel.imageY, null);
+            canvas.drawBitmap(PoisonTargetModel.image, PoisonTargetModel.imageX,
+                    PoisonTargetModel.imageY, null);
 
             //carrot
-            carrotTargetModel.imageX -= carrotTargetModel.velocity;
-            if (rabbitModel.checkCollision(carrotTargetModel.imageX, carrotTargetModel.imageY)) {
+            CarrotTargetModel.imageX -= CarrotTargetModel.getVelocity();
+            if (RabbitModel.checkCollision(CarrotTargetModel.imageX, CarrotTargetModel.imageY)) {
                 stateModel.changeScore();
-                carrotTargetModel.imageX = -50;
+                CarrotTargetModel.imageX = -50;
             }
-            if (carrotTargetModel.imageX < 0) {
-                carrotTargetModel.imageX = canvasWidth + 20;
-                carrotTargetModel.imageY = randomGeneration;
+            if (CarrotTargetModel.imageX < 0) {
+                CarrotTargetModel.imageX = canvasWidth + 20;
+                CarrotTargetModel.imageY = randomGeneration;
             }
 
-            canvas.drawBitmap(carrotTargetModel.image, carrotTargetModel.imageX,
-                    carrotTargetModel.imageY, null);
+            canvas.drawBitmap(CarrotTargetModel.image, CarrotTargetModel.imageX,
+                    CarrotTargetModel.imageY, null);
         }
     }
 
