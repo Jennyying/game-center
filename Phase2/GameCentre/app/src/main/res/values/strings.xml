@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">SlidingTiles</string>
-    <string name="text_logo">In The Colonel</string>
-    <string name="text_hint_email">Email</string>
+    <string name="text_newaccount">Don\'t have an account?</string>
+    <string name="text_hint_email">Username</string>
     <string name="text_hint_password">Password</string>
     <string name="text_login">Login</string>
+    <string name="text_newgame">New Game</string>
 </resources>

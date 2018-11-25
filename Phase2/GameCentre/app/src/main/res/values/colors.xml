@@ -10,8 +10,9 @@
     <!-- ./ 1st Gradient color -->
 
     <!-- 2nd Gradient color -->
-    <color name="colorAmber_A400">#FFC400</color>
-    <color name="colorAmber_900">#FF6F00</color>
+    <color name="colorAmber_A400">#0f2027</color>
+    <color name="colorAmber_900">#203a43</color>
+    <color name="colorAmber_800">#2c5364</color>
     <!-- ./ 2nd Gradient color -->
 
     <!-- 3rd Gradient color -->
@@ -23,4 +24,6 @@
     <color name="colorRed_A400">#FF1744</color>
     <color name="colorRed_900">#B71C1C</color>
     <!-- ./ 4th Gradient color -->
+
+
 </resources>
