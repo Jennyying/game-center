@@ -14,8 +14,14 @@ public class RabbitModel {
     private static int rabbitY;
     static int minRabbitY = 150;
     static int maxRabbitY;
+
+    public static void setRabbitVelocity(int rabbitVelocity) {
+        RabbitModel.rabbitVelocity = rabbitVelocity;
+    }
+
     //        = canvasHeight - 100;
     public RabbitModel(int maxRabbitY){
+
         this.maxRabbitY = maxRabbitY;
     }
 
@@ -51,4 +57,21 @@ public class RabbitModel {
         return rabbitVelocity;
     }
 
+    //rabbit move method
+    public static void rabbitMove(int rabbitY){
+
+        rabbitY += rabbitVelocity;
+        if (rabbitY > maxRabbitY) {
+            rabbitY = maxRabbitY;
+        }
+        if (rabbitY < minRabbitY) {
+            rabbitY = minRabbitY;
+        }
+    }
+
+
+    public static boolean checkCollision(int x, int y, RabbitModel rabbitModel) {
+        return rabbitX < x && x < (rabbitX + rabbit.getWidth()) &&
+                (rabbitY < y && y < (rabbitY + rabbit.getHeight()));
+    }
 }

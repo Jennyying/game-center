@@ -13,15 +13,13 @@ import android.view.MotionEvent;
 import android.view.View;
 import fall18project.gamecentre.R;
 
+
 public class GameView extends View {
     //canvas
     private int canvasHeight;
     private int canvasWidth;
     //rabbit
-    private Bitmap rabbit;
-    private int rabbitVelocity;
-    private int rabbitX = 10;
-    private int rabbitY;
+    private RabbitModel rabbitModel;
     //poison
     private Bitmap poison;
     private int poisonVelocity = 25;
@@ -40,9 +38,10 @@ public class GameView extends View {
     //score
     private int score;
 
+
     public GameView(Context context) {
         super(context);
-        rabbit = BitmapFactory.decodeResource(getResources(), R.drawable.rabbit);
+        rabbitModel.setRabbit(BitmapFactory.decodeResource(getResources(), R.drawable.rabbit));
         background = BitmapFactory.decodeResource(getResources(), R.drawable.background);
         carrot = BitmapFactory.decodeResource(getResources(), R.drawable.carrot);
         poison = BitmapFactory.decodeResource(getResources(), R.drawable.poison);
@@ -55,7 +54,7 @@ public class GameView extends View {
 
         life = BitmapFactory.decodeResource(getResources(), R.drawable.heart);
         //Initial status;
-        rabbitY = 500;
+        rabbitModel.setRabbitY(500);
         score = 0;
         numLife = 3;
     }
@@ -74,21 +73,14 @@ public class GameView extends View {
             canvas.drawBitmap(life, x, y, null);
         }
 
-        //rabbit
-        int minRabbitY = 150;
-        int maxRabbitY = canvasHeight - 100;
-        rabbitY += rabbitVelocity;
-        if(rabbitY > maxRabbitY){
-            rabbitY = maxRabbitY;
-        }
-        if (rabbitY < minRabbitY){
-            rabbitY = minRabbitY;
-        }
-        rabbitVelocity += 2;
-        canvas.drawBitmap(rabbit, rabbitX, rabbitY, null);
-        int randomGeneration = (int) Math.floor(Math.random() * (maxRabbitY - minRabbitY)) + minRabbitY;;
+        //rabbit move method
+        rabbitModel.rabbitMove(rabbitModel.getRabbitY());
+
+        rabbitModel.addRabbitVelocity(2);
+        canvas.drawBitmap(rabbitModel.getRabbit(), rabbitModel.getRabbitX(), rabbitModel.getRabbitY(), null);
+        int randomGeneration = (int) Math.floor(Math.random() * (rabbitModel.getMaxRabbitY() - rabbitModel.minRabbitY)) + rabbitModel.minRabbitY;;
         poisonX -= poisonVelocity;
-        if (checkCollision(poisonX, poisonY)){
+        if (rabbitModel.checkCollision(poisonX, poisonY, rabbitModel)){
             poisonX = -20;
             numLife --;
             if(numLife == 0){
@@ -104,7 +96,7 @@ public class GameView extends View {
 
         //carrot
         carrotX -= carrotVelocity;
-        if (checkCollision(carrotX, carrotY)){
+        if (rabbitModel.checkCollision(carrotX, carrotY, rabbitModel)){
             score += 1;
             carrotX = -50;
         }
@@ -117,10 +109,8 @@ public class GameView extends View {
         canvas.drawBitmap(carrot, carrotX, carrotY, null);
     }
 
-    public boolean checkCollision(int x, int y) {
-        return rabbitX < x && x < (rabbitX + rabbit.getWidth()) &&
-                (rabbitY < y && y < (rabbitY + rabbit.getHeight()));
-    }
+    
+   
 
 
 
@@ -131,7 +121,7 @@ public class GameView extends View {
         int eventAction = event.getAction();
         if(eventAction == MotionEvent.ACTION_DOWN){
             //check whether screen is touched
-            rabbitVelocity = -20;
+            rabbitModel.setRabbitVelocity(-20);
             //performClick();
         }
         return true;
@@ -140,4 +130,5 @@ public class GameView extends View {
     public int getScore() {
         return score;
     }
+
 }
