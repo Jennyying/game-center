@@ -28,4 +28,8 @@ public class PoisonTargetModel extends TargetModel {
         }
         canvas.drawBitmap(image, imageX, imageY, null);
     }
+
+    public static Bitmap setImage(Bitmap image) {
+        return image;
+    }
 }
