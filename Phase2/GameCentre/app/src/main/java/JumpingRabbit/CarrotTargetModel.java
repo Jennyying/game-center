@@ -6,7 +6,6 @@ import android.graphics.Canvas;
 
 import fall18project.gamecentre.R;
 
-import static android.support.v4.graphics.drawable.IconCompat.getResources;
 
 public class CarrotTargetModel extends TargetModel {
     public static int score = 0;
@@ -32,4 +31,7 @@ public class CarrotTargetModel extends TargetModel {
         canvas.drawBitmap(image, imageX, imageY, null);
     }
 
+    public static Bitmap setImage(Bitmap image) {
+        return image;
+    }
 }
