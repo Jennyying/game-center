@@ -8,28 +8,30 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import fall18project.gamecentre.R;
 
+import static android.support.v4.graphics.drawable.IconCompat.getResources;
+
 
 public class GameView extends View {
     //canvas
+    private Canvas canvas;
     private int canvasHeight;
     private int canvasWidth;
     //rabbit
     private RabbitModel rabbitModel;
-    //poison
-    private Bitmap poison;
-    private int poisonVelocity = 25;
-    private int poisonX;
-    private int poisonY;
-    //carrot
-    private Bitmap carrot;
-    private int carrotVelocity = 17;
-    private int carrotX;
-    private int carrotY;
+//    //poison
+//    private Bitmap poison;
+//    private int poisonVelocity = 25;
+//    private int poisonX;
+//    private int poisonY;
+//    //carrot
+//    private Bitmap carrot;
+//    private int carrotVelocity = 17;
+//    private int carrotX;
+//    private int carrotY;
 
     private Bitmap background;
     //life
@@ -43,8 +45,9 @@ public class GameView extends View {
         super(context);
         rabbitModel.setRabbit(BitmapFactory.decodeResource(getResources(), R.drawable.rabbit));
         background = BitmapFactory.decodeResource(getResources(), R.drawable.background);
-        carrot = BitmapFactory.decodeResource(getResources(), R.drawable.carrot);
-        poison = BitmapFactory.decodeResource(getResources(), R.drawable.poison);
+        CarrotTargetModel.draw();
+        BitmapFactory.decodeResource(getResources(), R.drawable.carrot);
+        BitmapFactory.decodeResource(getResources(), R.drawable.poison);
 
         Paint paintScore = new Paint();
         paintScore.setColor(Color.GREEN);
@@ -74,39 +77,16 @@ public class GameView extends View {
         }
 
         //rabbit move method
-        rabbitModel.rabbitMove(rabbitModel.getRabbitY());
+        RabbitModel.rabbitMove(RabbitModel.getRabbitY());
+        RabbitModel.addRabbitVelocity(2);
+        canvas.drawBitmap(RabbitModel.getRabbit(), RabbitModel.getRabbitX(), RabbitModel.getRabbitY(), null);
 
-        rabbitModel.addRabbitVelocity(2);
-        canvas.drawBitmap(rabbitModel.getRabbit(), rabbitModel.getRabbitX(), rabbitModel.getRabbitY(), null);
-        int randomGeneration = (int) Math.floor(Math.random() * (rabbitModel.getMaxRabbitY() - rabbitModel.minRabbitY)) + rabbitModel.minRabbitY;;
-        poisonX -= poisonVelocity;
-        if (rabbitModel.checkCollision(poisonX, poisonY, rabbitModel)){
-            poisonX = -20;
-            numLife --;
-            if(numLife == 0){
-                //TODO: make a game over layout
-                Log.v("Message", "game over");
-            }
-        }
-        if (poisonX < 0){
-            poisonX = canvasWidth + 100;
-            poisonY = randomGeneration;
-        }
-        canvas.drawBitmap(poison, poisonX, poisonY, null);
+        //poison method
+        PoisonTargetModel.generate(canvas);
+
 
         //carrot
-        carrotX -= carrotVelocity;
-        if (rabbitModel.checkCollision(carrotX, carrotY, rabbitModel)){
-            score += 1;
-            carrotX = -50;
-        }
-        if (carrotX < 0) {
-            carrotX = canvasWidth + 20;
-
-            carrotY = randomGeneration;
-        }
-
-        canvas.drawBitmap(carrot, carrotX, carrotY, null);
+       CarrotTargetModel.generate(canvas);
     }
 
     
@@ -121,7 +101,7 @@ public class GameView extends View {
         int eventAction = event.getAction();
         if(eventAction == MotionEvent.ACTION_DOWN){
             //check whether screen is touched
-            rabbitModel.setRabbitVelocity(-20);
+            RabbitModel.setRabbitVelocity(-20);
             //performClick();
         }
         return true;

@@ -11,11 +11,11 @@ public class RabbitModel {
     private static int minRabbitY = 150;
     private static int maxRabbitY;
 
-    // constructor for RabbitModel(= canvasHeight - 100;)
-    public RabbitModel(int maxRabbitY){
-
-        this.maxRabbitY = maxRabbitY;
-    }
+//    // constructor for RabbitModel(= canvasHeight - 10) !!!maybe canbe deleted!
+//    public RabbitModel(int maxRabbitY){
+//
+//        this.maxRabbitY = maxRabbitY;
+//    }
 
     //Getters and Setters for the field of RabbitModel
     public static int getRabbitX() {
@@ -51,9 +51,7 @@ public class RabbitModel {
 
     public static int getMaxRabbitY() { return maxRabbitY; }
 
-    public int getRabbitVelocity() {
-        return rabbitVelocity;
-    }
+
 
     //rabbit move method
     public static void rabbitMove(int rabbitY){
