@@ -31,32 +31,23 @@ public class GameView extends View {
     private int carrotX;
     private int carrotY;
 
-    private Bitmap background;
-    //life
-    private Bitmap life;
-    private int numLife;
-    //score
-    private int score;
+    private StateModel stateModel;
 
 
     public GameView(Context context) {
         super(context);
         rabbitModel.setRabbit(BitmapFactory.decodeResource(getResources(), R.drawable.rabbit));
-        background = BitmapFactory.decodeResource(getResources(), R.drawable.background);
+        stateModel.setBackground(BitmapFactory.decodeResource(getResources(), R.drawable.background));
         carrot = BitmapFactory.decodeResource(getResources(), R.drawable.carrot);
         poison = BitmapFactory.decodeResource(getResources(), R.drawable.poison);
 
-        Paint paintScore = new Paint();
-        paintScore.setColor(Color.GREEN);
-        paintScore.setTextSize(32);
-        paintScore.setTypeface(Typeface.DEFAULT);
-        paintScore.setAntiAlias(true);
+        stateModel.generatePaint();
 
-        life = BitmapFactory.decodeResource(getResources(), R.drawable.heart);
+        stateModel.setLife(BitmapFactory.decodeResource(getResources(), R.drawable.heart));
         //Initial status;
         rabbitModel.setRabbitY(500);
-        score = 0;
-        numLife = 3;
+//        score = 0;
+//        numLife = 3;
     }
 
     @Override
@@ -64,14 +55,10 @@ public class GameView extends View {
         canvasWidth = getWidth();
         canvasHeight = getHeight();
 
-        canvas.drawBitmap(background, 0, 0, null);
-        //canvas.drawText("Score:" + score, 20, 60, paintScore);
+        canvas.drawBitmap(stateModel.getBackground(), 0, 0, null);
+        canvas.drawText("Score:" + stateModel.getScore(), 20, 60, stateModel.getPaintScore());
         //life
-        for (int i = 0; i < numLife; i++) {
-            int x = (int) (560 + life.getWidth() * 1.5 * i);
-            int y = 30;
-            canvas.drawBitmap(life, x, y, null);
-        }
+       stateModel.drawLife(canvas);
 
         //rabbit move method
         rabbitModel.rabbitMove(rabbitModel.getRabbitY());
@@ -82,8 +69,8 @@ public class GameView extends View {
         poisonX -= poisonVelocity;
         if (rabbitModel.checkCollision(poisonX, poisonY, rabbitModel)){
             poisonX = -20;
-            numLife --;
-            if(numLife == 0){
+            stateModel.changeLife();
+            if(stateModel.getNumLife() == 0){
                 //TODO: make a game over layout
                 Log.v("Message", "game over");
             }
@@ -97,7 +84,7 @@ public class GameView extends View {
         //carrot
         carrotX -= carrotVelocity;
         if (rabbitModel.checkCollision(carrotX, carrotY, rabbitModel)){
-            score += 1;
+            stateModel.changeScore();
             carrotX = -50;
         }
         if (carrotX < 0) {
@@ -127,8 +114,5 @@ public class GameView extends View {
         return true;
     }
 
-    public int getScore() {
-        return score;
-    }
 
 }
