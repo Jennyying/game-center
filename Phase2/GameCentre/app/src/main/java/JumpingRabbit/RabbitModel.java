@@ -3,26 +3,27 @@ package JumpingRabbit;
 import android.graphics.Bitmap;
 
 public class RabbitModel {
+    //the field of RabbitModel
     private static Bitmap rabbit;
     private static int rabbitVelocity;
+    private static int rabbitX = 10;
+    private static int rabbitY;
+    private static int minRabbitY = 150;
+    private static int maxRabbitY;
 
+//    // constructor for RabbitModel(= canvasHeight - 10) !!!maybe canbe deleted!
+//    public RabbitModel(int maxRabbitY){
+//
+//        this.maxRabbitY = maxRabbitY;
+//    }
+
+    //Getters and Setters for the field of RabbitModel
     public static int getRabbitX() {
         return rabbitX;
     }
 
-    private static int rabbitX = 10;
-    private static int rabbitY;
-    static int minRabbitY = 150;
-    static int maxRabbitY;
-
     public static void setRabbitVelocity(int rabbitVelocity) {
         RabbitModel.rabbitVelocity = rabbitVelocity;
-    }
-
-    //        = canvasHeight - 100;
-    public RabbitModel(int maxRabbitY){
-
-        this.maxRabbitY = maxRabbitY;
     }
 
     public static Bitmap getRabbit() {
@@ -48,14 +49,9 @@ public class RabbitModel {
         rabbitVelocity += num;
     }
 
-    public static int getMaxRabbitY() {
+    public static int getMaxRabbitY() { return maxRabbitY; }
 
-        return maxRabbitY;
-    }
 
-    public int getRabbitVelocity() {
-        return rabbitVelocity;
-    }
 
     //rabbit move method
     public static void rabbitMove(int rabbitY){
@@ -69,8 +65,8 @@ public class RabbitModel {
         }
     }
 
-
-    public static boolean checkCollision(int x, int y, RabbitModel rabbitModel) {
+    //checkCollision method
+    public static boolean checkCollision(int x, int y) {
         return rabbitX < x && x < (rabbitX + rabbit.getWidth()) &&
                 (rabbitY < y && y < (rabbitY + rabbit.getHeight()));
     }
