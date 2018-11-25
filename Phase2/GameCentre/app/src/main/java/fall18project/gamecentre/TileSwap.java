@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * A move in which two tiles are swapped on a SlidingTiles board. Is it's own inverse.
  */
-public class TileSwap extends Move implements Serializable {
+public class TileSwap implements Move, Serializable {
 
     /**
      * The first tile to swap

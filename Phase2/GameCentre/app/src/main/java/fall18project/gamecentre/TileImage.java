@@ -5,6 +5,7 @@ public class TileImage {
 /**
  * Return the id of the appropriate image
  * @param i the background id
+ * @return image_num the number of the image to be displayed
  */
  static int getTileimage_num(int i){
         int image_num;
