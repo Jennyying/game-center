@@ -46,7 +46,7 @@ public class GameSetupActivity extends AppCompatActivity {
     private void switchToGame() {
         boardManager = new BoardManager(getCurrentComplexity(),
                 getIntent().getExtras().getString("username"));
-        saveGameToFile(StartingActivity.TEMP_SAVE_FILENAME);
+        //saveGameToFile(StartingActivity.TEMP_SAVE_FILENAME);
 
         Intent tmp = new Intent(this, GameActivity.class);
         startActivity(tmp);

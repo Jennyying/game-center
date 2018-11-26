@@ -61,7 +61,7 @@ public class ScoreboardActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadFromFile(StartingActivity.SCORE_SAVE_FILENAME);
+        //loadFromFile(StartingActivity.SCORE_SAVE_FILENAME);
         setContentView(R.layout.activity_scoreboard);
 
         /*

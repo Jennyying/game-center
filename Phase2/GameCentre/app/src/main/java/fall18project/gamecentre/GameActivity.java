@@ -62,8 +62,8 @@ public class GameActivity extends AppCompatActivity implements Observer {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadGameFromFile(StartingActivity.TEMP_SAVE_FILENAME);
-        loadScoresFromFile(StartingActivity.SCORE_SAVE_FILENAME);
+        //loadGameFromFile(StartingActivity.TEMP_SAVE_FILENAME);
+        //loadScoresFromFile(StartingActivity.SCORE_SAVE_FILENAME);
         createTileButtons(this);
         setContentView(R.layout.activity_main);
 
@@ -88,7 +88,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
                         display();
                     }
                 });
-        new AutoSaver(this);
+        //new AutoSaver(this);
     }
 
     /**
@@ -132,8 +132,8 @@ public class GameActivity extends AppCompatActivity implements Observer {
         if(boardManager.hasScore()) {
             scoreboardManager.add(boardManager.getScore());
         }
-        saveGameToFile(StartingActivity.TEMP_SAVE_FILENAME);
-        saveScoresToFile(StartingActivity.SCORE_SAVE_FILENAME);
+        //saveGameToFile(StartingActivity.TEMP_SAVE_FILENAME);
+        //saveScoresToFile(StartingActivity.SCORE_SAVE_FILENAME);
     }
 
     /**
