@@ -5,4 +5,9 @@
     <string name="text_hint_password">Password</string>
     <string name="text_login">Login</string>
     <string name="text_newgame">New Game</string>
+    <string name="text_load_game">Load Game</string>
+    <string name="text_new_player">New Player</string>
+    <string name="text_sign">Sign In/Sign Out</string>
+    <string name="text_scores">Scores</string>
+    <string name="text_haskell">Should\'ve been written in Haskell</string>
 </resources>
