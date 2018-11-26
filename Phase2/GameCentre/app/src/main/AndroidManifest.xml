@@ -16,11 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".GameActivity" />
+        <activity android:name=".sliding_tiles.GameActivity" />
         <activity android:name=".SignInActivity" />
         <activity android:name=".SignUpActivity" />
         <activity android:name=".ScoreboardActivity" />
-        <activity android:name=".GameSetupActivity" />
+        <activity android:name=".sliding_tiles.GameSetupActivity" />
         <activity android:name=".LoginActivity"></activity>
     </application>
 

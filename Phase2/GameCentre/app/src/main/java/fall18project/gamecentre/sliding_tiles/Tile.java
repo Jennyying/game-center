@@ -1,15 +1,8 @@
-package fall18project.gamecentre;
+package fall18project.gamecentre.sliding_tiles;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
-import android.widget.Button;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-
-import fall18project.gamecentre.R;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
 
 /**
  * A Tile in a sliding tiles puzzle.

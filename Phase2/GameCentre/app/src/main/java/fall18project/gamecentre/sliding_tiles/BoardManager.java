@@ -1,16 +1,9 @@
-package fall18project.gamecentre;
+package fall18project.gamecentre.sliding_tiles;
 
-import android.se.omapi.Session;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+
+import fall18project.gamecentre.user_management.SessionScore;
 
 /**
  * Manage a board, including swapping tiles, checking for a win, and managing taps.

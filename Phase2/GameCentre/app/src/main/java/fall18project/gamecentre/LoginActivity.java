@@ -5,6 +5,9 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import fall18project.gamecentre.user_management.User;
+import fall18project.gamecentre.user_management.UserDatabase;
+
 /**
  * An activity for logging in to an existing account
  */

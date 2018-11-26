@@ -1,9 +1,6 @@
-package fall18project.gamecentre;
+package fall18project.gamecentre.user_management;
 
 import java.io.Serializable;
-import java.util.Iterator;
-import java.util.NavigableSet;
-import java.util.TreeSet;
 
 /**
  * The scoreboard for an individual user for a given game.

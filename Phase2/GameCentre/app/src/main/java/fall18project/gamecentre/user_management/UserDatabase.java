@@ -1,6 +1,4 @@
-package fall18project.gamecentre;
-
-import android.util.SparseArray;
+package fall18project.gamecentre.user_management;
 
 import java.io.Serializable;
 import java.util.HashMap;

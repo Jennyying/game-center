@@ -1,4 +1,4 @@
-package fall18project.gamecentre;
+package fall18project.gamecentre.user_management;
 
 import java.io.Serializable;
 

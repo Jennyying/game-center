@@ -1,12 +1,9 @@
-package fall18project.gamecentre;
+package fall18project.gamecentre.sliding_tiles;
 
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.Toast;
 
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import fall18project.gamecentre.sliding_tiles.BoardManager;
 
 
 public class MovementController {

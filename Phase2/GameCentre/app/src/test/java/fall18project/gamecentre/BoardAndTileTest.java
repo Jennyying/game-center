@@ -5,6 +5,10 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import fall18project.gamecentre.sliding_tiles.Board;
+import fall18project.gamecentre.sliding_tiles.BoardManager;
+import fall18project.gamecentre.sliding_tiles.Tile;
+
 import static org.junit.Assert.*;
 
 /**

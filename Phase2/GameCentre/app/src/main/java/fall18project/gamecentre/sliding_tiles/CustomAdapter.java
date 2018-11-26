@@ -1,4 +1,4 @@
-package fall18project.gamecentre;
+package fall18project.gamecentre.sliding_tiles;
 
 /*
 Taken from:

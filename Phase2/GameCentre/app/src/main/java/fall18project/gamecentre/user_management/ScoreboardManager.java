@@ -1,6 +1,4 @@
-package fall18project.gamecentre;
-
-import android.widget.ListAdapter;
+package fall18project.gamecentre.user_management;
 
 import java.io.Serializable;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package fall18project.gamecentre;
+package fall18project.gamecentre.utilities;
 
 import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;

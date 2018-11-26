@@ -1,6 +1,8 @@
-package fall18project.gamecentre;
+package fall18project.gamecentre.sliding_tiles;
 
 import java.io.Serializable;
+
+import fall18project.gamecentre.Move;
 
 /**
  * A move in which two tiles are swapped on a SlidingTiles board. Is it's own inverse.

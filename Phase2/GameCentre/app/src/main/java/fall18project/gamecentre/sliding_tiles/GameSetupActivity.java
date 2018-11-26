@@ -1,4 +1,4 @@
-package fall18project.gamecentre;
+package fall18project.gamecentre.sliding_tiles;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,14 +8,16 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
-import android.content.Context;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+
+import fall18project.gamecentre.R;
+import fall18project.gamecentre.sliding_tiles.BoardManager;
+import fall18project.gamecentre.sliding_tiles.GameActivity;
 
 public class GameSetupActivity extends AppCompatActivity {
 

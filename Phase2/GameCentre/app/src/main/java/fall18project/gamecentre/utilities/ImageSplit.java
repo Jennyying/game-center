@@ -1,4 +1,4 @@
-package fall18project.gamecentre;
+package fall18project.gamecentre.utilities;
 import java.util.ArrayList;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;

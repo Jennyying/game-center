@@ -1,4 +1,6 @@
-package fall18project.gamecentre;
+package fall18project.gamecentre.sliding_tiles;
+
+import fall18project.gamecentre.R;
 
 public class TileImage {
 

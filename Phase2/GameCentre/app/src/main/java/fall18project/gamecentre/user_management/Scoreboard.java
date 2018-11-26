@@ -1,4 +1,4 @@
-package fall18project.gamecentre;
+package fall18project.gamecentre.user_management;
 
 import java.io.Serializable;
 import java.util.Iterator;
@@ -34,13 +34,13 @@ public class Scoreboard implements Serializable {
      * Iterate over user scores
      * @return an iterator over the scores in descending order
      */
-    Iterator<SessionScore> iterator() {return scores.iterator();}
+    public Iterator<SessionScore> iterator() {return scores.iterator();}
 
     /**
      * Get an array of strings representing all the user scores in sorted order
      * @return an array of all user scores in sorted order
      */
-    String[] getPrintedScores() {
+    public String[] getPrintedScores() {
         String[] result = new String[size()];
         int i = 0;
         Iterator<SessionScore> it = iterator();

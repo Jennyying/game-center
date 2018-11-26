@@ -1,6 +1,5 @@
-package fall18project.gamecentre;
+package fall18project.gamecentre.sliding_tiles;
 import java.util.*;
-import java.math.*;
 
 /**
  *Shuffles a given arraylist of tiles in such a way that the game is always winnable.

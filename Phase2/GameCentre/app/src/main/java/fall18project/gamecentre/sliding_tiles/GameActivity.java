@@ -1,4 +1,4 @@
-package fall18project.gamecentre;
+package fall18project.gamecentre.sliding_tiles;
 
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +15,9 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
+
+import fall18project.gamecentre.R;
+import fall18project.gamecentre.user_management.ScoreboardManager;
 
 /**
  * The game activity.

@@ -4,6 +4,9 @@ import org.junit.Test;
 
 import java.util.Iterator;
 
+import fall18project.gamecentre.user_management.SessionScore;
+import fall18project.gamecentre.user_management.ScoreboardManager;
+
 import static org.junit.Assert.*;
 
 

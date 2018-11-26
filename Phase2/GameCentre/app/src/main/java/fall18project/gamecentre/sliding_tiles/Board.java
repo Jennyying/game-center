@@ -1,12 +1,14 @@
-package fall18project.gamecentre;
+package fall18project.gamecentre.sliding_tiles;
 
-import java.util.ArrayList;
 import java.util.Observable;
 
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+
+import fall18project.gamecentre.MoveStack;
+import fall18project.gamecentre.Undoable;
 
 /**
  * The sliding tiles board.
@@ -35,7 +37,7 @@ public class Board extends Observable implements Serializable, Iterable<Tile>, U
      * @param tiles the tiles for the board
      * @param sl the side length of the board
      */
-    Board(List<Tile> tiles, int sl) {
+    public Board(List<Tile> tiles, int sl) {
         sideLength = sl;
         this.tiles = new Tile[numTiles()];
 

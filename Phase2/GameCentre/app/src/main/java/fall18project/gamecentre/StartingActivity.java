@@ -1,24 +1,13 @@
 package fall18project.gamecentre;
 
-import android.content.Intent;
-import android.graphics.drawable.AnimationDrawable;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import android.view.Gravity;
-import android.view.View;
-import android.view.animation.Animation;
 import android.widget.*;
 
-import com.github.matteobattilana.weather.PrecipType;
-import com.github.matteobattilana.weather.WeatherData;
-import com.github.matteobattilana.weather.WeatherViewSensorEventListener;
 import com.github.matteobattilana.weather.WeatherView;
 
-import fall18project.gamecentre.WeatherBackground;
-
-import org.jetbrains.annotations.NotNull;
+import fall18project.gamecentre.utilities.WeatherBackground;
 
 /**
  * The initial activity for the sliding puzzle tile game.
