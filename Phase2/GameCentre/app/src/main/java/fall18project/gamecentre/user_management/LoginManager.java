@@ -8,20 +8,20 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 import java.util.Set;
+
+import fall18project.gamecentre.utilities.Saveable;
 
 /**
  * A class to manage usernames and passwords and validate attempts to login
  */
-public class LoginManager {
+public class LoginManager implements Saveable {
 
     class SaltAndDigest {
 
@@ -119,6 +119,11 @@ public class LoginManager {
     }
 
     /**
+     * The default file name for the login manager
+     */
+    public static final String DEFAULT_FILE_NAME = "password_database.ser";
+
+    /**
      * A database mapping strings to byte arrays representing the salted SHA256 message
      * digests of user passwords along with a salt
      */
@@ -167,6 +172,30 @@ public class LoginManager {
      */
     public LoginManager(Map<String, SaltAndDigest> passwordDatabase) {
         this.passwordDatabase = passwordDatabase;
+    }
+
+    /**
+     * @return the associated context
+     */
+    public Context getContext() {return context;}
+
+    /**
+     * @param context context to set
+     */
+    public void setContext(Context context) {
+        this.context = context;
+    }
+
+    /**
+     * @return the associated file name
+     */
+    public String getFileName() {return fileName;}
+
+    /**
+     * @param fileName file name to set
+     */
+    public void setFileName(String fileName) {
+       this.fileName = fileName;
     }
 
     /**
@@ -238,12 +267,16 @@ public class LoginManager {
     }
 
     /**
-     * Register a user without updating the file on disk
+     * Register a user without updating the file on disk. Returns whether this was successful
      * @param userName username to register
      * @param password password to register
+     * @return true if user successfully inserted, false if failed due to existing user with same
+     * username
      */
-    private void registerUserInMemory(String userName, String password) {
+    private boolean registerUserInMemory(String userName, String password) {
+        if(passwordDatabase.containsKey(userName)) return false;
         passwordDatabase.put(userName, new SaltAndDigest(password));
+        return true;
     }
 
     /**
@@ -251,10 +284,11 @@ public class LoginManager {
      * @param userName username to register
      * @param password password to register
      */
-    private void registerUser(String userName, String password) {
+    public boolean registerUser(String userName, String password) {
        loadFromFile();
-       registerUserInMemory(userName, password);
+       boolean result = registerUserInMemory(userName, password);
        storeToFile();
+       return result;
     }
 
     public enum LoginStatus {
