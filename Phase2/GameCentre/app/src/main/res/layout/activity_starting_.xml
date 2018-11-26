@@ -2,133 +2,25 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/drawable_gradient_animation_list"
     tools:context="fall18project.gamecentre.StartingActivity">
 
-    <TextView
-        android:id="@+id/GameText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/currentUser"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="8dp"
-        android:gravity="center"
-        android:text="Welcome To Sliding Tiles \n A puzzle game where you must arrange the numbers in the correct order\nFling left to undo and right to redo"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
-
-    <Button
-        android:id="@+id/StartButton"
-        style="@style/Widget.AppCompat.Button.Colored"
+    <com.github.matteobattilana.weather.WeatherView
+        android:id="@+id/weather_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/GameText"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="17dp"
-        android:layout_marginEnd="0dp"
-        android:text="New Game" />
-
-    <Button
-        android:id="@+id/LoadButton"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/StartButton"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="0dp"
-        android:text="Load Saved Game" />
-
-    <Button
-        android:id="@+id/SaveButton"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="383dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/LoadButton"
-        android:layout_alignStart="@+id/SignUpButton"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="-74dp"
-        android:layout_marginTop="9dp"
-        android:layout_marginEnd="0dp"
-        android:text="Save Game" />
-
-    <Button
-        android:id="@+id/SignInButton"
-        style="@style/Widget.AppCompat.Button.Borderless.Colored"
-        android:layout_width="88dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/GameText"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="35dp"
-        android:layout_marginTop="339dp"
-        android:layout_marginEnd="75dp"
-        android:layout_toEndOf="@+id/SignUpButton"
-        android:text="Sign In" />
-
-    <Button
-        android:id="@+id/SignUpButton"
-        style="@style/Widget.AppCompat.Button.Borderless.Colored"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/GameText"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="74dp"
-        android:layout_marginTop="338dp"
-        android:text="Sign Up" />
-
-    <Button
-        android:id="@+id/GameScoreBoardButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/StartButton"
-        android:layout_marginTop="380dp"
-        android:text="Score Board" />
-
-    <EditText
-        android:id="@+id/usernameBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/SaveButton"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="29dp"
-        android:layout_marginEnd="0dp"
-        android:ems="10"
-        android:hint="Username"
-        android:inputType="textPersonName" />
-
-    <EditText
-        android:id="@+id/passwordBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/usernameBox"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="29dp"
-        android:layout_marginEnd="0dp"
-        android:ems="10"
-        android:hint="Password"
-        android:inputType="textPassword" />
-
-    <TextView
-        android:id="@+id/currentUser"
-        android:layout_width="250dp"
-        android:layout_height="34dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="55dp"
-        android:layout_marginTop="14dp"
-        android:layout_marginEnd="55dp"
-        android:text="Not logged in"
-        android:textAlignment="center"
-        android:textSize="16sp" />
+        android:layout_height="1dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft='-100dp'
+        android:layout_marginRight='-100dp'
+        app:angle="-3"
+        app:fadeOutTime="1000"
+        app:fps='60'
+        app:lifeTime="2200"
+        app:numParticles="55"
+        app:orientationMode="ENABLE"
+        app:startingWeather="RAIN"/>
 
 </RelativeLayout>
