@@ -15,6 +15,11 @@ import java.io.ObjectOutputStream;
 public class UserManager {
 
     /**
+     * The default user prefix
+     */
+    public static final String DEFAULT_USER_PREFIX = "user_";
+
+    /**
      * A manager for user logins and their associated passwords, either loaded from a file or memory
      */
     private LoginManager loginManager;
@@ -30,8 +35,18 @@ public class UserManager {
     private Context context;
 
     /**
+     * Construct a new user manager with a given login manager path and user file prefix
+     * @param context context to use to load and store files
+     * @param loginManagerPath file to store password database in
+     * @param userPrefix prefix before usernames fdor files to serialize User objects
+     */
+    public UserManager(Context context, String loginManagerPath, String userPrefix) {
+        this(context, new LoginManager(context, loginManagerPath), userPrefix);
+    }
+
+    /**
      * Construct a new user manager with a given login manager and user file prefix
-     * @param context context to use to load files
+     * @param context context to use to load and store files
      * @param loginManager login manager to use
      * @param userPrefix prefix before usernames for files to serialize User objects
      */

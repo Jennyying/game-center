@@ -119,6 +119,11 @@ public class LoginManager implements Saveable {
     }
 
     /**
+     * The default file name for the login manager
+     */
+    public static final String DEFAULT_FILE_NAME = "password_database.ser";
+
+    /**
      * A database mapping strings to byte arrays representing the salted SHA256 message
      * digests of user passwords along with a salt
      */
