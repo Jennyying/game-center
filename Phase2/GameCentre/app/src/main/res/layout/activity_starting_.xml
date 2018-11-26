@@ -33,11 +33,11 @@
         android:orientation="vertical"
         android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintVertical_bias="0.097">
 
         <ImageView
             android:id="@+id/imageView"
@@ -53,7 +53,7 @@
             android:layout_gravity="center"
             android:fontFamily="serif-monospace"
             android:text="@string/text_haskell"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/colorMist_900"
             android:textSize="15sp"
             android:textStyle="normal|bold" />
 
@@ -78,12 +78,13 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="140dp"
+            android:gravity="center_horizontal"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/scores"
-                android:layout_width="166dp"
+                android:layout_width="160dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:layout_marginRight="10dp"
