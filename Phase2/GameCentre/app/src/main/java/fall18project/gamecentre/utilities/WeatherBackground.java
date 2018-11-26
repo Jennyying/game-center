@@ -2,6 +2,7 @@ package fall18project.gamecentre.utilities;
 
 import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;
+import android.support.constraint.ConstraintLayout;
 import android.text.Layout;
 import android.widget.RelativeLayout;
 
@@ -25,7 +26,7 @@ public class WeatherBackground {
      * @param view Weather view to configure. Null if none
      * @param layout Layout to configure the background of. Null if none
      */
-    public WeatherBackground(Context context, WeatherView view, RelativeLayout layout) {
+    public WeatherBackground(Context context, WeatherView view, ConstraintLayout layout) {
         if(view != null) {
             weatherView = view;
             weatherSensor = new WeatherViewSensorEventListener(context, weatherView);

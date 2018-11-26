@@ -1,5 +1,6 @@
 package fall18project.gamecentre;
 
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -36,7 +37,7 @@ public class StartingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_starting_);
 
         WeatherView weatherView = findViewById(R.id.weather_view);
-        RelativeLayout layout = findViewById(R.id.relativeLayout);
+        ConstraintLayout layout = findViewById(R.id.constraintLayout);
         background = new WeatherBackground(this, weatherView, layout);
 
         userManager = new UserManager(
