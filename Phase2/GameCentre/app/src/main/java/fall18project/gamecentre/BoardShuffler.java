@@ -21,9 +21,9 @@ public class BoardShuffler {
 
      /**
      *Initialises class tiles variable, and dimension with inputed parameters. Creates a
-     * list of random numbers.
+     *list of random numbers.
      *
-     * @param dimension - the dimension of the board
+     *@param dimension - the dimension of the board
      *@param numTiles - the number of tiles on the board
      *@param tiles - an arraylist of the tiles on the board
      */
