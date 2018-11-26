@@ -18,10 +18,12 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
+import fall18project.gamecentre.Saveable;
+
 /**
  * A class to manage usernames and passwords and validate attempts to login
  */
-public class LoginManager {
+public class LoginManager implements Saveable {
 
     class SaltAndDigest {
 
@@ -167,6 +169,30 @@ public class LoginManager {
      */
     public LoginManager(Map<String, SaltAndDigest> passwordDatabase) {
         this.passwordDatabase = passwordDatabase;
+    }
+
+    /**
+     * @return the associated context
+     */
+    public Context getContext() {return context;}
+
+    /**
+     * @param context context to set
+     */
+    public void setContext(Context context) {
+        this.context = context;
+    }
+
+    /**
+     * @return the associated file name
+     */
+    public String getFileName() {return fileName;}
+
+    /**
+     * @param fileName file name to set
+     */
+    public void setFileName(String fileName) {
+       this.fileName = fileName;
     }
 
     /**
