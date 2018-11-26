@@ -5,9 +5,9 @@
         android:drawable="@drawable/drawable_darkblue_gradient"
         android:duration="6000" />
     <item
-        android:drawable="@drawable/drawable_green_gradient"
+        android:drawable="@drawable/drawable_selenium_gradient"
         android:duration="6000" />
     <item
-        android:drawable="@drawable/drawable_mist_gradient"
+        android:drawable="@drawable/drawable_lawrencium_gradient"
         android:duration="6000" />
 </animation-list>
