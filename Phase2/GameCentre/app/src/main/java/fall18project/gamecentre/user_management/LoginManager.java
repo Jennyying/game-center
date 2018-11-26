@@ -8,17 +8,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 import java.util.Set;
 
-import fall18project.gamecentre.Saveable;
+import fall18project.gamecentre.utilities.Saveable;
 
 /**
  * A class to manage usernames and passwords and validate attempts to login
