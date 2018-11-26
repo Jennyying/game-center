@@ -262,12 +262,16 @@ public class LoginManager implements Saveable {
     }
 
     /**
-     * Register a user without updating the file on disk
+     * Register a user without updating the file on disk. Returns whether this was successful
      * @param userName username to register
      * @param password password to register
+     * @return true if user successfully inserted, false if failed due to existing user with same
+     * username
      */
-    private void registerUserInMemory(String userName, String password) {
+    private boolean registerUserInMemory(String userName, String password) {
+        if(passwordDatabase.containsKey(userName)) return false;
         passwordDatabase.put(userName, new SaltAndDigest(password));
+        return true;
     }
 
     /**
@@ -275,10 +279,11 @@ public class LoginManager implements Saveable {
      * @param userName username to register
      * @param password password to register
      */
-    private void registerUser(String userName, String password) {
+    public boolean registerUser(String userName, String password) {
        loadFromFile();
-       registerUserInMemory(userName, password);
+       boolean result = registerUserInMemory(userName, password);
        storeToFile();
+       return result;
     }
 
     public enum LoginStatus {

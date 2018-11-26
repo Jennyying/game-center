@@ -33,7 +33,7 @@ public class UserManager {
      * Construct a new user manager with a given login manager and user file prefix
      * @param context context to use to load files
      * @param loginManager login manager to use
-     * @param userPrefix prefix before usernames for files to serializ User objects
+     * @param userPrefix prefix before usernames for files to serialize User objects
      */
     public UserManager(Context context, LoginManager loginManager, String userPrefix) {
         this.context = context;
@@ -52,14 +52,16 @@ public class UserManager {
     /**
      * A static method to load a User object with a given prefix.
      * Returns if loading encounters an error. Throws an exception if the wrong user is loaded
-     * @param context context to load file from
-     * @param userName username to attempt to load. Will return null if another user is loaded
-     * @param userPrefix prefix for serialization file, if any. If null, will ignore.
+     * @param context context to load file from. If null, will return nill
+     * @param userName username to attempt to load.
+     * @param userPrefix prefix for serialization file.
      * @return User object for userName, or null if none can be found
      */
     public static User loadUser(
             Context context, String userName, String userPrefix) throws
     RuntimeException {
+        if(context == null) return null;
+
         User loaded = null;
         String toLoadFrom = userPrefix + userName + ".ser";
 
@@ -119,9 +121,10 @@ public class UserManager {
      */
     public static void storeUser(
             Context context, User user, String userPrefix) {
+        if(context == null) return;
         String toStoreTo = userPrefix + user.getUserName() + ".ser";
 
-        //TODO: think about whether exceptions here should be caught or not
+
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
                     context.openFileOutput(toStoreTo, Context.MODE_PRIVATE));
@@ -138,6 +141,21 @@ public class UserManager {
      */
     public void storeUser(User user) {
         storeUser(context, user, userPrefix);
+    }
+
+    /**
+     * Register a user with the given username and password, returning false if a user already exists
+     * with this username
+     * @param userName username to use
+     * @param password password to use
+     * @return the User object generated if successful, null otherwise
+     */
+    public User registerUser(String userName, String password) {
+        boolean loginResult = loginManager.registerUser(userName, password);
+        if(!loginResult) return null;
+        User newUser = new User(userName);
+        storeUser(newUser);
+        return newUser;
     }
 
 }
