@@ -147,7 +147,7 @@ public class Board extends Observable implements Serializable, Iterable<Tile>, U
      * @param t1 first tile to swap
      * @param t2 second tile to swap
      */
-    void doSwapTiles(int t1, int t2) {
+    public void doSwapTiles(int t1, int t2) {
         Tile tmp = getTile(t1);
         tiles[t1] = getTile(t2);
         tiles[t2] = tmp;
@@ -161,7 +161,7 @@ public class Board extends Observable implements Serializable, Iterable<Tile>, U
      *
      * @param t TileSwap to perform
      */
-    void swapTiles(TileSwap t) {
+    public void swapTiles(TileSwap t) {
         doSwapTiles(t.getT1(), t.getT2());
         moves.move(t);
     }
@@ -172,7 +172,7 @@ public class Board extends Observable implements Serializable, Iterable<Tile>, U
      * @param pos1 the first tile position
      * @param pos2 the second tile position
      */
-    void swapTiles(int pos1, int pos2) {
+    public void swapTiles(int pos1, int pos2) {
         swapTiles(new TileSwap(pos1, pos2));
     }
 
@@ -184,7 +184,7 @@ public class Board extends Observable implements Serializable, Iterable<Tile>, U
      * @param row2 the second tile row
      * @param col2 the second tile col
      */
-    void swapTiles(int row1, int col1, int row2, int col2) {
+    public void swapTiles(int row1, int col1, int row2, int col2) {
         swapTiles(getPos(row1, col1), getPos(row2, col2));
     }
 
