@@ -1,5 +1,6 @@
 package fall18project.gamecentre;
 
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -7,6 +8,8 @@ import android.widget.*;
 
 import com.github.matteobattilana.weather.WeatherView;
 
+import fall18project.gamecentre.user_management.LoginManager;
+import fall18project.gamecentre.user_management.UserManager;
 import fall18project.gamecentre.utilities.WeatherBackground;
 
 /**
@@ -17,7 +20,16 @@ import fall18project.gamecentre.utilities.WeatherBackground;
  */
 public class StartingActivity extends AppCompatActivity {
 
+    /**
+     * Manager for the background aesthetics of the starting activity
+     */
     private WeatherBackground background;
+
+    /**
+     * Manager and interface for user database
+     */
+    private UserManager userManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +37,11 @@ public class StartingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_starting_);
 
         WeatherView weatherView = findViewById(R.id.weather_view);
-        RelativeLayout layout = findViewById(R.id.relativeLayout);
+        ConstraintLayout layout = findViewById(R.id.constraintLayout);
         background = new WeatherBackground(this, weatherView, layout);
+
+        userManager = new UserManager(
+                this, LoginManager.DEFAULT_FILE_NAME, UserManager.DEFAULT_USER_PREFIX);
 
         // Start animations
         background.start();
