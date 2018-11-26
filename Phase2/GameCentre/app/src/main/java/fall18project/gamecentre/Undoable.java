@@ -9,13 +9,13 @@ public interface Undoable {
      * Whether the object has any operations on it which can be undone
      * @return true if so, false otherwise
      */
-    public boolean has_moves();
+    public boolean hasMoves();
 
     /**
      * Whether the object has had moves undone which can be redone
      * @return true if so, false otherwise
      */
-    public boolean has_undos();
+    public boolean hasUndos();
 
     /**
      * Undo a move

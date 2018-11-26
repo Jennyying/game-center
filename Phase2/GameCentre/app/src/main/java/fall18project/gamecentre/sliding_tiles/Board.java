@@ -188,12 +188,12 @@ public class Board extends Observable implements Serializable, Iterable<Tile>, U
         swapTiles(getPos(row1, col1), getPos(row2, col2));
     }
 
-    public boolean has_moves() {
-        return moves.has_moves();
+    public boolean hasMoves() {
+        return moves.hasMoves();
     }
 
-    public boolean has_undos() {
-        return moves.has_undos();
+    public boolean hasUndos() {
+        return moves.hasUndos();
     }
 
     public boolean truncate() {
@@ -205,7 +205,7 @@ public class Board extends Observable implements Serializable, Iterable<Tile>, U
      * @return false if no moves to undo, true otherwise
      */
     public boolean undo() {
-        if(!has_moves()) return false;
+        if(!hasMoves()) return false;
 
         doSwapTiles(moves.top().getT1(), moves.top().getT2());
         moves.undo();
@@ -218,7 +218,7 @@ public class Board extends Observable implements Serializable, Iterable<Tile>, U
      * @return false if no moves to undo, true otherwise
      */
     public boolean redo() {
-        if(!has_undos()) return false;
+        if(!hasUndos()) return false;
 
         moves.redo();
         doSwapTiles(moves.top().getT1(), moves.top().getT2());
