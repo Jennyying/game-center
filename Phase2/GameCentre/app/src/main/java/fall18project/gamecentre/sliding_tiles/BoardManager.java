@@ -8,7 +8,7 @@ import fall18project.gamecentre.user_management.SessionScore;
 /**
  * Manage a board, including swapping tiles, checking for a win, and managing taps.
  */
-class BoardManager implements Serializable {
+public class BoardManager implements Serializable {
 
     /**
      * The board being managed.
@@ -34,7 +34,7 @@ class BoardManager implements Serializable {
      * Manage a board that has been pre-populated.
      * @param board the board
      */
-    BoardManager(Board board) {
+    public BoardManager(Board board) {
         this.board = board;
     }
 
@@ -54,7 +54,7 @@ class BoardManager implements Serializable {
     /**
      * Return the current board.
      */
-    Board getBoard() {
+    public Board getBoard() {
         return board;
     }
 
@@ -63,7 +63,7 @@ class BoardManager implements Serializable {
      * @param sl the side length desired
      * @param un the username associated with this board
      */
-    BoardManager(int sl, String un) {
+    public BoardManager(int sl, String un) {
         username = un;
 
         ArrayList<Tile> tiles = new ArrayList<>();
@@ -81,7 +81,7 @@ class BoardManager implements Serializable {
      *
      * @return whether the tiles are in row-major order
      */
-    boolean puzzleSolved() {
+    public boolean puzzleSolved() {
         return board.solved();
     }
 
@@ -91,7 +91,7 @@ class BoardManager implements Serializable {
      * @param position the tile to check
      * @return whether the tile at position is surrounded by a blank tile
      */
-    boolean isValidTap(int position) {
+    public boolean isValidTap(int position) {
 
         int row = position / board.getSideLength();
         int col = position % board.getSideLength();
@@ -108,7 +108,7 @@ class BoardManager implements Serializable {
      *
      * @param position the position
      */
-    void touchMove(int position) {
+    public void touchMove(int position) {
 
         int row = position / board.getSideLength();
         int col = position % board.getSideLength();
