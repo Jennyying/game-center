@@ -42,7 +42,7 @@ public class BoardShuffler {
         }
     }
 
-    private ArrayList<Tile> shuffle()
+    public ArrayList<Tile> shuffle()
     {
         for(int i = 0; i < 100; i++)
         {
