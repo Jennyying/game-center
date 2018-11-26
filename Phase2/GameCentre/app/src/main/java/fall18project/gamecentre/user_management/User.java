@@ -8,15 +8,8 @@ import java.io.Serializable;
  * (and potentially, other forms of authentication could be used, like Google logins, etc.)
  *
  * User accounts are optionally associated with an email (i.e. the email string could be null)
- * and have an immutable user ID, which is received from the user database
  */
 public class User implements Serializable {
-
-    /**
-     * User ID, which is set on object creation and given by the password manager.
-     * Uniquely identifies a user across sessions and devices
-     */
-    private int userID;
 
     /**
      * Username, which may be changed later by the user
@@ -45,11 +38,9 @@ public class User implements Serializable {
 
     /**
      * Construct a user with the given user ID and username
-     * @param userID the user ID to set
      * @param name the username to set
      */
-    public User(int userID, String name) {
-        this.userID = userID;
+    public User(String name) {
         this.name = name;
     }
 
