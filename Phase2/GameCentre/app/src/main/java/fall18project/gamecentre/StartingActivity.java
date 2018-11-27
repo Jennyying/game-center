@@ -1,13 +1,16 @@
 package fall18project.gamecentre;
 
+import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import android.view.View;
 import android.widget.*;
 
 import com.github.matteobattilana.weather.WeatherView;
 
+import fall18project.gamecentre.user_management.LoginActivity;
 import fall18project.gamecentre.user_management.LoginManager;
 import fall18project.gamecentre.user_management.UserManager;
 import fall18project.gamecentre.utilities.WeatherBackground;
@@ -44,6 +47,9 @@ public class StartingActivity extends AppCompatActivity {
 
         // Start animations
         background.start();
+
+        // Set up the interface
+        setUpInterface();
     }
 
     @Override
@@ -56,6 +62,25 @@ public class StartingActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         background.onPause();
+    }
+
+    private void setUpInterface() {
+        registerLoginButton();
+    }
+
+    private void registerLoginButton() {
+        Button loginButton = findViewById(R.id.sign);
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToLogin();
+            }
+        });
+    }
+
+    private void goToLogin() {
+        Intent login = new Intent(this, LoginActivity.class);
+        startActivity(login);
     }
 
 }
