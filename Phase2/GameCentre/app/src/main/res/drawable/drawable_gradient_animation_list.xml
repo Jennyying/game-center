@@ -10,4 +10,7 @@
     <item
         android:drawable="@drawable/drawable_lawrencium_gradient"
         android:duration="6000" />
+    <item
+        android:drawable="@drawable/drawable_rainbow_gradient"
+        android:duration="6000"/>
 </animation-list>
