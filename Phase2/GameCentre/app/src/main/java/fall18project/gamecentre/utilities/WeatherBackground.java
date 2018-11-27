@@ -16,9 +16,30 @@ import com.github.matteobattilana.weather.WeatherViewSensorEventListener;
  */
 public class WeatherBackground {
 
+    /**
+     * Class for connecting rain direction to sensors. Might be null
+     */
     private WeatherViewSensorEventListener weatherSensor = null;
+
+    /**
+     * Handle on rain renderer. Might be null, if no rain is being rendered
+     */
     private WeatherView weatherView = null;
+
+    /**
+     * Handle on background animation. Might be null, if we don't have one.
+     */
     private AnimationDrawable anim = null;
+
+    /**
+     * Default enter fade duration in milliseconds
+     */
+    private static final int DEFAULT_ENTER_FADE_DURATION = 10000;
+
+    /**
+     * Default exit fade duration in milliseconds
+     */
+    private static final int DEFAULT_EXIT_FADE_DURATION = 10000;
 
     /**
      * Initialize a weather background
@@ -41,11 +62,8 @@ public class WeatherBackground {
      * Configure the background animation, assuming anim is not null
      */
     private void configureBackgroundAnimation() {
-        // Setting enter fade animation duration to 5 seconds
-        anim.setEnterFadeDuration(5000);
-
-        // Setting exit fade animation duration to 2 seconds
-        anim.setExitFadeDuration(2000);
+        anim.setEnterFadeDuration(DEFAULT_ENTER_FADE_DURATION);
+        anim.setExitFadeDuration(DEFAULT_EXIT_FADE_DURATION);
     }
 
     /**
