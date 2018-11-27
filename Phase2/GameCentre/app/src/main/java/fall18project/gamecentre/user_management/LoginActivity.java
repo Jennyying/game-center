@@ -33,6 +33,12 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        userManager = new UserManager(this, UserManager.DEFAULT_USER_PREFIX);
+        loginManager = new LoginManager(this, LoginManager.DEFAULT_FILE_NAME);
+
+        ConstraintLayout layout = findViewById(R.id.constraintLayout);
+        background = new WeatherBackground(this, null, layout);
     }
 
     @Override
