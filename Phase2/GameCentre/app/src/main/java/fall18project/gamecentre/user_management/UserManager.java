@@ -20,11 +20,6 @@ public class UserManager {
     public static final String DEFAULT_USER_PREFIX = "user_";
 
     /**
-     * A manager for user logins and their associated passwords, either loaded from a file or memory
-     */
-    private LoginManager loginManager;
-
-    /**
      * The prefix to use for User object serialization files. Might be null
      */
     private String userPrefix;
@@ -35,33 +30,13 @@ public class UserManager {
     private Context context;
 
     /**
-     * Construct a new user manager with a given login manager path and user file prefix
-     * @param context context to use to load and store files
-     * @param loginManagerPath file to store password database in
-     * @param userPrefix prefix before usernames fdor files to serialize User objects
-     */
-    public UserManager(Context context, String loginManagerPath, String userPrefix) {
-        this(context, new LoginManager(context, loginManagerPath), userPrefix);
-    }
-
-    /**
      * Construct a new user manager with a given login manager and user file prefix
      * @param context context to use to load and store files
-     * @param loginManager login manager to use
      * @param userPrefix prefix before usernames for files to serialize User objects
      */
-    public UserManager(Context context, LoginManager loginManager, String userPrefix) {
+    public UserManager(Context context, String userPrefix) {
         this.context = context;
-        this.loginManager = loginManager;
         this.userPrefix = userPrefix;
-    }
-
-    /**
-     * Get the login manager in use
-     * @return the current login manager
-     */
-    public LoginManager getLoginManager() {
-        return loginManager;
     }
 
     /**
@@ -124,7 +99,8 @@ public class UserManager {
      */
     public User getUser(String userName) {
         User result = loadUser(userName);
-        //TODO: return a new user after removing user IDs from the User class
+        if(result == null)
+            result = new User(userName);
         return result;
     }
 
@@ -158,19 +134,5 @@ public class UserManager {
         storeUser(context, user, userPrefix);
     }
 
-    /**
-     * Register a user with the given username and password, returning false if a user already exists
-     * with this username
-     * @param userName username to use
-     * @param password password to use
-     * @return the User object generated if successful, null otherwise
-     */
-    public User registerUser(String userName, String password) {
-        boolean loginResult = loginManager.registerUser(userName, password);
-        if(!loginResult) return null;
-        User newUser = new User(userName);
-        storeUser(newUser);
-        return newUser;
-    }
 
 }

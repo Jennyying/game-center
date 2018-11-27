@@ -40,8 +40,7 @@ public class StartingActivity extends AppCompatActivity {
         ConstraintLayout layout = findViewById(R.id.constraintLayout);
         background = new WeatherBackground(this, weatherView, layout);
 
-        userManager = new UserManager(
-                this, LoginManager.DEFAULT_FILE_NAME, UserManager.DEFAULT_USER_PREFIX);
+        userManager = new UserManager(this, UserManager.DEFAULT_USER_PREFIX);
 
         // Start animations
         background.start();
