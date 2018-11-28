@@ -2,8 +2,8 @@ package fall18project.gamecentre.sliding_tiles;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -16,8 +16,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import fall18project.gamecentre.R;
-import fall18project.gamecentre.sliding_tiles.BoardManager;
-import fall18project.gamecentre.sliding_tiles.GameActivity;
 
 public class GameSetupActivity extends AppCompatActivity {
 
@@ -59,7 +57,7 @@ public class GameSetupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_setup);
 
-        complexityBar = (SeekBar)findViewById(R.id.seekBar);
+        complexityBar = (SeekBar) findViewById(R.id.seekBar);
 
         addPlayButtonListener();
     }
@@ -81,12 +79,12 @@ public class GameSetupActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == PICK_PHOTO_FOR_PUZZLE && resultCode == Activity.RESULT_OK) {
-            if(data == null || data.getData() == null) return;
+        if (requestCode == PICK_PHOTO_FOR_PUZZLE && resultCode == Activity.RESULT_OK) {
+            if (data == null || data.getData() == null) return;
             try {
                 InputStream is = getApplicationContext().getContentResolver().
                         openInputStream(data.getData());
-            } catch(FileNotFoundException f) {
+            } catch (FileNotFoundException f) {
                 f.printStackTrace();
             }
         }

@@ -1,7 +1,7 @@
 package fall18project.gamecentre;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.ArrayAdapter;
@@ -24,6 +24,7 @@ public class ScoreboardActivity extends AppCompatActivity {
     private ListView scoreboard;
     private String[] globalScoreTableCache;
     private ArrayAdapter<String> emptyView;
+
     /**
      * Update the global score table cache
      */
@@ -37,8 +38,10 @@ public class ScoreboardActivity extends AppCompatActivity {
     private void displayEmptyScoreboard() {
         scoreboard.setAdapter(emptyView);
     }
+
     /**
      * Display the scoreboard of the UserScoreboard object passed in
+     *
      * @param u scoreboard to display
      */
     private void displayUserScoreboard(UserScoreboard u) {
@@ -108,11 +111,11 @@ public class ScoreboardActivity extends AppCompatActivity {
      */
     public void updateScoreboard() {
         String s = textView.getText().toString();
-        if(s.isEmpty()) {
+        if (s.isEmpty()) {
             displayGlobalScoreboard();
         }
         UserScoreboard u = scoreboardManager.searchUserScoreboard(s);
-        if(u == null) {
+        if (u == null) {
             displayEmptyScoreboard();
             return;
         }
@@ -130,7 +133,7 @@ public class ScoreboardActivity extends AppCompatActivity {
             InputStream inputStream = this.openFileInput(fileName);
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
-                scoreboardManager = (ScoreboardManager)input.readObject();
+                scoreboardManager = (ScoreboardManager) input.readObject();
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {

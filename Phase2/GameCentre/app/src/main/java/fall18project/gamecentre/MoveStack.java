@@ -1,7 +1,7 @@
 package fall18project.gamecentre;
 
-import java.util.ArrayList;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 
 public class MoveStack<T> implements Serializable, Undoable {
@@ -18,6 +18,7 @@ public class MoveStack<T> implements Serializable, Undoable {
 
     /**
      * Check if moves are remaining in the move stack
+     *
      * @return whether moves are remaining in the move stack
      */
     public boolean hasMoves() {
@@ -26,29 +27,34 @@ public class MoveStack<T> implements Serializable, Undoable {
 
     /**
      * Check whether any moves can be undone
+     *
      * @return whether any moves can be undone
      */
     public boolean hasUndos() {
         return undid > 0 && moves.size() != 0;
     }
+
     public boolean undo() {
-        if(!hasMoves()) return false;
+        if (!hasMoves()) return false;
         undid++;
         return true;
     }
+
     public boolean redo() {
-        if(!hasUndos()) return false;
+        if (!hasUndos()) return false;
         undid--;
         return true;
     }
+
     public boolean truncate() {
-        if(!hasUndos()) return false;
+        if (!hasUndos()) return false;
         moves.subList(moves.size() - undid, moves.size()).clear();
         return true;
     }
 
     /**
      * Add a move to the move stack and truncate any moves after it
+     *
      * @param mv the move to be added
      */
     public void move(T mv) {

@@ -3,8 +3,6 @@ package fall18project.gamecentre.utilities;
 import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;
 import android.support.constraint.ConstraintLayout;
-import android.text.Layout;
-import android.widget.RelativeLayout;
 
 import com.github.matteobattilana.weather.PrecipType;
 import com.github.matteobattilana.weather.WeatherView;
@@ -22,16 +20,17 @@ public class WeatherBackground {
 
     /**
      * Initialize a weather background
+     *
      * @param context Context to initialize it to. Should be the activity we're initializing it for
-     * @param view Weather view to configure. Null if none
-     * @param layout Layout to configure the background of. Null if none
+     * @param view    Weather view to configure. Null if none
+     * @param layout  Layout to configure the background of. Null if none
      */
     public WeatherBackground(Context context, WeatherView view, ConstraintLayout layout) {
-        if(view != null) {
+        if (view != null) {
             weatherView = view;
             weatherSensor = new WeatherViewSensorEventListener(context, weatherView);
         }
-        if(layout != null) {
+        if (layout != null) {
             anim = (AnimationDrawable) layout.getBackground();
             configureBackgroundAnimation();
         }
@@ -59,22 +58,22 @@ public class WeatherBackground {
      * Start the weather and background animations if they exist
      */
     public void start() {
-        if(anim != null && !anim.isRunning()) anim.start();
+        if (anim != null && !anim.isRunning()) anim.start();
     }
 
     /**
      * Pause the weather and background animations if they exist, and pause the sensor
      */
     public void onPause() {
-        if(anim != null && anim.isRunning()) anim.stop();
-        if(weatherSensor != null) weatherSensor.onPause();
+        if (anim != null && anim.isRunning()) anim.stop();
+        if (weatherSensor != null) weatherSensor.onPause();
     }
 
     /**
      * Resume the weather and background animations if they exist, and resume the sensor
      */
     public void onResume() {
-        if(anim != null && !anim.isRunning()) anim.start();
-        if(weatherSensor != null) weatherSensor.onResume();
+        if (anim != null && !anim.isRunning()) anim.start();
+        if (weatherSensor != null) weatherSensor.onResume();
     }
 }

@@ -1,10 +1,8 @@
 package fall18project.gamecentre;
 
+import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-
-import android.widget.*;
 
 import com.github.matteobattilana.weather.WeatherView;
 
@@ -14,7 +12,7 @@ import fall18project.gamecentre.utilities.WeatherBackground;
 
 /**
  * The initial activity for the sliding puzzle tile game.
- *
+ * <p>
  * Weather display based off that found at
  * https://github.com/matteobattilana/weatherview
  */

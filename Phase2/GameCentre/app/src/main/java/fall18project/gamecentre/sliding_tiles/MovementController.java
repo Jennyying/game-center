@@ -3,8 +3,6 @@ package fall18project.gamecentre.sliding_tiles;
 import android.content.Context;
 import android.widget.Toast;
 
-import fall18project.gamecentre.sliding_tiles.BoardManager;
-
 
 public class MovementController {
 

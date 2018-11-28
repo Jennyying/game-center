@@ -11,6 +11,8 @@ public class BoardShuffler {
      * Array containing tiles
      */
     private Tile[] tiles;
+
+
     /**
      * Array containing random numbers
      */

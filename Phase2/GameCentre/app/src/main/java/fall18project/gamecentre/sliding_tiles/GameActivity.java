@@ -1,8 +1,8 @@
 package fall18project.gamecentre.sliding_tiles;
 
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
@@ -25,32 +25,27 @@ import fall18project.gamecentre.user_management.ScoreboardManager;
 public class GameActivity extends AppCompatActivity implements Observer {
 
     /**
-     * The board manager.
-     * 
-     */
-    private BoardManager boardManager;
-
-    /**
-     * The scoreboard manager
-     */
-    private ScoreboardManager scoreboardManager;
-
-    /**
-     * The buttons to display.
-     */
-    private ArrayList<Button> tileButtons;
-
-    /**
      * Constants for swiping directions. Should be an enum, probably.
      */
     public static final int UP = 1;
     public static final int DOWN = 2;
     public static final int LEFT = 3;
     public static final int RIGHT = 4;
-
+    private static int columnWidth, columnHeight;
+    /**
+     * The board manager.
+     */
+    private BoardManager boardManager;
+    /**
+     * The scoreboard manager
+     */
+    private ScoreboardManager scoreboardManager;
+    /**
+     * The buttons to display.
+     */
+    private ArrayList<Button> tileButtons;
     // Grid View and calculated column height and width based on device size
     private GestureDetectGridView gridView;
-    private static int columnWidth, columnHeight;
 
     /**
      * Set up the background image for each button based on the master list
@@ -132,7 +127,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
     protected void onPause() {
         super.onPause();
         // If the board has been solved, record the score
-        if(boardManager.hasScore()) {
+        if (boardManager.hasScore()) {
             scoreboardManager.add(boardManager.getScore());
         }
         //saveGameToFile(StartingActivity.TEMP_SAVE_FILENAME);

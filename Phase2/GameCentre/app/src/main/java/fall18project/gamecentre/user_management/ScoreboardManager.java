@@ -31,6 +31,7 @@ public class ScoreboardManager implements Serializable {
 
     /**
      * Return the global scoreboard
+     *
      * @return scores
      */
     public GlobalScoreboard getGlobalScores() {
@@ -53,12 +54,13 @@ public class ScoreboardManager implements Serializable {
 
     /**
      * Create an empty scoreboard associated with a username if one does not already exist
+     *
      * @param userName username to associate scoreboard with
      * @return the scoreboard created or the previously existing one
      */
     public UserScoreboard getUserScoreboard(String userName) {
         UserScoreboard u = userScores.get(userName);
-        if(u != null) return u;
+        if (u != null) return u;
 
         u = new UserScoreboard();
         userScores.put(userName, u);
@@ -69,6 +71,7 @@ public class ScoreboardManager implements Serializable {
 
     /**
      * Search for a scoreboard associated with a given username
+     *
      * @param userName username to search for
      * @return the scoreboard associated with the name, or null if there is none
      */
@@ -83,7 +86,7 @@ public class ScoreboardManager implements Serializable {
      * @return scoreboard associated with the username to which the score is credited/ null if no name
      */
     public UserScoreboard add(SessionScore score) {
-        if(score.getUserName().isEmpty()) return null;
+        if (score.getUserName().isEmpty()) return null;
         scores.add(score);
 
         UserScoreboard u = getUserScoreboard(score.getUserName());

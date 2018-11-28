@@ -1,9 +1,9 @@
 package fall18project.gamecentre;
 
 import android.graphics.drawable.AnimationDrawable;
+import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
 import fall18project.gamecentre.user_management.User;
 

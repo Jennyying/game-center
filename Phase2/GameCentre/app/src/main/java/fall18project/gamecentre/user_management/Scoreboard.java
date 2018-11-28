@@ -17,6 +17,7 @@ public class Scoreboard implements Serializable {
     /**
      * Add a new score to this user's scoreboard. Note that this class does *not* check for username
      * consistency.
+     *
      * @param score the session score to input
      */
     public void add(SessionScore score) {
@@ -32,19 +33,23 @@ public class Scoreboard implements Serializable {
 
     /**
      * Iterate over user scores
+     *
      * @return an iterator over the scores in descending order
      */
-    public Iterator<SessionScore> iterator() {return scores.iterator();}
+    public Iterator<SessionScore> iterator() {
+        return scores.iterator();
+    }
 
     /**
      * Get an array of strings representing all the user scores in sorted order
+     *
      * @return an array of all user scores in sorted order
      */
     public String[] getPrintedScores() {
         String[] result = new String[size()];
         int i = 0;
         Iterator<SessionScore> it = iterator();
-        while(it.hasNext()) {
+        while (it.hasNext()) {
             result[i++] = it.next().toString();
         }
         return result;
