@@ -10,6 +10,8 @@ import android.widget.*;
 
 import com.github.matteobattilana.weather.WeatherView;
 
+import java.util.Random;
+
 import fall18project.gamecentre.user_management.LoginActivity;
 import fall18project.gamecentre.user_management.LoginManager;
 import fall18project.gamecentre.user_management.UserManager;
@@ -32,6 +34,38 @@ public class StartingActivity extends AppCompatActivity {
      * Manager and interface for user database
      */
     private UserManager userManager;
+
+    /**
+     * A collection of funny quotes to put in the subtitle
+     */
+    private static final String[] funnySubtitles = {
+            "Should've been written in Haskell",
+            "Should've been written in Rust",
+            "Should've been written in C++",
+            "Where you go after a system call",
+            "On Android but without androids",
+            "Would be revolutionary in the 70's",
+            "Cyberpunk but without the punk",
+            "SIGSEGV... wait sorry NullPointerException",
+            "Better than Clippy!",
+            "Would put a joke about default text here...",
+            "Cyberpunk Microsoft Solitaire",
+            "All moths gave good reviews!",
+            "Can't come up with anything...",
+            "A metagame for metagamers",
+            "I'm so meta, even this acronym",
+            "Too inefficient for even Gosling"
+    };
+
+    /**
+     * Random number generator to pick quotes
+     */
+    private Random randomNumberGenerator = new Random();
+
+    /**
+     * The subtitle box for the funny quotes.
+     */
+    private TextView subtitleBox = null;
 
 
     @Override
@@ -56,6 +90,7 @@ public class StartingActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         background.onResume();
+        setRandomQuote();
     }
 
     @Override
@@ -66,6 +101,7 @@ public class StartingActivity extends AppCompatActivity {
 
     private void setUpInterface() {
         registerLoginButton();
+        setRandomQuote();
     }
 
     private void registerLoginButton() {
@@ -81,6 +117,15 @@ public class StartingActivity extends AppCompatActivity {
     private void goToLogin() {
         Intent login = new Intent(this, LoginActivity.class);
         startActivity(login);
+    }
+
+    private void setRandomQuote() {
+        if(subtitleBox == null) {
+            subtitleBox = findViewById(R.id.funnyline);
+        }
+
+        String randomQuote = funnySubtitles[randomNumberGenerator.nextInt(funnySubtitles.length)];
+        subtitleBox.setText(randomQuote);
     }
 
 }
