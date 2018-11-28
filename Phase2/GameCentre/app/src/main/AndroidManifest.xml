@@ -21,7 +21,11 @@
         <activity android:name=".SignUpActivity" />
         <activity android:name=".ScoreboardActivity" />
         <activity android:name=".sliding_tiles.GameSetupActivity" />
-        <activity android:name=".user_management.LoginActivity"></activity>
+        <activity android:name=".user_management.LoginActivity" />
+        <activity android:name=".NewGameActivity" />
+        <activity android:name=".user_management.NewUserActivity" />
+        <activity android:name=".IntroductionActivity" />
+        <activity android:name=".ChooseGameActivity"></activity>
     </application>
 
 </manifest>
