@@ -63,9 +63,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:background="@color/colorAccent"
+            android:background="@color/colorPrimary"
             android:text="@string/text_load_game"
-            android:textColor="@color/colorPrimary" />
+            android:textColor="@color/colorAccent" />
 
         <Button
             android:id="@+id/player"
