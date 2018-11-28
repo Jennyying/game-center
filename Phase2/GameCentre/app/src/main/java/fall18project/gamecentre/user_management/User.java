@@ -37,6 +37,11 @@ public class User implements Serializable {
     private UserScoreboard scoreboard = new UserScoreboard();
 
     /**
+     * This user's personal game settings
+     */
+    private UserSettings settings = new UserSettings();
+
+    /**
      * Construct a user with the given user ID and username
      * @param name the username to set
      */
@@ -92,4 +97,10 @@ public class User implements Serializable {
     public UserScoreboard getScoreboard() {
         return scoreboard;
     }
+
+    /**
+     * Get the user's personal settings
+     * @return the user's personal settings
+     */
+    public UserSettings getSettings() {return settings;}
 }

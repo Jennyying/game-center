@@ -59,7 +59,7 @@
             android:textStyle="normal|bold" />
 
         <Button
-            android:id="@+id/load"
+            android:id="@+id/play"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"

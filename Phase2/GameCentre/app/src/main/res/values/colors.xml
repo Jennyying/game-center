@@ -8,11 +8,9 @@
     <color name="colorDarkBlue_900">#203a43</color>
     <color name="colorDarkBlue_800">#2c5364</color>
 
-    <color name="colorGreen_A400">#00E676</color>
-    <color name="colorGreen_900">#1B5E20</color>
-
     <color name="colorMist_A400">#EBF4B7</color>
     <color name="colorMist_900">#f2fbf2</color>
 
+    <color name="colorTerminalGlow">#502505</color>
 
 </resources>

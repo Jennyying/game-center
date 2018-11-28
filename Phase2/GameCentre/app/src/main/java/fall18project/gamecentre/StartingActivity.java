@@ -14,6 +14,8 @@ import java.util.Random;
 
 import fall18project.gamecentre.user_management.LoginActivity;
 import fall18project.gamecentre.user_management.LoginManager;
+import fall18project.gamecentre.user_management.NewUserActivity;
+import fall18project.gamecentre.user_management.User;
 import fall18project.gamecentre.user_management.UserManager;
 import fall18project.gamecentre.utilities.WeatherBackground;
 
@@ -34,6 +36,11 @@ public class StartingActivity extends AppCompatActivity {
      * Manager and interface for user database
      */
     private UserManager userManager;
+
+    /**
+     * The current logged in user. Is null if and only if no one is logged in
+     */
+    private User currentUser = null;
 
     /**
      * A collection of funny quotes to put in the subtitle
@@ -71,15 +78,7 @@ public class StartingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_starting_);
-
-        WeatherView weatherView = findViewById(R.id.weather_view);
-        ConstraintLayout layout = findViewById(R.id.constraintLayout);
-        background = new WeatherBackground(this, weatherView, layout);
-
         userManager = new UserManager(this, UserManager.DEFAULT_USER_PREFIX);
-
-        // Start animations
-        background.start();
 
         // Set up the interface
         setUpInterface();
@@ -98,24 +97,97 @@ public class StartingActivity extends AppCompatActivity {
         background.onPause();
     }
 
+    /**
+     * Set up the interface by registering all listeners, setting a random quote and managing
+     * the background
+     */
     private void setUpInterface() {
-        registerLoginButton();
+        // Set up the background manager
+        WeatherView weatherView = findViewById(R.id.weather_view);
+        ConstraintLayout layout = findViewById(R.id.constraintLayout);
+        background = new WeatherBackground(this, weatherView, layout);
+
+        // Start animations
+        background.start();
+
+        registerSignInOutButton();
+        registerPlayButton();
         setRandomQuote();
     }
 
-    private void registerLoginButton() {
+    /**
+     * Register an on-click listener for the sign in/out button to go to the login
+     * activity if no user is currently signed in or sign out if a user is currently
+     * signed in
+     */
+    private void registerSignInOutButton() {
         Button loginButton = findViewById(R.id.sign);
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goToLogin();
+                if(currentUser != null) signOutCurrentUser();
+                else goToLogin();
             }
         });
     }
 
+    /**
+     * Go to the login interface
+     */
     private void goToLogin() {
         Intent login = new Intent(this, LoginActivity.class);
         startActivity(login);
+    }
+
+    /**
+     * Register the play button to create a new user if none is logged in, otherwise to check
+     * whether the introduction should be shown and, if so, show it, or go straight to the
+     * game choosing screen
+     */
+    private void registerPlayButton() {
+        Button playButton = findViewById(R.id.play);
+        playButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(currentUser == null) goToNewUser();
+                else if(currentUser.getSettings().shouldShowIntroduction()) goToIntroduction();
+                else goToChooseGame();
+            }
+        });
+    }
+
+    /**
+     * Go to NewUserActivity
+     */
+    private void goToNewUser() {
+        Intent newUser = new Intent(this, NewUserActivity.class);
+        startActivity(newUser);
+    }
+
+    /**
+     * Go to IntroductionActivity. Must have a non-null current user, i.e. a current user logged in
+     */
+    private void goToIntroduction() {
+        Intent introduction = new Intent(this, IntroductionActivity.class);
+        introduction.putExtra("name", currentUser.getUserName());
+        startActivity(introduction);
+    }
+
+    /**
+     * Go to ChooseGameActivity. Must have a non-null current user, i.e. a current user logged in
+     */
+    private void goToChooseGame() {
+        Intent chooseGame = new Intent(this, ChooseGameActivity.class);
+        chooseGame.putExtra("name", currentUser.getUserName());
+        startActivity(chooseGame);
+    }
+
+    /**
+     * Sign out the current user (by saving it and setting it to null if it isn't already)
+     */
+    private void signOutCurrentUser() {
+        if(currentUser != null) userManager.storeUser(currentUser);
+        currentUser = null;
     }
 
     private void setRandomQuote() {
