@@ -1,7 +1,7 @@
 package fall18project.gamecentre;
 
 /**
- * An abstract class representing a move in a game
+ * An interface for a move in a game
  */
 public interface Move {
     /**

@@ -3,14 +3,14 @@
 
     <item
         android:drawable="@drawable/drawable_darkblue_gradient"
-        android:duration="6000" />
-    <item
-        android:drawable="@drawable/drawable_selenium_gradient"
-        android:duration="6000" />
+        android:duration="10000" />
     <item
         android:drawable="@drawable/drawable_lawrencium_gradient"
-        android:duration="6000" />
+        android:duration="10000" />
+    <item
+        android:drawable="@drawable/drawable_selenium_gradient"
+        android:duration="15000" />
     <item
         android:drawable="@drawable/drawable_rainbow_gradient"
-        android:duration="6000"/>
+        android:duration="15000"/>
 </animation-list>
