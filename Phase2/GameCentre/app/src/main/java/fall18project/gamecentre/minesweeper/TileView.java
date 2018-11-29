@@ -2,8 +2,6 @@ package fall18project.gamecentre.minesweeper;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.LevelListDrawable;
 import android.view.View;
 
@@ -81,12 +79,46 @@ public class TileView extends View {
         this.xCoord = xCoord;
         this.yCoord = yCoord;
 
-        init();
+        gameBus = MainApp.getGameBus();
     }
 
-    private void init(){
-        gameBus = MainApp.getGameBus();
-        
+    /**
+     * The getter for xCoord.
+     *
+     * @return the x coordinate of the associated tile
+     */
+    public int getXCoord() {
+        return xCoord;
     }
+
+    /**
+     * The getter for yCoord.
+     *
+     * @return the y coordinate of the associated tile
+     */
+    public int getYCoord() {
+        return yCoord;
+    }
+
+    /**
+     * The getter for the state of drawableContainer (indicating if the tile is covered or uncovered)
+     *
+     * @return the level
+     */
+    public int getState() {
+        return drawableContainer.getLevel();
+    }
+
+    /**
+     * The setter for the state of drawableContainer
+     *
+     * @param state the state.
+     */
+    public void setState(int state) {
+        drawableContainer.setLevel(state);
+    }
+
 
 }
+
+
