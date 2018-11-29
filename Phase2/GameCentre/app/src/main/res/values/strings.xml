@@ -7,7 +7,8 @@
     <string name="text_newgame">New Game</string>
     <string name="text_load_game">Play</string>
     <string name="text_new_player">New Player</string>
-    <string name="text_sign">Sign In/Sign Out</string>
+    <string name="text_sign_in">Sign In</string>
+    <string name="text_sign_out">Sign Out</string>
     <string name="text_scores">Scores</string>
     <string name="text_haskell">Should\'ve been written in Haskell</string>
     <string name="text_new_user_intro">
