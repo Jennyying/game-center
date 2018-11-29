@@ -91,15 +91,13 @@
 
             <EditText
                 android:id="@+id/inputUsername"
-                style="@style/AppTheme"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:hint="@string/text_hint_password"
+                android:hint="@string/text_hint_email"
                 android:inputType="textPersonName"
-                android:singleLine="false"
-                android:textColor="@color/colorPrimary" />
+                android:singleLine="false" />
 
             <Button
                 android:id="@+id/confirmUsername"
@@ -167,7 +165,6 @@
 
                 <EditText
                     android:id="@+id/inputpassword"
-                    style="@style/AppTheme"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
