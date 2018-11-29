@@ -13,6 +13,11 @@ import android.view.MotionEvent;
 import android.view.View;
 
 public class GameView extends View {
+    /**
+     * The current state of the game
+     */
+    private GameState gameState;
+
     //canvas
     private int canvasHeight;
     private int canvasWidth;

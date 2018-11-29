@@ -6,7 +6,7 @@ package csc207.fall2018project.jumpprototype;
 public interface Shiftable {
 
     /**
-     * Shift the object dx inte x direction
+     * Shift the object dx in the x direction
      * @param dx how much to shift by
      */
     public void shiftX(double dx);

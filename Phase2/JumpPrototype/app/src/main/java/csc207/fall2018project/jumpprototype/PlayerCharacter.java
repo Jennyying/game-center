@@ -20,11 +20,15 @@ public class PlayerCharacter extends MassiveBox {
     /**
      * The default X radius of the bounding box surrounding the center of the player to check for collisions.
      */
-    private static final double DEFAULT_BOUNDING_BOX_X_RADIUS = 50;
+    public static final double DEFAULT_BOUNDING_BOX_X_RADIUS = 50;
     /**
      * The default Y radius of the bounding box surrounding the center of the player to check for collisions.
      */
-    private static final double DEFAULT_BOUNDING_BOX_Y_RADIUS = 50;
+    public static final double DEFAULT_BOUNDING_BOX_Y_RADIUS = 50;
+    /**
+     * The default starting mass for player characters
+     */
+    public static final double DEFAULT_PLAYER_MASS = 80;
 
     /**
      * Construct a new player at a given point, with a given size, mass and starting health and shield
