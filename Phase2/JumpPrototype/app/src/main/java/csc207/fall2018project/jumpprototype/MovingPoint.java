@@ -58,28 +58,28 @@ public class MovingPoint extends ShiftablePoint implements MovingObject, Seriali
     }
 
     /**
-     * Add to this point's velocity in the X direction
-     * @param dx amount to add to the velocity
+     * Accelerate the object in the X direction by ax
+     * @param ax the amount of acceleration to apply in the X direction
      */
-    public void addXVelocity(double dx) {
-        vx += dx;
+    public void accX(double ax) {
+        vx += ax;
     }
 
     /**
-     * Add to this point's velocity in the Y direction
-     * @param dy amount to add to the velocity
+     * Push the object in the Y direction with acceleration ay
+     * @param ay the amount of acceleration to apply in the Y direction
      */
-    public void addYVelocity(double dy) {
-        vy += dy;
+    public void accY(double ay) {
+        vy += ay;
     }
 
     /**
-     * Add to this point's velocity in the X and Y directions
-     * @param dx amount to add to the x velocity
-     * @param dy amount to add to the y velocity
+     * Push the object with a given force in the x and y directions
+     * @param ax the amount of force to apply in the X direction
+     * @param ay the amount of force to apply in the Y direction
      */
-    public void addVelocity(double dx, double dy) {
-        vx += dx; vy += dy;
+    public void acc(double ax, double ay) {
+        vx += ax; vy += ay;
     }
 
     /**

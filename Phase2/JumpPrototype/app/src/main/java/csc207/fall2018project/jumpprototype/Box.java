@@ -36,6 +36,38 @@ abstract public class Box implements BoxCollideable {
     abstract public double getYRadius();
 
     /**
+     * Get the top Y coordinate
+     * @return the Y coordinate of the top of the box
+     */
+    public double getTopY() {
+        return getCentreY() + getYRadius();
+    }
+
+    /**
+     * Get the bottom Y coordinate
+     * @return the Y coordinate of the bottom of the box
+     */
+    public double getBottomY() {
+        return getCentreY() - getYRadius();
+    }
+
+    /**
+     * Get the right X coordinate
+     * @return the X coordinate of the right of the box
+     */
+    public double getRightX() {
+        return getCentreX() + getXRadius();
+    }
+
+    /**
+     * Get the left X coordinate
+     * @return the X coordinate of the left of the box
+     */
+    public double getLeftX() {
+        return getCentreX() - getXRadius();
+    }
+
+    /**
      * Check whether this box collides with the box b
      * @param b the box to check for collisions with
      * @return whether this object collides with b

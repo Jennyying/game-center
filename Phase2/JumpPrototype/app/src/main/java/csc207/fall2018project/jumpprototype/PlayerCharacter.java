@@ -80,6 +80,35 @@ public class PlayerCharacter extends MassiveBox implements Serializable {
     }
 
     /**
+     * Decrement the player's current health by a given amount
+     * @param amount amount to decrement health by
+     */
+    public void decrementHealth(int amount) {
+        health -= amount;
+    }
+
+    /**
+     * Do damage to the player's shields
+     * @param damage damage to do
+     */
+    public void damageShields(double damage) {
+        shield -= damage;
+        if(shield < 0) shield = 0;
+    }
+
+    /**
+     * Do damage to the player
+     * @param damage damage to do
+     */
+    public void doDamage(double damage) {
+        if(shield < damage) {
+            damage -= shield;
+            shield = 0;
+        }
+        decrementHealth((int)damage);
+    }
+
+    /**
      * Get the player's current shield
      * @return the player's shield
      */

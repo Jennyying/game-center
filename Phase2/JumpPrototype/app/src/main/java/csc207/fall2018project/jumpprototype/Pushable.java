@@ -24,4 +24,23 @@ public interface Pushable {
      */
     public void push(double fx, double fy);
 
+    /**
+     * Accelerate the object in the X direction by ax
+     * @param ax the amount of acceleration to apply in the X direction
+     */
+    public void accX(double ax);
+
+    /**
+     * Push the object in the Y direction with acceleration ay
+     * @param ay the amount of acceleration to apply in the Y direction
+     */
+    public void accY(double ay);
+
+    /**
+     * Push the object with a given force in the x and y directions
+     * @param ax the amount of force to apply in the X direction
+     * @param ay the amount of force to apply in the Y direction
+     */
+    public void acc(double ax, double ay);
+
 }

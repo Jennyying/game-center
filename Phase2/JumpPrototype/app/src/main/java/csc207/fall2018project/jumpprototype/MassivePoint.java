@@ -45,7 +45,7 @@ public class MassivePoint extends MovingPoint implements Pushable, Serializable 
      * @param fx the amount of force to apply in the X direction
      */
     public void pushX(double fx) {
-        addXVelocity(fx/mass);
+        accX(fx/mass);
     }
 
     /**
@@ -53,7 +53,7 @@ public class MassivePoint extends MovingPoint implements Pushable, Serializable 
      * @param fy the amount of force to apply in the Y direction
      */
     public void pushY(double fy) {
-        addYVelocity(fy/mass);
+        accY(fy/mass);
     }
 
     /**

@@ -94,4 +94,35 @@ public class ShiftablePoint extends Point implements Shiftable, Serializable {
         this.x = x; this.y = y;
     }
 
+    /**
+     * Bound a point to within a box b
+     * @param b box to bound the point within
+     */
+    public void boundWithin(Box b) {
+        if(x < b.getLeftX()) x = b.getLeftX();
+        if(x > b.getRightX()) x = b.getRightX();
+        if(y < b.getBottomY()) y = b.getBottomY();
+        if(y > b.getTopY()) y = b.getTopY();
+    }
+
+    /**
+     * Bound a point to within a box b with padding. If the padding for any axis is so great that no point in
+     * the box is at least padding away from one of the edges, snap the point to the center of the box
+     * @param b box to bound the point within
+     * @param paddingX padding to use for X
+     * @param paddingY padding to use for Y
+     */
+    public void boundWithin(Box b, double paddingX, double paddingY) {
+        if(b.getXRadius() < paddingX) x = b.getCentreX();
+        else {
+            if (x < b.getLeftX() + paddingX) x = b.getLeftX() + paddingX;
+            if (x > b.getRightX() - paddingX) x = b.getRightX() - paddingX;
+        }
+        if(b.getYRadius() < paddingY) y = b.getCentreY();
+        else {
+            if (y < b.getBottomY() + paddingY) y = b.getBottomY() + paddingY;
+            if (y > b.getTopY() - paddingY) y = b.getTopY() - paddingY;
+        }
+    }
+
 }

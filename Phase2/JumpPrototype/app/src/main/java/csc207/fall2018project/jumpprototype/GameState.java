@@ -20,6 +20,11 @@ public class GameState implements Serializable {
     private PlayerCharacter player;
 
     /**
+     * The force of gravity
+     */
+    private double gravityLevel = 2;
+
+    /**
      * Create a new GameState for a given screen width and height
      * @param player the player character
      * @param width the screen's width
@@ -36,5 +41,11 @@ public class GameState implements Serializable {
      */
     public PlayerCharacter getPlayer() {return player;}
 
+
+    /**
+     * Run a single game tick
+     */
+    public void runTick() {
+    }
 
 }
