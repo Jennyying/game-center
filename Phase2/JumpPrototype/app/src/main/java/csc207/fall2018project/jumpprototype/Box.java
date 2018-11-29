@@ -46,4 +46,15 @@ abstract public class Box implements BoxCollideable {
         return dx < getXRadius() + b.getXRadius() && dy < getYRadius() + b.getYRadius();
     }
 
+    /**
+     * Check whether this box lies completely within the Box b
+     * @param b the box to check whether this object is within
+     * @return whether this object is within b
+     */
+    public boolean isWithin(Box b) {
+        double dx = Math.abs(getCentreX() - b.getCentreX());
+        double dy = Math.abs(getCentreY() - b.getCentreY());
+        return dx + getXRadius() < b.getXRadius() && dy + getYRadius() < b.getYRadius();
+    }
+
 }
