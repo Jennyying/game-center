@@ -23,6 +23,7 @@
         <activity android:name=".user_management.NewUserActivity" />
         <activity android:name=".IntroductionActivity" />
         <activity android:name=".ChooseGameActivity"></activity>
+        <activity android:name=".minesweeper.GameActivity"></activity>
     </application>
 
 </manifest>
