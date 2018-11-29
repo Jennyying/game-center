@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * The current state of the player's character, i.e. position, velocity and health remaining
  */
-public class PlayerCharacter extends MassiveBox {
+public class PlayerCharacter extends MassiveBox implements Serializable {
 
     /**
      * The player's current shield
@@ -16,6 +16,11 @@ public class PlayerCharacter extends MassiveBox {
      * The player's current health
      */
     private double health;
+
+    /**
+     * The player's current score
+     */
+    private long score = 0;
 
     /**
      * The default X radius of the bounding box surrounding the center of the player to check for collisions.

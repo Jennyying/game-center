@@ -1,6 +1,8 @@
 package csc207.fall2018project.jumpprototype;
 
-public class Screen extends MassiveBox {
+import java.io.Serializable;
+
+public class Screen extends MassiveBox implements Serializable {
 
     public static double DEFAULT_SCREEN_MASS = 1000.0;
 

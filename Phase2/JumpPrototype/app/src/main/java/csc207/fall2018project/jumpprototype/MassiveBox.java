@@ -1,9 +1,11 @@
 package csc207.fall2018project.jumpprototype;
 
+import java.io.Serializable;
+
 /**
  * A box (rectangle) with a velocity and mass which can be affected by forces
  */
-public class MassiveBox extends Box implements Pushable {
+public class MassiveBox extends Box implements Pushable, Serializable {
 
     /**
      * Center of mass of the box

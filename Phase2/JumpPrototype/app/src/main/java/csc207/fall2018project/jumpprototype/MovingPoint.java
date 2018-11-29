@@ -1,9 +1,11 @@
 package csc207.fall2018project.jumpprototype;
 
+import java.io.Serializable;
+
 /**
  * A point moving inertially with a given velocity
  */
-public class MovingPoint extends ShiftablePoint implements MovingObject {
+public class MovingPoint extends ShiftablePoint implements MovingObject, Serializable {
 
     /**
      * The x velocity of the point

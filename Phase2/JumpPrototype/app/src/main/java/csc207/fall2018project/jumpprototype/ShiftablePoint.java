@@ -1,9 +1,11 @@
 package csc207.fall2018project.jumpprototype;
 
+import java.io.Serializable;
+
 /**
  * A point in 2-dimensional Euclidean space which can be moved around
  */
-public class ShiftablePoint extends Point implements Shiftable {
+public class ShiftablePoint extends Point implements Shiftable, Serializable {
 
     /**
      * The point's x coordinate

@@ -1,9 +1,11 @@
 package csc207.fall2018project.jumpprototype;
 
+import java.io.Serializable;
+
 /**
  * A point with a velocity and mass which can be affected by forces
  */
-public class MassivePoint extends MovingPoint implements Pushable {
+public class MassivePoint extends MovingPoint implements Pushable, Serializable {
 
     private double mass;
 
