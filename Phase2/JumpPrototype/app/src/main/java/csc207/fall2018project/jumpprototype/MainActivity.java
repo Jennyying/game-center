@@ -8,14 +8,14 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
-    private GameView gameview;
+    private GameView gameView;
     private Handler handler = new Handler();
     private final static long TIME_INTERVAL = 30;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final GameView gameView = new GameView(this);
+        gameView = new GameView(this);
         setContentView(gameView);
 
         Timer timer = new Timer();
