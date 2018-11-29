@@ -19,7 +19,6 @@ public class MassivePoint extends MovingPoint implements Pushable, Serializable 
      */
     public MassivePoint(double mass, double x, double y, double vx, double vy) {
         super(x, y, vx, vy);
-        if(mass == 0) throw new RuntimeException("Mass must be nonzero!");
         this.mass = mass;
     }
 

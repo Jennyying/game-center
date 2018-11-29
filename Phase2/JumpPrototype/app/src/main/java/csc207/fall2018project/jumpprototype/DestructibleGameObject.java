@@ -11,4 +11,14 @@ public interface DestructibleGameObject {
      */
     public boolean keepAlive();
 
+    /**
+     * Make a destructible object alive
+     */
+    public void makeAlive();
+
+    /**
+     * Make a destructible object spent
+     */
+    public void makeSpent();
+
 }
