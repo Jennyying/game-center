@@ -37,7 +37,7 @@ public class Screen extends MassiveBox implements Serializable {
      * @param x x position in space
      */
     public int getDrawXPosition(double x) {
-        return (int)(x - getCentreX());
+        return (int)(x + getXRadius() - getCentreX());
     }
 
     /**

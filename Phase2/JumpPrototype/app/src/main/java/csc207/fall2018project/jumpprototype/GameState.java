@@ -23,7 +23,7 @@ public class GameState implements Serializable {
      * The poison bottle, modelled as a DamagingBox with mass 5 doing 1 damage and having x and y
      * radii of 1
      */
-    private DamagingBox poisonBottle = new DamagingBox(1, 5, 1, 1);
+    private DamagingBox laser;
 
     /**
      * The force of gravity
@@ -31,14 +31,26 @@ public class GameState implements Serializable {
     private double gravityLevel = -2;
 
     /**
+     * Laser spawn timer
+     */
+    private int spawnTimer = 0;
+
+    /**
+     * Laser spawn timeout
+     */
+    private static int LASER_SPAWN_TIMEOUT = 100;
+
+    /**
      * Create a new GameState for a given screen width and height
      * @param player the player character
+     * @param laser the laser shooting at the character
      * @param width the screen's width
      * @param height the screen's height
      */
-    public GameState(PlayerCharacter player, int width, int height) {
+    public GameState(PlayerCharacter player, DamagingBox laser, int width, int height) {
         screen = new Screen(new MassivePoint(Screen.DEFAULT_SCREEN_MASS, 0, 0), width, height);
         this.player = player;
+        this.laser = laser;
     }
 
     /**
@@ -61,23 +73,25 @@ public class GameState implements Serializable {
      */
     public void runTick() {
         player.accY(gravityLevel);
-
-        //poisonBottle.accY(gravityLevel);
-        //TODO: find better velocity system
-        if(!poisonBottle.keepAlive() || !poisonBottle.isWithin(screen)) {
-            poisonBottle.setCentreX(screen.getCentreX() + screen.getXRadius());
-            poisonBottle.setCentreY((2* Math.random() - 1) * 0.7 * screen.getYRadius() + screen.getCentreY());
-            poisonBottle.setVx(-5);
-            poisonBottle.setVy(0);
-            poisonBottle.makeAlive();
+        if(player.getCentreX() > -0.7 * screen.getXRadius()) {
+            player.setCentreX(-0.7 * screen.getXRadius());
         }
 
-        poisonBottle.moveTimeStep();
+        laser.moveTimeStep();
+        if(laser.keepAlive()) spawnTimer = 0;
+        else spawnTimer++;
+        if(spawnTimer > LASER_SPAWN_TIMEOUT || !laser.collidesWith(screen)) {
+            laser.setCentreX(screen.getCentreX() + screen.getXRadius() - 1);
+            laser.setCentreY((2* Math.random() - 1) * 0.7 * screen.getYRadius() + screen.getCentreY());
+            laser.setVx(-28);
+            laser.setVy(0);
+            laser.makeAlive();
+        }
         player.moveTimeStep();
 
         player.boundWithinBox(screen);
 
-        //poisonBottle.interactWith(player);
+        laser.interactWith(player);
     }
 
     /**
@@ -100,17 +114,23 @@ public class GameState implements Serializable {
      * Get the X coordinate of the poison on the screen
      * @return x coordinate to draw the poison at
      */
-    public int getPoisonDrawX() {
-        return screen.getDrawXPosition(poisonBottle.getCentreX());
+    public int getLaserDrawX() {
+        return screen.getDrawXPosition(laser.getCentreX());
     }
 
     /**
      * Get the Y coordinate of the poison on the screen
      * @return y coordinate to draw the poison at
      */
-    public int getPoisonDrawY() {
-        return screen.getDrawYPosition(poisonBottle.getCentreY());
+    public int getLaserDrawY() {
+        return screen.getDrawYPosition(laser.getCentreY());
     }
+
+    /**
+     * Whether to draw the laser or not
+     * @return whether the laser is alive
+     */
+    public boolean shouldDrawLaser() {return laser.keepAlive();}
 
     /**
      * Set the screen size

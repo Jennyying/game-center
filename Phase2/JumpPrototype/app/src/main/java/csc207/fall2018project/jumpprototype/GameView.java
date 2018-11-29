@@ -18,48 +18,57 @@ public class GameView extends View {
      */
     private GameState gameState;
 
-    //rabbit
-    private Bitmap rabbit;
-
-    //poison
-    private Bitmap poison;
     private int poisonVelocity = 25;
     private int poisonX;
     private int poisonY;
+
+    /**
+     * Bitmaps to display
+     */
+    private Bitmap player;
+    private Bitmap coin;
+    private Bitmap laser;
+
     //carrot
-    private Bitmap carrot;
     private int carrotVelocity = 17;
     private int carrotX;
     private int carrotY;
 
-    private Bitmap background;
     //life
     private Bitmap life;
     //score
     private Paint paintScore = new Paint();
 
+    /**
+     * Load bitmap resources
+     */
+    private void loadBitmaps() {
+        player = BitmapFactory.decodeResource(getResources(), R.drawable.player);
+        coin = BitmapFactory.decodeResource(getResources(), R.drawable.coin);
+        laser = BitmapFactory.decodeResource(getResources(), R.drawable.laser);
+        life = BitmapFactory.decodeResource(getResources(), R.drawable.heart);
+    }
+
     public GameView(Context context) {
         super(context);
+        loadBitmaps();
 
-        rabbit = BitmapFactory.decodeResource(getResources(), R.drawable.rabbit);
-        background = BitmapFactory.decodeResource(getResources(), R.drawable.background);
-        carrot = BitmapFactory.decodeResource(getResources(), R.drawable.carrot);
-        poison = BitmapFactory.decodeResource(getResources(), R.drawable.poison);
-
-        PlayerCharacter player = new PlayerCharacter(
-                new MassivePoint(PlayerCharacter.DEFAULT_PLAYER_MASS, 50, 0),
-                PlayerCharacter.DEFAULT_BOUNDING_BOX_X_RADIUS,
-                PlayerCharacter.DEFAULT_BOUNDING_BOX_Y_RADIUS,
-                5, 5
+        PlayerCharacter playerCharacter = new PlayerCharacter(
+                new MassivePoint(PlayerCharacter.DEFAULT_PLAYER_MASS, 0, 0),
+                player.getWidth()/2,
+                player.getHeight()/2,
+                0, 5
                 );
-        gameState = new GameState(player, getWidth(), getHeight());
+        DamagingBox laserBox =
+                new DamagingBox(1, 1, laser.getWidth()/2, laser.getHeight()/2);
+
+        gameState = new GameState(playerCharacter, laserBox, getWidth(), getHeight());
 
         paintScore.setColor(Color.GREEN);
         paintScore.setTextSize(64);
         paintScore.setTypeface(Typeface.DEFAULT);
         paintScore.setAntiAlias(true);
 
-        life = BitmapFactory.decodeResource(getResources(), R.drawable.heart);
     }
 
     /**
@@ -87,53 +96,81 @@ public class GameView extends View {
      */
     private void drawCoordinates(Canvas canvas) {
         canvas.drawText(
-                "Poison: ("
-                        + gameState.getPoisonDrawX()
-                        + ", " + gameState.getPoisonDrawY() + ")",
+                "Laser: ("
+                        + gameState.getLaserDrawX()
+                        + ", " + gameState.getLaserDrawY() + ")",
                 20, getHeight() - 120, paintScore);
         canvas.drawText(
                 "Position: ("
                         + gameState.getPlayerDrawX()
                             + ", " + gameState.getPlayerDrawY() + ")",
-                    20, getHeight() - 60, paintScore);
-        }
+                    20, getHeight() - 60, paintScore); }
 
-        /**
-         * Draw the background
-         * @param canvas canvas to draw on
-         */
-        private void drawBackground(Canvas canvas) {
-            canvas.drawBitmap(background, 0, 0, null);
-        }
 
-        /**
-     * Draw the rabbit
+    /**
+     * Draw a bitmap at center coordinates x, y on the given canvas
      * @param canvas the canvas to draw on
-     * @param x x coordinate to draw the rabbit at
-     * @param y y coordinate to draw the rabbit at
+     * @param bitmap the bitmap to draw
+     * @param x the x coordinate of the center
+     * @param y the y coordinate of the center
      */
-    private void drawRabbit(Canvas canvas, int x, int y) {
-        canvas.drawBitmap(rabbit, x, y, null);
+    private void drawCenterBitmap(Canvas canvas, Bitmap bitmap, int x, int y) {
+        canvas.drawBitmap(
+                bitmap, x - bitmap.getWidth()/2, y - bitmap.getHeight()/2, null);
     }
 
     /**
-     * Draw a carrot
-     * @param canvas the canvas to draw on
-     * @param x x coordinate to draw the carrot at
-     * @param y y coordinate to draw the carrot at
-     */
-    private void drawCarrot(Canvas canvas, int x, int y) {
-        canvas.drawBitmap(carrot, x + 75, y + 75, null);
+      * Draw the player
+      * @param canvas the canvas to draw on
+      * @param x x coordinate to draw the center of the player icon at
+      * @param y y coordinate to draw the center of the player icon at
+      */
+    private void drawPlayer(Canvas canvas, int x, int y) {
+        drawCenterBitmap(canvas, player, x, y);
     }
 
     /**
-     * Draw a poison bottle
+     * Draw the player
      * @param canvas the canvas to draw on
-     * @param x x coordinate to draw the poison bottle at
-     * @param y y coordinate to draw the poison bottle at
      */
-    private void drawPoison(Canvas canvas, int x, int y) {
-        canvas.drawBitmap(poison, x + 75, y + 75, null);
+    private void drawPlayer(Canvas canvas) {
+        drawPlayer(canvas, gameState.getPlayerDrawX(), gameState.getPlayerDrawY());
+    }
+
+    /**
+     * Draw a coin
+     * @param canvas the canvas to draw on
+     * @param x x coordinate to draw the center of the coin at
+     * @param y y coordinate to draw the center of the coin at
+     */
+    private void drawCoin(Canvas canvas, int x, int y) {
+        drawCenterBitmap(canvas, coin, x, y);
+    }
+
+    /**
+     * Draw any coins on screen
+     */
+    private void drawCoins(Canvas canvas) {
+        //TODO: implement
+    }
+
+    /**
+     * Draw a laser
+     * @param canvas the canvas to draw on
+     * @param x x coordinate to draw the center of the laser at
+     * @param y y coordinate to draw the center of the laser at
+     */
+    private void drawLaser(Canvas canvas, int x, int y) {
+        drawCenterBitmap(canvas, laser, x, y);
+    }
+
+    /**
+     * Draw any lasers on screen
+     * @param canvas the canvas to draw on
+     */
+    private void drawLasers(Canvas canvas) {
+        if(gameState.shouldDrawLaser())
+            drawLaser(canvas, gameState.getLaserDrawX(), gameState.getLaserDrawY());
     }
 
 
@@ -144,44 +181,12 @@ public class GameView extends View {
         gameState.setScreenSize(canvasWidth, canvasHeight);
         gameState.runTick();
 
-        drawBackground(canvas);
         drawScore(canvas);
         drawCoordinates(canvas);
         drawLives(canvas);
+        drawPlayer(canvas);
+        drawLasers(canvas);
 
-        int randomGeneration = (int)(canvasHeight * Math.random());
-
-        //rabbit
-        drawRabbit(canvas, gameState.getPlayerDrawX(), gameState.getPlayerDrawY());
-
-        //poison
-        poisonX -= poisonVelocity;
-        if ((new ShiftablePoint(poisonX, poisonY)).collidesWith(gameState.getPlayer())){
-            poisonX = -20;
-            gameState.getPlayer().decrementHealth();
-            if(!gameState.getPlayer().hasHealth()){
-                //TODO: make a game over layout
-                Log.v("Message", "GAME OVER!");
-            }
-        }
-        if (poisonX < 0){
-            poisonX = canvasWidth + 100;
-            poisonY = randomGeneration;
-        }
-        drawPoison(canvas, gameState.getPoisonDrawX(), gameState.getPoisonDrawY());
-
-        //carrot
-        carrotX -= carrotVelocity;
-        if ((new ShiftablePoint(carrotX, carrotY)).collidesWith(gameState.getPlayer())){
-            gameState.getPlayer().incrementScore();
-            carrotX = -50;
-        }
-        if (carrotX < 0) {
-            carrotX = canvasWidth + 20;
-
-            carrotY = randomGeneration;
-        }
-        drawCarrot(canvas, carrotX, carrotY);
     }
 
     @SuppressLint("ClickableViewAccessibility")
