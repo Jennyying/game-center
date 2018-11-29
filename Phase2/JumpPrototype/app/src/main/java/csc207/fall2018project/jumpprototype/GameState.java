@@ -21,13 +21,20 @@ public class GameState implements Serializable {
 
     /**
      * Create a new GameState for a given screen width and height
+     * @param player the player character
      * @param width the screen's width
      * @param height the screen's height
      */
-    public GameState(int width, int height) {
+    public GameState(PlayerCharacter player, int width, int height) {
         screen = new Screen(new MassivePoint(Screen.DEFAULT_SCREEN_MASS, 0, 0), width, height);
-        player = new PlayerCharacter(
-                new MassivePoint(PlayerCharacter.DEFAULT_PLAYER_MASS, 0, 0), width, height);
+        this.player = player;
     }
+
+    /**
+     * Get the player character
+     * @return the player chracter
+     */
+    public PlayerCharacter getPlayer() {return player;}
+
 
 }

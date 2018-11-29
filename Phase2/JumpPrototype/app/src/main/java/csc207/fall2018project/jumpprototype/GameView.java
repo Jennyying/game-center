@@ -40,17 +40,22 @@ public class GameView extends View {
     private Bitmap background;
     //life
     private Bitmap life;
-    private int numLife;
     //score
-    private int score;
     private Paint paintScore = new Paint();
 
     public GameView(Context context) {
         super(context);
+
         rabbit = BitmapFactory.decodeResource(getResources(), R.drawable.rabbit);
         background = BitmapFactory.decodeResource(getResources(), R.drawable.background);
         carrot = BitmapFactory.decodeResource(getResources(), R.drawable.carrot);
         poison = BitmapFactory.decodeResource(getResources(), R.drawable.poison);
+
+        PlayerCharacter player = new PlayerCharacter(
+                new MassivePoint(PlayerCharacter.DEFAULT_PLAYER_MASS, 0, 0),
+                50, 50, 5, 5
+                );
+        gameState = new GameState(player, getWidth(), getHeight());
 
         //Paint paintScore = new Paint();
         paintScore.setColor(Color.GREEN);
@@ -61,23 +66,75 @@ public class GameView extends View {
         life = BitmapFactory.decodeResource(getResources(), R.drawable.heart);
         //Initial status;
         rabbitY = 500;
-        score = 0;
-        numLife = 3;
     }
+
+    /**
+     * Draw the amount of lives remaining
+     * @param canvas canvas to draw on
+     */
+    private void drawLives(Canvas canvas) {
+        for (int i = 0; i < gameState.getPlayer().getHealth(); i++) {
+            int x = (int) (560 + life.getWidth() * 1.5 * i);
+            int y = 30;
+            canvas.drawBitmap(life, x, y, null);
+        }
+    }
+
+    /**
+     * Draw the score
+     * @param canvas canvas to draw on
+     */
+    private void drawScore(Canvas canvas) {
+        canvas.drawText("Score:" + gameState.getPlayer().getScore(), 20, 60, paintScore);
+    }
+
+    /**
+     * Draw the background
+     * @param canvas canvas to draw on
+     */
+    private void drawBackground(Canvas canvas) {
+        canvas.drawBitmap(background, 0, 0, null);
+    }
+
+    /**
+     * Draw the rabbit
+     * @param canvas the canvas to draw on
+     * @param x x coordinate to draw the rabbit at
+     * @param y y coordinate to draw the rabbit at
+     */
+    private void drawRabbit(Canvas canvas, int x, int y) {
+        canvas.drawBitmap(rabbit, x, y, null);
+    }
+
+    /**
+     * Draw a carrot
+     * @param canvas the canvas to draw on
+     * @param x x coordinate to draw the carrot at
+     * @param y y coordinate to draw the carrot at
+     */
+    private void drawCarrot(Canvas canvas, int x, int y) {
+        canvas.drawBitmap(carrot, x, y, null);
+    }
+
+    /**
+     * Draw a poison bottle
+     * @param canvas the canvas to draw on
+     * @param x x coordinate to draw the poison bottle at
+     * @param y y coordinate to draw the poison bottle at
+     */
+    private void drawPoison(Canvas canvas, int x, int y) {
+        canvas.drawBitmap(poison, x, y, null);
+    }
+
 
     @Override
     protected void onDraw(Canvas canvas) {
         canvasWidth = getWidth();
         canvasHeight = getHeight();
 
-        canvas.drawBitmap(background, 0, 0, null);
-        canvas.drawText("Score:" + score, 20, 60, paintScore);
-        //life
-        for (int i = 0; i < numLife; i++) {
-            int x = (int) (560 + life.getWidth() * 1.5 * i);
-            int y = 30;
-            canvas.drawBitmap(life, x, y, null);
-        }
+        drawBackground(canvas);
+        drawScore(canvas);
+        drawLives(canvas);
 
         //rabbit
         int minRabbitY = 150;
@@ -89,17 +146,16 @@ public class GameView extends View {
         if (rabbitY < minRabbitY){
             rabbitY = minRabbitY;
         }
+        drawRabbit(canvas, rabbitX, rabbitY);
         rabbitVelocity += 2;
-        canvas.drawBitmap(rabbit, rabbitX, rabbitY, null);
-        int randomGeneration = (int) Math.floor(Math.random() * (maxRabbitY - minRabbitY)) + minRabbitY;;
+        int randomGeneration = (int) Math.floor(Math.random() * (maxRabbitY - minRabbitY)) + minRabbitY;
+
         //poison
-//        move(canvas, poison, poisonVelocity, poisonX, poisonY, 250,
-//                maxRabbitY, minRabbitY , 2, numLife);
         poisonX -= poisonVelocity;
         if (checkCollision(poisonX, poisonY)){
             poisonX = -20;
-            numLife --;
-            if(numLife == 0){
+            gameState.getPlayer().decrementHealth();
+            if(!gameState.getPlayer().hasHealth()){
                 //TODO: make a game over layout
                 Log.v("Message", "GAME OVER!");
             }
@@ -108,12 +164,12 @@ public class GameView extends View {
             poisonX = canvasWidth + 100;
             poisonY = randomGeneration;
         }
-        canvas.drawBitmap(poison, poisonX, poisonY, null);
+        drawPoison(canvas, poisonX, poisonY);
 
         //carrot
         carrotX -= carrotVelocity;
         if (checkCollision(carrotX, carrotY)){
-            score += 1;
+            gameState.getPlayer().incrementScore();
             carrotX = -50;
         }
         if (carrotX < 0) {
@@ -121,9 +177,7 @@ public class GameView extends View {
 
             carrotY = randomGeneration;
         }
-//        move(canvas, carrot, carrotVelocity, carrotX, carrotY, 20,
-//                maxRabbitY, minRabbitY, 1, score);
-        canvas.drawBitmap(carrot, carrotX, carrotY, null);
+        drawCarrot(canvas, carrotX, carrotY);
     }
 
     public boolean checkCollision(int x, int y) {

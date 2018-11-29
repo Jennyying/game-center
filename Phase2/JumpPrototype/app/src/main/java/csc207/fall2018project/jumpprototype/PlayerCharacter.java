@@ -15,7 +15,7 @@ public class PlayerCharacter extends MassiveBox implements Serializable {
     /**
      * The player's current health
      */
-    private double health;
+    private int health;
 
     /**
      * The player's current score
@@ -43,7 +43,7 @@ public class PlayerCharacter extends MassiveBox implements Serializable {
      * @param shield the given player's starting shield
      * @param health the given player's starting health
      */
-    public PlayerCharacter(MassivePoint centre, double rx, double ry, double shield, double health) {
+    public PlayerCharacter(MassivePoint centre, double rx, double ry, double shield, int health) {
         super(centre, rx, ry);
         this.shield = shield;
         this.health = health;
@@ -56,8 +56,50 @@ public class PlayerCharacter extends MassiveBox implements Serializable {
      * @param shield the given player's starting shield
      * @param health the given player's starting health
      */
-    public PlayerCharacter(MassivePoint centre, double shield, double health) {
+    public PlayerCharacter(MassivePoint centre, double shield, int health) {
         this(centre, DEFAULT_BOUNDING_BOX_X_RADIUS, DEFAULT_BOUNDING_BOX_Y_RADIUS, shield, health);
     }
+
+    /**
+     * Get the player's current health
+     * @return the player's health
+     */
+    public int getHealth() {return health;}
+
+    /**
+     * Check whether the player has health remaining
+     * @return whether the player has any health remaining
+     */
+    public boolean hasHealth() {return health == 0;}
+
+    /**
+     * Decrement the player's current health
+     */
+    public void decrementHealth() {
+        health--;
+    }
+
+    /**
+     * Get the player's current shield
+     * @return the player's shield
+     */
+    public double getShield() {return shield;}
+
+    /**
+     * Get the player's current score
+     * @return the player's score
+     */
+    public long getScore() {return score;}
+
+    /**
+     * Increment the player's score
+     */
+    public void incrementScore() {score++;}
+
+    /**
+     * Increment the player's score by a specified amount
+     * @param amount amount to increment the score by
+     */
+    public void incrementScore(long amount) {score += amount;}
 
 }
