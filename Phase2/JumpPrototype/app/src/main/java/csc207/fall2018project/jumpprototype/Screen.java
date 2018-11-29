@@ -31,4 +31,30 @@ public class Screen extends MassiveBox implements Serializable {
     public int getHeight() {
         return (int)(getYRadius() * 2);
     }
+
+    /**
+     * Get the X position on the screen of a given X coordinate in space
+     * @param x x position in space
+     */
+    public int getDrawXPosition(double x) {
+        return (int)((-x) - getCentreX());
+    }
+
+    /**
+     * Get the Y position on the screen of a given Y coordinate in space
+     * @param y y position in space
+     */
+    public int getDrawYPosition(double y) {
+        return (int)((-y) + getYRadius() - getCentreY());
+    }
+
+    /**
+     * Set the screen size
+     * @width width to set it to
+     * @height height to set it to
+     */
+    public void setScreenSize(int width, int height) {
+        setYRadius(width/2);
+        setXRadius(height/2);
+    }
 }

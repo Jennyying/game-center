@@ -25,11 +25,11 @@ public class PlayerCharacter extends MassiveBox implements Serializable {
     /**
      * The default X radius of the bounding box surrounding the center of the player to check for collisions.
      */
-    public static final double DEFAULT_BOUNDING_BOX_X_RADIUS = 50;
+    public static final double DEFAULT_BOUNDING_BOX_X_RADIUS = 0;
     /**
      * The default Y radius of the bounding box surrounding the center of the player to check for collisions.
      */
-    public static final double DEFAULT_BOUNDING_BOX_Y_RADIUS = 50;
+    public static final double DEFAULT_BOUNDING_BOX_Y_RADIUS = 0;
     /**
      * The default starting mass for player characters
      */

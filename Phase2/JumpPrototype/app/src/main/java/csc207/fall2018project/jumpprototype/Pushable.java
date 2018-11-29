@@ -3,7 +3,7 @@ package csc207.fall2018project.jumpprototype;
 /**
  * An object which can be pushed with a force in the X and Y directions, impacting its velocity.
  */
-public interface Pushable {
+public interface Pushable extends MovingObject {
 
     /**
      * Push the object in the X direction with force fx

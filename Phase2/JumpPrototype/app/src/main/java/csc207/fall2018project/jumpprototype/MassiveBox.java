@@ -100,6 +100,78 @@ public class MassiveBox extends Box implements Pushable, Serializable {
         return centre.getY();
     }
 
+
+    /**
+     * Set the centre's X coordinate
+     * @param x the centre's new X coordinate
+     */
+    public void setCentreX(double x) {
+        centre.setX(x);
+    }
+
+    /**
+     * Set the centre's Y coordinate
+     * @param y the centre's new Y coordinate
+     */
+    public void setCentreY(double y) {
+        centre.setY(y);
+    }
+
+    /**
+     * Shift the object dx in the x direction
+     * @param dx how much to shift by
+     */
+    public void shiftX(double dx) {
+        centre.shiftX(dx);
+    }
+
+    /**
+     * Shift the object dy in the y direction
+     * @param dy how much to shift by
+     */
+    public void shiftY(double dy) {
+        centre.shiftY(dy);
+    }
+
+    /**
+     * Shift the object's position
+     * @param dx how much to shift the x position by
+     * @param dy how much to shift the y position by
+     */
+    public void shift(double dx, double dy) {
+        centre.shift(dx, dy);
+    }
+
+
+    /**
+     * Get this box's velocity in the X direction
+     * @return this box's velocity in the X direction
+     */
+    public double getXVelocity() {
+        return centre.getXVelocity();
+    }
+
+    /**
+     * Get this box's velocity in the Y direction
+     * @return this box's velocity in the Y direction
+     */
+    public double getYVelocity() {
+        return centre.getYVelocity();
+    }
+
+
+    /**
+     * Set the object's velocity in the x direction to be vx
+     * @param vx the object's new velocity in the x direction
+     */
+    public void setVx(double vx) { centre.setVx(vx); }
+
+    /**
+     * Set the object's velocity in the y direction to be vy
+     * @param vy the object's new velocity in the y direction
+     */
+    public void setVy(double vy) { centre.setVy(vy); }
+
     /**
      * Get the centre
      * @return the centre as a Point
@@ -122,6 +194,49 @@ public class MassiveBox extends Box implements Pushable, Serializable {
      */
     public double getYRadius() {
         return yRadius;
+    }
+
+    /**
+     * Set the X radius
+     * @param x the box's new X radius
+     */
+    public void setXRadius(double x) {
+        xRadius = x;
+    }
+
+    /**
+     * Set the Y radius
+     * @param y the box's new Y radius
+     */
+    public void setYRadius(double y) {
+        yRadius = y;
+    }
+
+    /**
+     * Bind the centre of this box to the inside of a larger box. If it can't fit, snap to the centre
+     * of the other box
+     * @param b the box to bind to
+     */
+    public void boundWithinBox(Box b) {
+        centre.boundWithin(b, xRadius, yRadius);
+    }
+
+    /**
+     * Bind the centre of this box to the inside of a larger box with padding.
+     * If it can't fit, snap to the centre of the other box
+     * @param b the box to bind to
+     * @param paddingX the amount of padding to use in the X direction
+     * @param paddingY the amount of padding to use in the Y direction
+     */
+    public void boundWithinBox(Box b, double paddingX, double paddingY) {
+        centre.boundWithin(b, xRadius + paddingX, yRadius + paddingY);
+    }
+
+    /**
+     * Move this point inertially for one time step
+     */
+    public void moveTimeStep() {
+        centre.moveTimeStep();
     }
 
 

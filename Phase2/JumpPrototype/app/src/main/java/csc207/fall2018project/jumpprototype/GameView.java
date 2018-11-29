@@ -18,14 +18,9 @@ public class GameView extends View {
      */
     private GameState gameState;
 
-    //canvas
-    private int canvasHeight;
-    private int canvasWidth;
     //rabbit
     private Bitmap rabbit;
-    private int rabbitVelocity;
-    private int rabbitX = 10;
-    private int rabbitY;
+
     //poison
     private Bitmap poison;
     private int poisonVelocity = 25;
@@ -52,20 +47,19 @@ public class GameView extends View {
         poison = BitmapFactory.decodeResource(getResources(), R.drawable.poison);
 
         PlayerCharacter player = new PlayerCharacter(
-                new MassivePoint(PlayerCharacter.DEFAULT_PLAYER_MASS, 0, 0),
-                50, 50, 5, 5
+                new MassivePoint(PlayerCharacter.DEFAULT_PLAYER_MASS, 50, 0),
+                PlayerCharacter.DEFAULT_BOUNDING_BOX_X_RADIUS,
+                PlayerCharacter.DEFAULT_BOUNDING_BOX_Y_RADIUS,
+                5, 5
                 );
         gameState = new GameState(player, getWidth(), getHeight());
 
-        //Paint paintScore = new Paint();
         paintScore.setColor(Color.GREEN);
-        paintScore.setTextSize(32);
+        paintScore.setTextSize(64);
         paintScore.setTypeface(Typeface.DEFAULT);
         paintScore.setAntiAlias(true);
 
         life = BitmapFactory.decodeResource(getResources(), R.drawable.heart);
-        //Initial status;
-        rabbitY = 500;
     }
 
     /**
@@ -86,6 +80,22 @@ public class GameView extends View {
      */
     private void drawScore(Canvas canvas) {
         canvas.drawText("Score:" + gameState.getPlayer().getScore(), 20, 60, paintScore);
+    }
+
+    /**
+     * Draw the rabbit's coordinates on the bottom of the screen
+     */
+    private void drawCoordinates(Canvas canvas) {
+        canvas.drawText(
+                "Poison: ("
+                        + gameState.getPoisonDrawX()
+                        + ", " + gameState.getPoisonDrawY() + ")",
+                20, getHeight() - 120, paintScore);
+        canvas.drawText(
+                "Position: ("
+                        + gameState.getPlayer().getCentreX()
+                        + ", " + gameState.getPlayer().getCentreY() + ")",
+                20, getHeight() - 60, paintScore);
     }
 
     /**
@@ -129,30 +139,24 @@ public class GameView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        canvasWidth = getWidth();
-        canvasHeight = getHeight();
+        int canvasWidth = getWidth();
+        int canvasHeight = getHeight();
+        gameState.setScreenSize(canvasWidth, canvasHeight);
+        gameState.runTick();
 
         drawBackground(canvas);
         drawScore(canvas);
+        drawCoordinates(canvas);
         drawLives(canvas);
 
+        int randomGeneration = (int)(canvasHeight * Math.random());
+
         //rabbit
-        int minRabbitY = 150;
-        int maxRabbitY = canvasHeight - 100;
-        rabbitY += rabbitVelocity;
-        if(rabbitY > maxRabbitY){
-            rabbitY = maxRabbitY;
-        }
-        if (rabbitY < minRabbitY){
-            rabbitY = minRabbitY;
-        }
-        drawRabbit(canvas, rabbitX, rabbitY);
-        rabbitVelocity += 2;
-        int randomGeneration = (int) Math.floor(Math.random() * (maxRabbitY - minRabbitY)) + minRabbitY;
+        drawRabbit(canvas, gameState.getPlayerDrawX(), gameState.getPlayerDrawY());
 
         //poison
         poisonX -= poisonVelocity;
-        if (checkCollision(poisonX, poisonY)){
+        if ((new ShiftablePoint(poisonX, poisonY)).collidesWith(gameState.getPlayer())){
             poisonX = -20;
             gameState.getPlayer().decrementHealth();
             if(!gameState.getPlayer().hasHealth()){
@@ -164,11 +168,11 @@ public class GameView extends View {
             poisonX = canvasWidth + 100;
             poisonY = randomGeneration;
         }
-        drawPoison(canvas, poisonX, poisonY);
+        drawPoison(canvas, gameState.getPoisonDrawX(), gameState.getPoisonDrawY());
 
         //carrot
         carrotX -= carrotVelocity;
-        if (checkCollision(carrotX, carrotY)){
+        if ((new ShiftablePoint(carrotX, carrotY)).collidesWith(gameState.getPlayer())){
             gameState.getPlayer().incrementScore();
             carrotX = -50;
         }
@@ -180,13 +184,6 @@ public class GameView extends View {
         drawCarrot(canvas, carrotX, carrotY);
     }
 
-    public boolean checkCollision(int x, int y) {
-        return rabbitX < x && x < (rabbitX + rabbit.getWidth()) &&
-                (rabbitY < y && y < (rabbitY + rabbit.getHeight()));
-    }
-
-
-
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent event){
@@ -194,38 +191,10 @@ public class GameView extends View {
         int eventAction = event.getAction();
         if(eventAction == MotionEvent.ACTION_DOWN){
             //check whether screen is touched
-            rabbitVelocity = -20;
-            //performClick();
+            gameState.getPlayer().accY(50);
         }
         return true;
     }
-//    @Override
-//    public boolean performClick(){
-//        rabbitVelocity = 20;
-//        return true;
-//    }
-
-//    public void move(Canvas canvas, Bitmap item, int velocity, int x, int y, int startingPosition,
-//                     int maxRabbitY, int minRabbitY, int function, int attribute){
-//        x -= velocity;
-//        if (x < 0){
-//            x = canvasWidth + startingPosition;
-//            y = (int) Math.floor(Math.random() * (maxRabbitY - minRabbitY)) + minRabbitY;
-//        }
-//        else if(checkCollision(x, y)){
-//            x = -50;
-//        }
-//        canvas.drawBitmap(item, x, y, null);
-//        if (function == 1){
-//            attribute += 10;
-//        }
-//        else if (function == 2){
-//            attribute -= 1;
-//            if (attribute == 0){
-//                Log.v("MESSAGE", "GAME OVER!!!");
-//            }
-//        }
-//    }
 }
 
 
