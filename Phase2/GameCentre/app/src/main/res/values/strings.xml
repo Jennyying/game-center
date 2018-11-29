@@ -26,7 +26,7 @@
         So..\.
     </string>
     <string name="text_new_user_password_start">
-        , I pronounce that right? Anyways, our
+        Clippy: I pronounce that right? Anyways, our
     </string>
     <string name="text_new_user_password_end">
         Active Starship Administrator™ set a policy requiring all users to have a password.
@@ -35,4 +35,7 @@
     <string name="text_password_confirmed">
         Cool password! So, tell me when you\'re ready, and I\'ll go ahead and register you. Then I can give you a brief introduction, if you\'d like.
     </string>
+    <string name="invalid_username">Invalid</string>
+    <string name="clippy">Clippy</string>
+    <string name="text_yes_button">Yes</string>
 </resources>
