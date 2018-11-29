@@ -9,6 +9,8 @@ import java.io.Serializable;
  */
 public class GameState implements Serializable {
 
+    public static final double MASSLESS_OBJECT = 0.0;
+
     /**
      * The screen, which can be moved by in-game events
      */
@@ -20,7 +22,7 @@ public class GameState implements Serializable {
     private PlayerCharacter player;
 
     /**
-     * The poison bottle, modelled as a DamagingBox with mass 5 doing 1 damage and having x and y
+     * The a laser, modelled as a DamagingBox with mass 0 doing 1 damage and having x and y
      * radii of 1
      */
     private DamagingBox laser;
@@ -39,6 +41,15 @@ public class GameState implements Serializable {
      * Laser spawn timeout
      */
     private static int LASER_SPAWN_TIMEOUT = 100;
+
+    /**
+     * Apply gravity on a Pushable game object
+     * @param p object to apply gravity to
+     */
+    private void applyGravity(Pushable p) {
+        if(p.getMass() == MASSLESS_OBJECT) return;
+        p.accY(gravityLevel);
+    }
 
     /**
      * Create a new GameState for a given screen width and height
@@ -72,7 +83,9 @@ public class GameState implements Serializable {
      * Run a single game tick
      */
     public void runTick() {
-        player.accY(gravityLevel);
+        applyGravity(player);
+
+        //TODO: set the player's x coordinate properly...
         if(player.getCentreX() > -0.7 * screen.getXRadius()) {
             player.setCentreX(-0.7 * screen.getXRadius());
         }

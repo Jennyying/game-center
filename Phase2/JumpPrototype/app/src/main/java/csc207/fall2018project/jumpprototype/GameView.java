@@ -60,7 +60,7 @@ public class GameView extends View {
                 0, 5
                 );
         DamagingBox laserBox =
-                new DamagingBox(1, 1, laser.getWidth()/2, laser.getHeight()/2);
+                new DamagingBox(1, GameState.MASSLESS_OBJECT, laser.getWidth()/2, laser.getHeight()/2);
 
         gameState = new GameState(playerCharacter, laserBox, getWidth(), getHeight());
 
@@ -68,7 +68,6 @@ public class GameView extends View {
         paintScore.setTextSize(64);
         paintScore.setTypeface(Typeface.DEFAULT);
         paintScore.setAntiAlias(true);
-
     }
 
     /**

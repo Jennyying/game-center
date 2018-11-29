@@ -43,4 +43,10 @@ public interface Pushable extends MovingObject {
      */
     public void acc(double ax, double ay);
 
+    /**
+     * Get the object's mass. Returns 0 for objects not affected by forces (like lasers)
+     * @return the object's mass
+     */
+    public double getMass();
+
 }

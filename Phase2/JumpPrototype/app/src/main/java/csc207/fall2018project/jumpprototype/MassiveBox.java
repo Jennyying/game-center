@@ -85,6 +85,13 @@ public class MassiveBox extends Box implements Pushable, Serializable {
     }
 
     /**
+     * Get this box's mass
+     * @return mass of this box
+     */
+    public double getMass() {return centre.getMass();}
+
+
+    /**
      * Get the centre's X coordinate
      * @return the centre's X coordinate
      */
