@@ -3,7 +3,7 @@ package csc207.fall2018project.jumpprototype;
 /**
  * A point moving inertially with a given velocity
  */
-public class MovingPoint extends Point implements MovingObject {
+public class MovingPoint extends ShiftablePoint implements MovingObject {
 
     /**
      * The x velocity of the point
