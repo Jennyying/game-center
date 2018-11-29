@@ -67,6 +67,7 @@ public class Tile {
 
     /**
      * Set the tile containsMine attribute.
+     *
      * @param containsMine
      */
 
@@ -84,7 +85,8 @@ public class Tile {
 
     /**
      * Set the number of adjacent mines.
-     * @param adjacentMines
+     *
+     * @param adjacentMines the number of mines adjacent to the tile.
      */
 
     public void setAdjacentMines(int adjacentMines) {
@@ -92,7 +94,7 @@ public class Tile {
     }
 
     /**
-     * @return the x coordinate of the tile
+     * @return the x coordinate of the tile.
      */
 
     public int getXGridCoordinate() {
