@@ -54,21 +54,8 @@ public class DamagingBox extends MassiveBox
     }
 
     /**
-     * Reset the box to have a random y position within a box with a given padding,
-     * centre x position at the edge of a given box and
-     * random x, y velocity in (-vx, 0) and (0, vy) respectively
-     * @param b box to use
-     * @param p padding to use. If greater than y radius of the box, the new y position snaps to the
-     *          center of b's y coordinate
-     * @param vx maximum x velocity
-     * @param vy maximum y velocity
+     * Un-spend a damaging box, i.e. make it alive again
      */
-    public void resetBox(Box b, double p, double vx, double vy) {
-        setCentreX(b.getRightX());
-        if(p > b.getYRadius()) p = b.getYRadius();
-        setCentreY(((Math.random() * 2) - 1) * (b.getYRadius() - p) - b.getCentreY());
-        setVx(Math.random() * -1 * vx);
-        setVy(Math.random() * vy);
-    }
+    public void makeAlive() {spent = false;}
 
 }

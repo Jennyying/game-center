@@ -62,10 +62,15 @@ public class GameState implements Serializable {
     public void runTick() {
         player.accY(gravityLevel);
 
-        poisonBottle.accY(gravityLevel);
+        //poisonBottle.accY(gravityLevel);
         //TODO: find better velocity system
-        if(!poisonBottle.keepAlive() || !poisonBottle.isWithin(screen))
-            poisonBottle.resetBox(screen, 100, 28, 10);
+        if(!poisonBottle.keepAlive() || !poisonBottle.isWithin(screen)) {
+            poisonBottle.setCentreX(screen.getCentreX() + screen.getXRadius());
+            poisonBottle.setCentreY((2* Math.random() - 1) * 0.7 * screen.getYRadius() + screen.getCentreY());
+            poisonBottle.setVx(-5);
+            poisonBottle.setVy(0);
+            poisonBottle.makeAlive();
+        }
 
         poisonBottle.moveTimeStep();
         player.moveTimeStep();

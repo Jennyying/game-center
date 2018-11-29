@@ -83,7 +83,7 @@ public class GameView extends View {
     }
 
     /**
-     * Draw the rabbit's coordinates on the bottom of the screen
+     * Draw the rabbit and poison's coordinates on the bottom of the screen. For debugging purposes
      */
     private void drawCoordinates(Canvas canvas) {
         canvas.drawText(
@@ -93,20 +93,20 @@ public class GameView extends View {
                 20, getHeight() - 120, paintScore);
         canvas.drawText(
                 "Position: ("
-                        + gameState.getPlayer().getCentreX()
-                        + ", " + gameState.getPlayer().getCentreY() + ")",
-                20, getHeight() - 60, paintScore);
-    }
+                        + gameState.getPlayerDrawX()
+                            + ", " + gameState.getPlayerDrawY() + ")",
+                    20, getHeight() - 60, paintScore);
+        }
 
-    /**
-     * Draw the background
-     * @param canvas canvas to draw on
-     */
-    private void drawBackground(Canvas canvas) {
-        canvas.drawBitmap(background, 0, 0, null);
-    }
+        /**
+         * Draw the background
+         * @param canvas canvas to draw on
+         */
+        private void drawBackground(Canvas canvas) {
+            canvas.drawBitmap(background, 0, 0, null);
+        }
 
-    /**
+        /**
      * Draw the rabbit
      * @param canvas the canvas to draw on
      * @param x x coordinate to draw the rabbit at
@@ -123,7 +123,7 @@ public class GameView extends View {
      * @param y y coordinate to draw the carrot at
      */
     private void drawCarrot(Canvas canvas, int x, int y) {
-        canvas.drawBitmap(carrot, x, y, null);
+        canvas.drawBitmap(carrot, x + 75, y + 75, null);
     }
 
     /**
@@ -133,7 +133,7 @@ public class GameView extends View {
      * @param y y coordinate to draw the poison bottle at
      */
     private void drawPoison(Canvas canvas, int x, int y) {
-        canvas.drawBitmap(poison, x, y, null);
+        canvas.drawBitmap(poison, x + 75, y + 75, null);
     }
 
 
