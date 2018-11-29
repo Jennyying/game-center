@@ -5,9 +5,38 @@
     <string name="text_hint_password">Password</string>
     <string name="text_login">Login</string>
     <string name="text_newgame">New Game</string>
-    <string name="text_load_game">Load Game</string>
+    <string name="text_load_game">Play</string>
     <string name="text_new_player">New Player</string>
-    <string name="text_sign">Sign In/Sign Out</string>
+    <string name="text_sign_in">Sign In</string>
+    <string name="text_sign_out">Sign Out</string>
     <string name="text_scores">Scores</string>
     <string name="text_haskell">Should\'ve been written in Haskell</string>
+    <string name="text_new_user_intro">
+        It looks like you\'re trying to awaken from cryosleep. Would you like my help?
+    </string>
+    <string name="text_new_user_intro_pushed">
+        Excellent! It says here your name is
+    </string>
+    <string name ="text_new_user_forgot_name">
+        Program received signal SIGSEGV: Segmentation Fault
+    </string>
+    <string name="text_new_user_remind_name">
+        Ah, I seem to have forgotten it. Remind me\?
+    </string>
+    <string name="text_new_user_greets">
+        So..\.
+    </string>
+    <string name="text_new_user_password_start">
+        Clippy: I pronounce that right? Anyways, our
+    </string>
+    <string name="text_new_user_password_end">
+        Active Starship Administrator™ set a policy requiring all users to have a password.
+        That said, they didn\'t set a minimum length, so you can make like Stallman and set it to newline (i.e. nothing)
+    </string>
+    <string name="text_password_confirmed">
+        Cool password! So, tell me when you\'re ready, and I\'ll go ahead and register you. Then I can give you a brief introduction, if you\'d like.
+    </string>
+    <string name="invalid_username">Invalid</string>
+    <string name="clippy">Clippy</string>
+    <string name="text_yes_button">Yes</string>
 </resources>
