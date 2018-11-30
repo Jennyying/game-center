@@ -1,4 +1,4 @@
-package fall18project.gamecentre.user_management;
+package fall18project.gamecentre.game_management;
 
 import java.io.Serializable;
 
@@ -17,14 +17,14 @@ public class SessionScore implements Serializable, Comparable<SessionScore> {
     /**
      * The score the user has achieved
      */
-    private double score;
+    private long score;
 
     /**
      * Create a new SessionScore object for a session of a game
      * @param un player's username
      * @param sc player's score
      */
-    public SessionScore(String un, double sc) {
+    public SessionScore(String un, long sc) {
         userName = un;
         score = sc;
     }

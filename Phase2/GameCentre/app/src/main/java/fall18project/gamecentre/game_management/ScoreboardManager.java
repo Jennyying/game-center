@@ -1,10 +1,12 @@
-package fall18project.gamecentre.user_management;
+package fall18project.gamecentre.game_management;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import fall18project.gamecentre.user_management.UserScoreboard;
 
 /**
  * A manager for the scoreboards associated with each game in the game centre
@@ -14,7 +16,7 @@ public class ScoreboardManager implements Serializable {
     /**
      * Table of all scores being managed
      */
-    private GlobalScoreboard scores = new GlobalScoreboard();
+    private GameScoreboard scores = new GameScoreboard();
 
     /**
      * Individual user scoreboards associated with a username
@@ -33,7 +35,7 @@ public class ScoreboardManager implements Serializable {
      * Return the global scoreboard
      * @return scores
      */
-    public GlobalScoreboard getGlobalScores() {
+    public GameScoreboard getGlobalScores() {
         return scores;
     }
 

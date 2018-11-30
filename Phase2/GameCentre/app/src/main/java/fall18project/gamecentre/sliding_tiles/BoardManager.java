@@ -3,7 +3,7 @@ package fall18project.gamecentre.sliding_tiles;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import fall18project.gamecentre.user_management.SessionScore;
+import fall18project.gamecentre.game_management.SessionScore;
 
 /**
  * Manage a board, including swapping tiles, checking for a win, and managing taps.

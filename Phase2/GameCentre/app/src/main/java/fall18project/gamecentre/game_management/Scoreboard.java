@@ -1,4 +1,4 @@
-package fall18project.gamecentre.user_management;
+package fall18project.gamecentre.game_management;
 
 import java.io.Serializable;
 import java.util.Iterator;

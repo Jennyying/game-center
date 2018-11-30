@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 
-import fall18project.gamecentre.user_management.ScoreboardManager;
+import fall18project.gamecentre.game_management.ScoreboardManager;
 import fall18project.gamecentre.user_management.UserScoreboard;
 
 public class ScoreboardActivity extends AppCompatActivity {
