@@ -10,34 +10,34 @@ public interface Undoable {
      *
      * @return true if so, false otherwise
      */
-    public boolean hasMoves();
+    boolean hasMoves();
 
     /**
      * Whether the object has had moves undone which can be redone
      *
      * @return true if so, false otherwise
      */
-    public boolean hasUndos();
+    boolean hasUndos();
 
     /**
      * Undo a move
      *
      * @return whether a move has been successfully undone
      */
-    public boolean undo();
+    boolean undo();
 
     /**
      * Redo a move
      *
      * @return whether a move has been successfully redone
      */
-    public boolean redo();
+    boolean redo();
 
     /**
      * Delete redo history past the given point (since a move has been performed which changes history)
      *
      * @return whether any history has been deleted
      */
-    public boolean truncate();
+    boolean truncate();
 
 }
