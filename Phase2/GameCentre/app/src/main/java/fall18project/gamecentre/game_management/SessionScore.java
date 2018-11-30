@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * The score information for a given session of a game
- *
+ * <p>
  * TODO: add date/time information
  */
 public class SessionScore implements Serializable, Comparable<SessionScore> {
@@ -21,6 +21,7 @@ public class SessionScore implements Serializable, Comparable<SessionScore> {
 
     /**
      * Create a new SessionScore object for a session of a game
+     *
      * @param un player's username
      * @param sc player's score
      */
@@ -40,7 +41,7 @@ public class SessionScore implements Serializable, Comparable<SessionScore> {
      * Compare two scores. The scores are ordered by score, and then by alphabetical username order,
      * but in *descending* order (i.e. the highest score is ranked smallest) to make implementation
      * of scoreboard operations using NavigableSet easier.
-     *
+     * <p>
      * Compatible with equals
      */
     public int compareTo(SessionScore s) {

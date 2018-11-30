@@ -1,11 +1,10 @@
 package fall18project.gamecentre.sliding_tiles;
 
-import java.util.Observable;
-
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Observable;
 
 import fall18project.gamecentre.MoveStack;
 import fall18project.gamecentre.Undoable;
@@ -35,31 +34,36 @@ public class Board extends Observable implements Serializable, Iterable<Tile>, U
      * Precondition: len(tiles) == sl * sl
      *
      * @param tiles the tiles for the board
-     * @param sl the side length of the board
+     * @param sl    the side length of the board
      */
     public Board(List<Tile> tiles, int sl) {
         sideLength = sl;
         this.tiles = new Tile[numTiles()];
 
-        assert(tiles.size() == sl * sl);
+        assert (tiles.size() == sl * sl);
         int i = 0;
-        for(Tile t : tiles) this.tiles[i++] = t;
+        for (Tile t : tiles) this.tiles[i++] = t;
     }
-
-    /**
-     * Set the side length of the board
-     * @param n target side length
-     */
-    public void setSideLength(int n) {sideLength = n;}
 
     /**
      * Get the side length of the board
      */
-    public int getSideLength() {return sideLength;}
+    public int getSideLength() {
+        return sideLength;
+    }
 
+    /**
+     * Set the side length of the board
+     *
+     * @param n target side length
+     */
+    public void setSideLength(int n) {
+        sideLength = n;
+    }
 
     /**
      * Return the number of tiles on the board.
+     *
      * @return the number of tiles on the board
      */
     public int numTiles() {
@@ -107,7 +111,8 @@ public class Board extends Observable implements Serializable, Iterable<Tile>, U
      * @return whether the position (row, col) is in bounds
      */
     public boolean inBounds(int row, int col) {
-        return row >= 0 && col >= 0 && row < sideLength && col < sideLength;}
+        return row >= 0 && col >= 0 && row < sideLength && col < sideLength;
+    }
 
     /**
      * Is a tile the blank tile (false if not in bounds)
@@ -135,8 +140,8 @@ public class Board extends Observable implements Serializable, Iterable<Tile>, U
      * @return true if the board is solved (i.e. in sorted order), false otherwise
      */
     public boolean solved() {
-        for(int i = 1; i < tiles.length; i++) {
-            if(tiles[i - 1].getId() >= tiles[i].getId()) return false;
+        for (int i = 1; i < tiles.length; i++) {
+            if (tiles[i - 1].getId() >= tiles[i].getId()) return false;
         }
         return true;
     }
@@ -202,10 +207,11 @@ public class Board extends Observable implements Serializable, Iterable<Tile>, U
 
     /**
      * Undo a move.
+     *
      * @return false if no moves to undo, true otherwise
      */
     public boolean undo() {
-        if(!hasMoves()) return false;
+        if (!hasMoves()) return false;
 
         doSwapTiles(moves.top().getT1(), moves.top().getT2());
         moves.undo();
@@ -218,7 +224,7 @@ public class Board extends Observable implements Serializable, Iterable<Tile>, U
      * @return false if no moves to undo, true otherwise
      */
     public boolean redo() {
-        if(!hasUndos()) return false;
+        if (!hasUndos()) return false;
 
         moves.redo();
         doSwapTiles(moves.top().getT1(), moves.top().getT2());

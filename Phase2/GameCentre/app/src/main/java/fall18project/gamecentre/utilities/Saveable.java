@@ -9,24 +9,28 @@ public interface Saveable {
 
     /**
      * Get this object's associated context (for saving)
+     *
      * @return the context
      */
     public Context getContext();
 
     /**
      * Set this object's associated context
+     *
      * @param context context to set
      */
     public void setContext(Context context);
 
     /**
      * Get this object's associated file
+     *
      * @return the associated file's name
      */
     public String getFileName();
 
     /**
      * Set this object's associated file
+     *
      * @param fileName file name to set
      */
     public void setFileName(String fileName);

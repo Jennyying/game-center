@@ -9,7 +9,9 @@ import fall18project.gamecentre.sliding_tiles.Board;
 import fall18project.gamecentre.sliding_tiles.BoardManager;
 import fall18project.gamecentre.sliding_tiles.Tile;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -18,11 +20,14 @@ import static org.junit.Assert.*;
  */
 public class BoardAndTileTest {
 
-    /** The board manager for testing. */
+    /**
+     * The board manager for testing.
+     */
     BoardManager boardManager;
 
     /**
      * Make a set of tiles that are in order.
+     *
      * @param sideLength the side length to target
      * @return a set of tiles that are in order
      */

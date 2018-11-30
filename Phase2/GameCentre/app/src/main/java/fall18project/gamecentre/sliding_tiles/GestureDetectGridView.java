@@ -68,7 +68,7 @@ public class GestureDetectGridView extends GridView {
 
             @Override
             public boolean onFling(MotionEvent e1, MotionEvent e2, float vx, float vy) {
-                if(vx < 0) boardManager.undo();
+                if (vx < 0) boardManager.undo();
                 else boardManager.redo();
                 return true;
             }
