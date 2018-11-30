@@ -27,7 +27,7 @@ public class ScoreboardManager {
     /**
      * The user manager to use to load user scores
      */
-    UserManager userManager;
+   UserManager userManager;
 
     /**
      * The login manager to use to load user lists
