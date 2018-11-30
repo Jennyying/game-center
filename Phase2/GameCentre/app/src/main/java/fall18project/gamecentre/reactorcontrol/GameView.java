@@ -10,13 +10,17 @@ import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import fall18project.gamecentre.R;
+import fall18project.gamecentre.game_management.GameScoreboardManager;
+import fall18project.gamecentre.game_management.SessionScore;
 import fall18project.gamecentre.reactorcontrol.physics.CoinBox;
 import fall18project.gamecentre.reactorcontrol.physics.DamagingBox;
 import fall18project.gamecentre.reactorcontrol.physics.GameState;
 import fall18project.gamecentre.reactorcontrol.physics.MassivePoint;
 import fall18project.gamecentre.reactorcontrol.physics.PlayerCharacter;
+import fall18project.gamecentre.user_management.UserManager;
 
 public class GameView extends View {
     /**
@@ -33,6 +37,20 @@ public class GameView extends View {
     private Bitmap life;
     private Bitmap gameOver;
 
+    /**
+     * The score manager
+     */
+    private GameScoreboardManager gameScoreboardManager;
+
+    /**
+     * The user mananger
+     */
+    private UserManager userManager;
+
+    /**
+     * Whether the score has been recorded
+     */
+    private boolean scoreRecorded = false;
 
     /**
      * Paint for displaying the score
@@ -42,6 +60,9 @@ public class GameView extends View {
     public GameView(Context context) {
         super(context);
         loadBitmaps();
+
+        gameScoreboardManager = new GameScoreboardManager(context);
+        userManager = new UserManager(context);
 
         PlayerCharacter playerCharacter = new PlayerCharacter(
                 new MassivePoint(PlayerCharacter.DEFAULT_PLAYER_MASS, 0, 0),
@@ -215,10 +236,23 @@ public class GameView extends View {
      * @param canvas canvas to draw on
      */
     private void drawInformation(Canvas canvas) {
+        drawScore(canvas);
         if (gameState.isOver()) {
             drawGameOverEffects(canvas);
-        } else {
-            drawScore(canvas);
+        }
+    }
+
+    private void recordScore() {
+        if(!scoreRecorded) {
+            gameScoreboardManager.addScoreForGame(userManager, new SessionScore(
+                    userManager.loadCurrentUserName(),
+                    GameActivity.GAME_NAME,
+                    gameState.getScore()
+            ));
+            scoreRecorded = true;
+            Toast.makeText(getContext(),
+                    "You earned " + gameState.getScore() + " points",
+                    Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -236,6 +270,7 @@ public class GameView extends View {
         drawLasers(canvas);
         drawCoins(canvas);
         drawInformation(canvas);
+        if(gameState.isOver()) recordScore();
     }
 
     @SuppressLint("ClickableViewAccessibility")

@@ -12,6 +12,11 @@ import fall18project.gamecentre.user_management.GameOverActivity;
 public class GameActivity extends AppCompatActivity {
 
     /**
+     * The name of the game
+     */
+    public static final String GAME_NAME = "ReactorControl";
+
+    /**
      * Time interval between frames
      */
     private final static long TIME_INTERVAL = 30;
