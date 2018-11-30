@@ -11,8 +11,10 @@ import java.io.ObjectOutputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -313,10 +315,16 @@ public class LoginManager implements Saveable {
 
     /**
      * Get the usernames in the login database
-     * @return a list of all usernames in the login database
+     * @return a set of all usernames in the login database
      */
     public Set<String> getUserNames() {
         return passwordDatabase.keySet();
     }
+
+    /**
+     * Get a list of all usernames in the login database
+     * @return a list of all usernames in the login database
+     */
+    public List<String> getUserNameList() {return new ArrayList<String>(getUserNames());}
 
 }

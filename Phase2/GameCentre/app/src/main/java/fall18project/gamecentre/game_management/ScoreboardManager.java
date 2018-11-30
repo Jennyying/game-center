@@ -1,20 +1,56 @@
 package fall18project.gamecentre.game_management;
 
+import android.content.Context;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import fall18project.gamecentre.user_management.LoginManager;
+import fall18project.gamecentre.user_management.UserManager;
 import fall18project.gamecentre.user_management.UserScoreboard;
 import fall18project.gamecentre.utilities.Saveable;
 
 /**
  * A manager for the scoreboards associated with each game in the game centre
  */
-public class ScoreboardManager implements Serializable {
+public class ScoreboardManager {
 
-    //TODO: change from serializable to
+    /**
+     * The context to save scoreboard data to and load scoreboard data from. If null, then scores
+     * are totally dynamic and not backed to disk (for testing only)
+     */
+    Context context;
+
+    /**
+     * The user manager to use to load user scores
+     */
+    UserManager userManager;
+
+    /**
+     * The login manager to use to load user lists
+     */
+    LoginManager loginManager;
+
+    public ScoreboardManager(Context context, UserManager userManager, LoginManager loginManager) {
+        this.context = context;
+        this.userManager = userManager;
+        this.loginManager = loginManager;
+    }
+
+    /**
+     * Get the current context
+     * @return the current context
+     */
+    public Context getContext() {return context;}
+
+    /**
+     * Set the current context to a new context
+     * @param c the new context to set
+     */
+    public void setContext(Context c) {context = c;}
 
     /**
      * The global scoreboard, containing all games.

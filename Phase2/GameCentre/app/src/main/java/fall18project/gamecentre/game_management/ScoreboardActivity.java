@@ -21,7 +21,7 @@ import fall18project.gamecentre.user_management.UserScoreboard;
 public class ScoreboardActivity extends AppCompatActivity {
 
     //TODO: fix this initialization
-    private ScoreboardManager scoreboardManager = new ScoreboardManager();
+    private ScoreboardManager scoreboardManager = new ScoreboardManager(null, null, null);
     private AutoCompleteTextView textView;
     private ListView scoreboard;
     private String[] globalScoreTableCache;
@@ -119,29 +119,6 @@ public class ScoreboardActivity extends AppCompatActivity {
             return;
         }
         displayUserScoreboard(u);
-    }
-
-    /**
-     * Load the board manager from fileName.
-     *
-     * @param fileName the name of the file
-     */
-    private void loadFromFile(String fileName) {
-        scoreboardManager = new ScoreboardManager();
-        try {
-            InputStream inputStream = this.openFileInput(fileName);
-            if (inputStream != null) {
-                ObjectInputStream input = new ObjectInputStream(inputStream);
-                scoreboardManager = (ScoreboardManager)input.readObject();
-                inputStream.close();
-            }
-        } catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + e.toString());
-        } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
-        } catch (ClassNotFoundException e) {
-            Log.e("login activity", "File contained unexpected data type: " + e.toString());
-        }
     }
 
 }
