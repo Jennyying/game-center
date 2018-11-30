@@ -36,9 +36,18 @@
     <string name="text_password_confirmed">
         Cool password! So, tell me when you\'re ready, and I\'ll go ahead and register you. Then I can give you a brief introduction, if you\'d like.
     </string>
-    <string name="invalid_username">Invalid</string>
+    <string name="text_invalid_username">Invalid</string>
+    <string name="text_choose_username">Select</string>
+    <string name="text_taken_username">Taken</string>
     <string name="clippy">Clippy</string>
     <string name="text_yes_button">Yes</string>
+    <string name="text_hint_gamename">Game</string>
+    <string name="text_introduction">Start Tutorial</string>
+    <string name="text_skip_button">Skip</string>
+    <string name="text_go_to_sliding_tiles">Reactor View</string>
+    <string name="text_go_to_minesweeper">Reactor Model</string>
+    <string name="text_go_to_hyperslide">Reactor Controller</string>
+    <string name="text_go_to_choose_game">Let\'s Go</string>
 
     <!--Error Messages-->
     <string name="over_flag_limit_error">Mine flag limit reached.  Remove at least one mine flag</string>
