@@ -29,7 +29,6 @@
             android:noHistory="true" />
         <activity android:name=".ChooseGameActivity" />
         <activity android:name=".minesweeper.GameActivity" />
-        <activity android:name=".reactorcontrol.MainActivity" />
         <activity android:name=".reactorcontrol.GameActivity" />
         <activity android:name=".user_management.GameOverActivity" />
     </application>
