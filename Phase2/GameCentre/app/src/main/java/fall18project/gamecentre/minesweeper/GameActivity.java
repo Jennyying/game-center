@@ -16,6 +16,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 import com.squareup.otto.Bus;
 import fall18project.gamecentre.R;
+import fall18project.gamecentre.game_management.*;
+import fall18project.gamecentre.user_management.UserManager;
 
 /**
  * the game activity
@@ -38,6 +40,8 @@ public class GameActivity extends AppCompatActivity implements GameManager.Liste
     ImageView statusImageView;
 
     private GameManager gameManager;
+    private UserManager userManager = new UserManager(this);
+    //private ScoreboardManager scoreboardManager = new ScoreboardManager(this, , )
     private int dimension = Board.DEFAULT_DIMENSION;
     private int numMines = Board.DEFAULT_NUM_MINES;
     private LevelListDrawable statusImageDrawable;

@@ -71,7 +71,8 @@ public class StartingActivity extends AppCompatActivity {
             "Can't come up with anything...",
             "A metagame for metagamers",
             "I'm so meta, even this acronym",
-            "Too inefficient for even Gosling"
+            "Too inefficient for even Gosling",
+            "Should've been written in... eh anything is better than Java"
     };
 
     /**
