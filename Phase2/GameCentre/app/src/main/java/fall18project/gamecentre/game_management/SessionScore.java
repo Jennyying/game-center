@@ -15,6 +15,11 @@ public class SessionScore implements Serializable, Comparable<SessionScore> {
     private String userName;
 
     /**
+     * The name of the game for which this score is for
+     */
+    private String gameName;
+
+    /**
      * The score the user has achieved
      */
     private long score;
@@ -23,10 +28,12 @@ public class SessionScore implements Serializable, Comparable<SessionScore> {
      * Create a new SessionScore object for a session of a game
      *
      * @param un player's username
+     * @param gn game's name
      * @param sc player's score
      */
-    public SessionScore(String un, long sc) {
+    public SessionScore(String un, String gn, long sc) {
         userName = un;
+        gameName = gn;
         score = sc;
     }
 
@@ -34,6 +41,13 @@ public class SessionScore implements Serializable, Comparable<SessionScore> {
      * Get the username associated with a score
      */
     public String getUserName() {
+        return userName;
+    }
+
+    /**
+     * Get the game name associated with a score
+     */
+    public String getGameName() {
         return userName;
     }
 

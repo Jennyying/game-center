@@ -11,6 +11,7 @@ import java.io.ObjectOutputStream;
 
 import fall18project.gamecentre.minesweeper.Game;
 import fall18project.gamecentre.user_management.User;
+import fall18project.gamecentre.user_management.UserManager;
 
 /**
  * A manager for the individual scoreboards for a set of games
@@ -198,14 +199,26 @@ public class GameScoreboardManager {
     /**
      * Add a score for a game, syncing all changes to disk
      * @param score score to add
-     * @param gameName game to add it for
      */
-    public void addScoreForGame(SessionScore score, String gameName) {
-        GameScoreboard board = getScoreboard(gameName);
+    public void addScoreForGame(SessionScore score) {
+        GameScoreboard board = getScoreboard(score.getGameName());
         board.add(score);
         reloadGlobalScoreboard();
         globalScoreboard.add(score);
-        storeScoreboard(gameName, board);
+        storeScoreboard(score.getGameName(), board);
         writeGlobalScoreboard();
     }
+
+    /**
+     * Add a score for the current user, syncing all changes to disk
+     * @param userManager user manager
+     * @param score score to add
+     */
+    public void addScoreForGame(UserManager userManager, SessionScore score) {
+        addScoreForGame(score);
+        User cu = userManager.loadCurrentUser();
+        cu.getScoreboard().add(score);
+        userManager.storeUser(cu);
+    }
+
 }

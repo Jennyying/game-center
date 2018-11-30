@@ -15,13 +15,12 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 
 import fall18project.gamecentre.R;
-import fall18project.gamecentre.game_management.ScoreboardManager;
 import fall18project.gamecentre.user_management.UserScoreboard;
 
 public class ScoreboardActivity extends AppCompatActivity {
 
     //TODO: fix this initialization
-    private ScoreboardManager scoreboardManager = new ScoreboardManager(null, null, null);
+    //private ScoreboardManager scoreboardManager = new ScoreboardManager(null, null, null);
     private AutoCompleteTextView textView;
     private ListView scoreboard;
     private String[] globalScoreTableCache;
@@ -30,7 +29,7 @@ public class ScoreboardActivity extends AppCompatActivity {
      * Update the global score table cache
      */
     private void updateGlobalScoreTableCache() {
-        globalScoreTableCache = scoreboardManager.getGlobalScores().getPrintedScores();
+        //globalScoreTableCache = scoreboardManager.getGlobalScores().getPrintedScores();
     }
 
     /**
@@ -71,6 +70,7 @@ public class ScoreboardActivity extends AppCompatActivity {
         scoreboardManager.add(new SessionScore("Frodo", 400.0));
         */
 
+        /*
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_dropdown_item_1line,
                 scoreboardManager.getUserNames()
@@ -87,6 +87,7 @@ public class ScoreboardActivity extends AppCompatActivity {
                     }
                 }
         );
+        */
 
         scoreboard = findViewById(R.id.scoreboard);
 
@@ -109,6 +110,7 @@ public class ScoreboardActivity extends AppCompatActivity {
      * Update the scoreboard displayed based off the contents of the username field
      */
     public void updateScoreboard() {
+        /*
         String s = textView.getText().toString();
         if(s.isEmpty()) {
             displayGlobalScoreboard();
@@ -119,6 +121,7 @@ public class ScoreboardActivity extends AppCompatActivity {
             return;
         }
         displayUserScoreboard(u);
+        */
     }
 
 }

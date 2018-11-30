@@ -191,7 +191,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
         super.onPause();
         // If the board has been solved, record the score
         if (boardManager.hasScore()) {
-            scoreboardManager.addScoreForGame(boardManager.getScore(), GAME_NAME);
+            scoreboardManager.addScoreForGame(boardManager.getScore());
         }
         saveGameToTempFile();
     }
