@@ -1,8 +1,10 @@
-package csc207.fall2018project.jumpprototype;
+package fall18project.gamecentre.reactorcontrol.jumpprototype;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import fall18project.gamecentre.reactorcontrol.DestructibleBox;
+import fall18project.gamecentre.reactorcontrol.MassivePoint;
 
 import static org.junit.Assert.*;
 
