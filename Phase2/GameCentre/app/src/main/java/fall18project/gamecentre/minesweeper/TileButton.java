@@ -2,10 +2,10 @@ package fall18project.gamecentre.minesweeper;
 
 import android.content.Context;
 import android.graphics.drawable.StateListDrawable;
+import android.support.v7.widget.AppCompatButton;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.StateSet;
-import android.support.v7.widget.AppCompatButton;
 
 public class TileButton extends AppCompatButton {
     public static String TAG = TileButton.class.getName();
@@ -33,8 +33,8 @@ public class TileButton extends AppCompatButton {
         TileDrawable.TileAttributeSet pressedAttributeSet = createPressedAttributes(attributeSet);
         TileDrawable pressedDrawable = new TileDrawable(pressedAttributeSet.getColorArray(), pressedAttributeSet.getFillPercent());
 
-        drawable.addState(new int[] {android.R.attr.state_pressed}, pressedDrawable);
-        drawable.addState(new int[] {android.R.attr.state_hovered}, pressedDrawable);
+        drawable.addState(new int[]{android.R.attr.state_pressed}, pressedDrawable);
+        drawable.addState(new int[]{android.R.attr.state_hovered}, pressedDrawable);
         drawable.addState(StateSet.WILD_CARD, normalDrawable);
         return drawable;
     }
@@ -44,7 +44,7 @@ public class TileButton extends AppCompatButton {
         int[] colorList = attributeSet.getColorArray();
         int[] pressedColorList = new int[TileDrawable.REQUIRED_COLOR_COUNT];
 
-        for(int i = 0; i < colorList.length; i++) {
+        for (int i = 0; i < colorList.length; i++) {
             pressedColorList[i] = colorList[i] + COLOR_OFFSET;
         }
 

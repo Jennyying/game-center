@@ -166,15 +166,23 @@ public class BoardView extends ViewGroup {
     }
 
     /**
+     * Draw the border on the canvas's associated with the board
      *
-     * @param width
-     * @param height
-     * @param canvas
+     * @param width  the width
+     * @param height the height
+     * @param canvas the canvas
      */
     private void drawBorder(int width, int height, Canvas canvas) {
         canvas.drawRect(0, 0, width, height, borderPaint);
     }
 
+    /**
+     * Draw on the gridlines on the canvas's associated with the board
+     *
+     * @param width  the width
+     * @param height the height
+     * @param canvas the canvas
+     */
     private void drawGridLines(int width, int height, Canvas canvas) {
         if (board != null) {
             int dimension = board.getDimension();
@@ -202,6 +210,12 @@ public class BoardView extends ViewGroup {
         }
     }
 
+    /**
+     * Setup the tile views.
+     *
+     * @param board the board associated with the boardview.
+     */
+
     public void setupBoard(Board board) {
         this.board = board;
 
@@ -212,6 +226,9 @@ public class BoardView extends ViewGroup {
         createTileViews();
     }
 
+    /**
+     * Create the tile views.
+     */
     private void createTileViews() {
         int dimension = board.getDimension();
 

@@ -1,8 +1,5 @@
 package fall18project.gamecentre.reactorcontrol.physics;
 
-import fall18project.gamecentre.reactorcontrol.physics.Box;
-import fall18project.gamecentre.reactorcontrol.physics.BoxCollideable;
-
 /**
  * An abstract point in 2D, Euclidean space
  */
@@ -19,6 +16,7 @@ abstract public class Point implements BoxCollideable {
 
     /**
      * Check whether this box collides with the box b
+     *
      * @param b the box to check for collisions with
      * @return whether this object collides with b
      */
@@ -28,6 +26,7 @@ abstract public class Point implements BoxCollideable {
 
     /**
      * Check whether this box lies completely within the Box b
+     *
      * @param b the box to check whether this object is within
      * @return whether this object is within b
      */

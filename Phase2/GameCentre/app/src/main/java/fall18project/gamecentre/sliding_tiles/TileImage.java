@@ -4,12 +4,13 @@ import fall18project.gamecentre.R;
 
 public class TileImage {
 
-/**
- * Return the id of the appropriate image
- * @param i the background id
- * @return image_num the number of the image to be displayed
- */
- static int getTileimage_num(int i){
+    /**
+     * Return the id of the appropriate image
+     *
+     * @param i the background id
+     * @return image_num the number of the image to be displayed
+     */
+    static int getTileimage_num(int i) {
         int image_num;
         switch (i + 1) {
             case 1:
@@ -161,7 +162,7 @@ public class TileImage {
                 break;
             default:
                 image_num = R.drawable.tile_empty;
+        }
+        return image_num;
     }
-    return image_num;
-}
 }

@@ -24,7 +24,7 @@ public class TextDrawable extends Drawable {
         this.text = text;
         this.textColor = textColor;
 
-        if(fillPercent != null) {
+        if (fillPercent != null) {
             this.fillPercent = fillPercent;
         }
 
@@ -41,7 +41,7 @@ public class TextDrawable extends Drawable {
 
     @Override
     public void draw(Canvas canvas) {
-        if(text.length() > 0) {
+        if (text.length() > 0) {
             Rect bounds = getBounds();
 
             float textSize = Math.max(bounds.height(), getBounds().width()) * fillPercent;

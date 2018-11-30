@@ -73,7 +73,7 @@ public class Board {
     }
 
     /**
-     * Inidialize the grid.
+     * Initialize the grid.
      */
     private void initBoardGrid() {
         if (currentState == BOARD_CREATED) {
@@ -116,7 +116,7 @@ public class Board {
     }
 
     /**
-     *
+     * Computes the tiles that are adjacent to mine tiles.
      */
     private void calculateNumberedtiles() {
         if (currentState == MINES_PLACED) {
@@ -172,7 +172,7 @@ public class Board {
     }
 
     /**
-     *
+     * A builder for the board.
      */
     public static class Builder {
 

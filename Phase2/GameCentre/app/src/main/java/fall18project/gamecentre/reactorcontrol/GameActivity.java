@@ -2,7 +2,6 @@ package fall18project.gamecentre.reactorcontrol;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
 import java.util.Timer;
@@ -13,15 +12,13 @@ import fall18project.gamecentre.user_management.GameOverActivity;
 public class GameActivity extends AppCompatActivity {
 
     /**
-     * The game view, controlling all graphics for the game
-     */
-    private GameView gameView;
-
-    /**
      * Time interval between frames
      */
     private final static long TIME_INTERVAL = 30;
-
+    /**
+     * The game view, controlling all graphics for the game
+     */
+    private GameView gameView;
     /**
      * The player's username
      */
@@ -39,7 +36,7 @@ public class GameActivity extends AppCompatActivity {
             public void run() {
                 gameView.invalidate();
             }
-        },0, TIME_INTERVAL);
+        }, 0, TIME_INTERVAL);
     }
 
     /**

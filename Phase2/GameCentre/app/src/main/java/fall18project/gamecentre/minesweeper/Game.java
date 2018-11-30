@@ -65,6 +65,7 @@ public class Game {
     public void unregisterFromEventBus() {
         GameActivity.getGameBus().unregister(this);
     }
+
     /**
      * Set the start time to current time.
      */
@@ -120,7 +121,7 @@ public class Game {
      * Display the result of the game on the screen.
      */
     private void publishResult(boolean won) {
-        if(!gameFinished) {
+        if (!gameFinished) {
             gameFinished = true;
             gameManager.publishGameFinished();
 
@@ -182,12 +183,13 @@ public class Game {
         }
 
     }
+
     public long getElapsedTime() {
         // If the timer has been started, then add the time since it was started
         // to the saved elapsed time.
         long additionalRealTime = 0;
 
-        if(startTime > 0) {
+        if (startTime > 0) {
             additionalRealTime = System.currentTimeMillis() - startTime;
         }
         return elapsedTime + additionalRealTime;
@@ -212,14 +214,6 @@ public class Game {
 
         // Set the uncovered graphic for the TileView.
         tileView.setupUncoveredTileDrawable(boardGrid[y][x]);
-    }
-
-    public static class TileViewCreatedEvent {
-        TileView mTileView;
-
-        public TileViewCreatedEvent(TileView tileView) {
-            mTileView = tileView;
-        }
     }
 
     @Subscribe
@@ -281,6 +275,14 @@ public class Game {
             if (isAllowed) {
                 tileView.setState(state);
             }
+        }
+    }
+
+    public static class TileViewCreatedEvent {
+        TileView mTileView;
+
+        public TileViewCreatedEvent(TileView tileView) {
+            mTileView = tileView;
         }
     }
 

@@ -2,13 +2,6 @@ package fall18project.gamecentre.reactorcontrol.physics;
 
 import java.io.Serializable;
 
-import fall18project.gamecentre.reactorcontrol.physics.CoinBox;
-import fall18project.gamecentre.reactorcontrol.physics.DamagingBox;
-import fall18project.gamecentre.reactorcontrol.physics.MassivePoint;
-import fall18project.gamecentre.reactorcontrol.physics.PlayerCharacter;
-import fall18project.gamecentre.reactorcontrol.physics.Pushable;
-import fall18project.gamecentre.reactorcontrol.physics.Screen;
-
 /**
  * The state of a JumpingRabbit game, including:
  * - Whether the game is paused or running
@@ -80,19 +73,21 @@ public class GameState implements Serializable {
 
     /**
      * Apply gravity on a Pushable game object
+     *
      * @param p object to apply gravity to
      */
     private void applyGravity(Pushable p) {
-        if(p.getMass() == MASSLESS_OBJECT) return;
+        if (p.getMass() == MASSLESS_OBJECT) return;
         p.accY(gravityLevel);
     }
 
     /**
      * Create a new GameState for a given screen width and height
+     *
      * @param player the player character
-     * @param laser the laser shooting at the character
+     * @param laser  the laser shooting at the character
      * @param reward a CoinBox launched at the player potentially giving a reward
-     * @param width the screen's width
+     * @param width  the screen's width
      * @param height the screen's height
      */
     public GameState(
@@ -108,12 +103,16 @@ public class GameState implements Serializable {
 
     /**
      * Get the player character
+     *
      * @return the player chracter
      */
-    public PlayerCharacter getPlayer() {return player;}
+    public PlayerCharacter getPlayer() {
+        return player;
+    }
 
     /**
      * Return whether the game is over, i.e. the player has 0 health remaining
+     *
      * @return whether the game is over
      */
     public boolean isOver() {
@@ -122,6 +121,7 @@ public class GameState implements Serializable {
 
     /**
      * Return the score of this game
+     *
      * @return the score
      */
     public long getScore() {
@@ -131,6 +131,7 @@ public class GameState implements Serializable {
 
     /**
      * Set the current gravity level
+     *
      * @param gravityLevel new gravity level
      */
     public void setGravityLevel(double gravityLevel) {
@@ -143,14 +144,14 @@ public class GameState implements Serializable {
     private void updateLaserPosition() {
         laser.moveTimeStep();
 
-        if(laser.keepAlive()) laserSpawnTimer = 0;
+        if (laser.keepAlive()) laserSpawnTimer = 0;
         else laserSpawnTimer++;
 
         // Respawn the laser if it exits the screen, or has been destroyed for LASER_SPAWN_TIMEOUT
         // ticks
-        if(laserSpawnTimer > LASER_SPAWN_TIMEOUT || !laser.collidesWith(screen)) {
+        if (laserSpawnTimer > LASER_SPAWN_TIMEOUT || !laser.collidesWith(screen)) {
             double newLaserX = screen.getCentreX() + screen.getXRadius() - 1;
-            double newLaserY = (2* Math.random() - 1) * 0.7 * screen.getYRadius() + screen.getCentreY();
+            double newLaserY = (2 * Math.random() - 1) * 0.7 * screen.getYRadius() + screen.getCentreY();
             //TODO: set speed properly
             double newLaserVx = -28;
             double newLaserVy = 0;
@@ -165,21 +166,21 @@ public class GameState implements Serializable {
         applyGravity(reward);
         reward.moveTimeStep();
 
-        if(!reward.collidesWith(screen)) reward.makeSpent();
+        if (!reward.collidesWith(screen)) reward.makeSpent();
 
-        if(reward.keepAlive()) rewardSpawnTimer = 0;
+        if (reward.keepAlive()) rewardSpawnTimer = 0;
         else rewardSpawnTimer++;
 
         // Respawn the laser if it exits the screen, or has been destroyed for LASER_SPAWN_TIMEOUT
         // ticks
-        if(rewardSpawnTimer > REWARD_SPAWN_TIMEOUT) {
+        if (rewardSpawnTimer > REWARD_SPAWN_TIMEOUT) {
             double newRewardX = screen.getCentreX() + screen.getXRadius() - 1;
-            double newRewardY = (1.5* Math.random() - 1) * 0.7 * screen.getYRadius() + screen.getCentreY();
+            double newRewardY = (1.5 * Math.random() - 1) * 0.7 * screen.getYRadius() + screen.getCentreY();
             //TODO: set speeds properly
             double newRewardVx = -30;
             double newRewardVy = 30;
             reward.respawn(newRewardX, newRewardY, newRewardVx, newRewardVy);
-            reward.setScoreIncrement((int)((MAX_REWARD - MIN_REWARD) * Math.random() + MIN_REWARD));
+            reward.setScoreIncrement((int) ((MAX_REWARD - MIN_REWARD) * Math.random() + MIN_REWARD));
         }
     }
 
@@ -214,6 +215,7 @@ public class GameState implements Serializable {
 
     /**
      * Get the X coordinate on the screen to draw the player at
+     *
      * @return x coordinate of where to draw the player on the screen
      */
     public int getPlayerDrawX() {
@@ -222,6 +224,7 @@ public class GameState implements Serializable {
 
     /**
      * Get the Y coordinate on the screen to draw the player at
+     *
      * @return y coordinate of where to draw the player on the screen
      */
     public int getPlayerDrawY() {
@@ -230,6 +233,7 @@ public class GameState implements Serializable {
 
     /**
      * Get the X coordinate of the laser on the screen
+     *
      * @return x coordinate to draw the laser at
      */
     public int getLaserDrawX() {
@@ -238,6 +242,7 @@ public class GameState implements Serializable {
 
     /**
      * Get the Y coordinate of the laser on the screen
+     *
      * @return y coordinate to draw the laser at
      */
     public int getLaserDrawY() {
@@ -246,12 +251,16 @@ public class GameState implements Serializable {
 
     /**
      * Get the X coordinate of the coins on the screen
+     *
      * @return x coordinate to draw the coins at
      */
-    public int getCoinDrawX() { return screen.getDrawXPosition(reward.getCentreX()); }
+    public int getCoinDrawX() {
+        return screen.getDrawXPosition(reward.getCentreX());
+    }
 
     /**
      * Get the Y coordinate of the coins on the screen
+     *
      * @return y coordinate to draw the coins at
      */
     public int getCoinDrawY() {
@@ -261,25 +270,35 @@ public class GameState implements Serializable {
 
     /**
      * Whether to draw the laser or not
+     *
      * @return whether the laser is alive
      */
-    public boolean shouldDrawLaser() {return laser.keepAlive();}
+    public boolean shouldDrawLaser() {
+        return laser.keepAlive();
+    }
 
     /**
      * Whether to draw the coins or not
+     *
      * @return whether the coins are alive
      */
-    public boolean shouldDrawCoins() {return reward.keepAlive();}
+    public boolean shouldDrawCoins() {
+        return reward.keepAlive();
+    }
 
     /**
      * Whether to draw the coin box or not
+     *
      * @return whether the coin box is alive
      */
-    public boolean shouldDrawCoinBox() {return reward.keepAlive();}
+    public boolean shouldDrawCoinBox() {
+        return reward.keepAlive();
+    }
 
     /**
      * Set the screen size
-     * @param width new screen width
+     *
+     * @param width  new screen width
      * @param height new screen height
      */
     public void setScreenSize(int width, int height) {

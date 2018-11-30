@@ -3,7 +3,7 @@ package fall18project.gamecentre.minesweeper;
 
 import android.util.Log;
 
-public class GameManager{
+public class GameManager {
     private Listener listener;
     private BoardView boardView;
     private Game game;
@@ -18,7 +18,7 @@ public class GameManager{
 
     public void initGame(int dimension, int numMines) {
         // Ensure that old games don't receive game events.
-        if(game != null) {
+        if (game != null) {
             game.unregisterFromEventBus();
         }
 
@@ -79,9 +79,13 @@ public class GameManager{
 
     public interface Listener {
         void updateTimeElapsed(long elapsedTime);
+
         void updateMineFlagsRemainingCount(int flagsRemaining);
+
         void onLoss();
+
         void onWin();
+
         void onGameFinished();
     }
 
@@ -93,8 +97,8 @@ public class GameManager{
         Listener mListener;
         BoardView mBoardLayoutView;
 
-        public Builder dimension(int dimension)  {
-            if(dimension > 0) {
+        public Builder dimension(int dimension) {
+            if (dimension > 0) {
                 mDimension = dimension;
             }
 
@@ -102,8 +106,8 @@ public class GameManager{
             return this;
         }
 
-        public Builder numMines(int numMines)  {
-            if(numMines > 0) {
+        public Builder numMines(int numMines) {
+            if (numMines > 0) {
                 mNumMines = numMines;
             }
 
@@ -123,11 +127,10 @@ public class GameManager{
         }
 
         public GameManager build() throws Exception {
-            if(mListener == null || mBoardLayoutView == null) {
+            if (mListener == null || mBoardLayoutView == null) {
                 Log.e(this.getClass().getName(), "Game manager listener and board layout view required");
                 throw new Exception();
-            }
-            else {
+            } else {
                 return new GameManager(mDimension, mNumMines, mBoardLayoutView, mListener);
             }
         }

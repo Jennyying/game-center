@@ -7,6 +7,7 @@ public interface DestructibleGameObject {
 
     /**
      * Whether this object should be kept around next tick
+     *
      * @return whether this object has not been destroyed
      */
     public boolean keepAlive();

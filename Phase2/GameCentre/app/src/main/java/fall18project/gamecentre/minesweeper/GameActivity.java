@@ -10,13 +10,17 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import butterknife.Bind;
-import butterknife.ButterKnife;
+
+import com.squareup.otto.Bus;
+
 import java.util.Timer;
 import java.util.TimerTask;
-import com.squareup.otto.Bus;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import fall18project.gamecentre.R;
-import fall18project.gamecentre.game_management.*;
+import fall18project.gamecentre.game_management.GameScoreboardManager;
+import fall18project.gamecentre.game_management.SessionScore;
 import fall18project.gamecentre.user_management.UserManager;
 
 /**
@@ -29,19 +33,22 @@ public class GameActivity extends AppCompatActivity implements GameManager.Liste
     static final int WON_LEVEL = 1;
     static final int LOST_LEVEL = 2;
 
-    @Bind(R.id.board_layout_view) BoardView boardView;
+    @Bind(R.id.board_layout_view)
+    BoardView boardView;
     @Bind(R.id.remaining_flags_text_view)
     TextView mRemainingFlagsTextView;
-    @Bind(R.id.elapsed_time_text_view) TextView mElapsedTimeTextView;
+    @Bind(R.id.elapsed_time_text_view)
+    TextView mElapsedTimeTextView;
     @Bind(R.id.finish_button)
     Button finishButton;
-    @Bind(R.id.reset_button) Button resetButton;
+    @Bind(R.id.reset_button)
+    Button resetButton;
     @Bind(R.id.status_image_view)
     ImageView statusImageView;
 
     private GameManager gameManager;
     private UserManager userManager = new UserManager(this);
-    //private ScoreboardManager scoreboardManager = new ScoreboardManager(this, , )
+    private GameScoreboardManager gameScoreboardManager = new GameScoreboardManager(this);
     private int dimension = Board.DEFAULT_DIMENSION;
     private int numMines = Board.DEFAULT_NUM_MINES;
     private LevelListDrawable statusImageDrawable;
@@ -58,8 +65,8 @@ public class GameActivity extends AppCompatActivity implements GameManager.Liste
         setupGame();
     }
 
-    public static Bus getGameBus(){
-        if(gameBus == null){
+    public static Bus getGameBus() {
+        if (gameBus == null) {
             gameBus = new Bus();
         }
         return gameBus;
@@ -68,8 +75,7 @@ public class GameActivity extends AppCompatActivity implements GameManager.Liste
     private void setupGame() {
         try {
             gameManager = new GameManager(dimension, numMines, boardView, this);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             String errorMessage = getResources().getString(R.string.board_initialization_error);
             Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
         }
@@ -93,8 +99,7 @@ public class GameActivity extends AppCompatActivity implements GameManager.Liste
                     stopTimer();
                     startTimer();
                     statusImageDrawable.setLevel(IN_PLAY_LEVEL);
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     Context context = GameActivity.this;
                     String message = context.getResources().getString(R.string.game_reset_error);
                     Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
@@ -122,7 +127,7 @@ public class GameActivity extends AppCompatActivity implements GameManager.Liste
     protected void onResume() {
         super.onResume();
 
-        if(gameManager != null) {
+        if (gameManager != null) {
             updateMineFlagsRemainingCount(gameManager.getMineFlagsRemainingCount());
             startTimer();
         }
@@ -135,7 +140,7 @@ public class GameActivity extends AppCompatActivity implements GameManager.Liste
     }
 
     void startTimer() {
-        if(gameManager != null && !gameManager.isGameFinished()) {
+        if (gameManager != null && !gameManager.isGameFinished()) {
             gameManager.startTimer();
 
             TimerTask timerTask = new TimerTask() {
@@ -159,7 +164,7 @@ public class GameActivity extends AppCompatActivity implements GameManager.Liste
 
 
     void stopTimer() {
-        if(gameManager != null && timer != null) {
+        if (gameManager != null && timer != null) {
             gameManager.stopTimer();
 
             timer.cancel();
@@ -184,6 +189,10 @@ public class GameActivity extends AppCompatActivity implements GameManager.Liste
         String message = getResources().getString(R.string.loss_message);
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
         statusImageDrawable.setLevel(LOST_LEVEL);
+        long oldScore = gameManager.getElapsedTime();
+        long score = (long) (oldScore - Math.exp(1 / oldScore)) * 1000;
+        SessionScore sessionScore = new SessionScore(userManager.loadCurrentUserName(), "minesweeper", score);
+        gameScoreboardManager.addScoreForGame(userManager, sessionScore);
     }
 
     @Override
@@ -191,6 +200,10 @@ public class GameActivity extends AppCompatActivity implements GameManager.Liste
         String message = getResources().getString(R.string.win_message);
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
         statusImageDrawable.setLevel(WON_LEVEL);
+        long oldScore = gameManager.getElapsedTime();
+        long score = (long) (oldScore + Math.exp(1 / oldScore)) * 1000;
+        SessionScore sessionScore = new SessionScore(userManager.loadCurrentUserName(), "minesweeper", score);
+        gameScoreboardManager.addScoreForGame(userManager, sessionScore);
     }
 
     @Override

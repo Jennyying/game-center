@@ -81,6 +81,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
 
     /**
      * Return the temporary save filename to save to
+     *
      * @return the temporary save filename for the current user
      */
     public String getTempSaveFilename() {
@@ -89,6 +90,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
 
     /**
      * Return the filename to save games to
+     *
      * @return the filename to save games to
      */
     public String getSaveFilename() {
@@ -108,7 +110,6 @@ public class GameActivity extends AppCompatActivity implements Observer {
     private void loadGameFromSaveFile() {
         loadGameFromFile(getSaveFilename());
     }
-
 
 
     @Override

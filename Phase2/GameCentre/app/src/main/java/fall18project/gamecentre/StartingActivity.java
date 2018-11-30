@@ -1,12 +1,12 @@
 package fall18project.gamecentre;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-
 import android.view.View;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.github.matteobattilana.weather.WeatherView;
 
@@ -14,7 +14,6 @@ import java.util.Random;
 
 import fall18project.gamecentre.game_management.ScoreboardActivity;
 import fall18project.gamecentre.user_management.LoginActivity;
-import fall18project.gamecentre.user_management.LoginManager;
 import fall18project.gamecentre.user_management.NewUserActivity;
 import fall18project.gamecentre.user_management.User;
 import fall18project.gamecentre.user_management.UserManager;
@@ -22,36 +21,11 @@ import fall18project.gamecentre.utilities.WeatherBackground;
 
 /**
  * The initial activity for the sliding puzzle tile game.
- *
+ * <p>
  * Weather display based off that found at
  * https://github.com/matteobattilana/weatherview
  */
 public class StartingActivity extends AppCompatActivity {
-
-    /**
-     * Manager for the background aesthetics of the starting activity
-     */
-    private WeatherBackground background;
-
-    /**
-     * Manager and interface for user database
-     */
-    private UserManager userManager;
-
-    /**
-     * The text view for the current logged in user
-     */
-    private TextView currentUserView;
-
-    /**
-     * The text view for the log in status
-     */
-    private TextView loginStatusView;
-
-    /**
-     * The login button
-     */
-    private Button loginButton;
 
     /**
      * A collection of funny quotes to put in the subtitle
@@ -74,21 +48,38 @@ public class StartingActivity extends AppCompatActivity {
             "Too inefficient for even Gosling",
             "Should've been written in... eh anything is better than Java"
     };
-
-    /**
-     * Random number generator to pick quotes
-     */
-    private Random randomNumberGenerator = new Random();
-
-    /**
-     * The subtitle box for the funny quotes.
-     */
-    private TextView subtitleBox = null;
-
     /**
      * A request for a logged in user, or null
      */
     public static int LOGGED_IN_REQUEST_CODE = 2;
+    /**
+     * Manager for the background aesthetics of the starting activity
+     */
+    private WeatherBackground background;
+    /**
+     * Manager and interface for user database
+     */
+    private UserManager userManager;
+    /**
+     * The text view for the current logged in user
+     */
+    private TextView currentUserView;
+    /**
+     * The text view for the log in status
+     */
+    private TextView loginStatusView;
+    /**
+     * The login button
+     */
+    private Button loginButton;
+    /**
+     * Random number generator to pick quotes
+     */
+    private Random randomNumberGenerator = new Random();
+    /**
+     * The subtitle box for the funny quotes.
+     */
+    private TextView subtitleBox = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,7 +118,7 @@ public class StartingActivity extends AppCompatActivity {
      */
     private void updateCurrentUserName() {
         String currentUserName = userManager.loadCurrentUserName();
-        if(currentUserName != null) {
+        if (currentUserName != null) {
             currentUserView.setText(currentUserName);
             loginStatusView.setText(R.string.text_signed_in_as);
         } else {
@@ -141,7 +132,7 @@ public class StartingActivity extends AppCompatActivity {
      */
     private void updateLoginText() {
         String currentUserName = userManager.loadCurrentUserName();
-        if(currentUserName == null) {
+        if (currentUserName == null) {
             loginButton.setText(R.string.text_sign_in);
         } else {
             loginButton.setText(R.string.text_sign_out);
@@ -184,11 +175,10 @@ public class StartingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 User currentUser = userManager.loadCurrentUser();
-                if(currentUser != null) {
+                if (currentUser != null) {
                     userManager.resetCurrentUser();
                     updateLoginStatusDisplay();
-                }
-                else goToLogin();
+                } else goToLogin();
             }
         });
     }
@@ -233,8 +223,8 @@ public class StartingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 User currentUser = userManager.loadCurrentUser();
-                if(currentUser == null) goToNewUser();
-                else if(currentUser.getSettings().shouldShowIntroduction()) goToIntroduction();
+                if (currentUser == null) goToNewUser();
+                else if (currentUser.getSettings().shouldShowIntroduction()) goToIntroduction();
                 else goToChooseGame();
             }
         });
@@ -285,7 +275,7 @@ public class StartingActivity extends AppCompatActivity {
     }
 
     private void setRandomQuote() {
-        if(subtitleBox == null) {
+        if (subtitleBox == null) {
             subtitleBox = findViewById(R.id.funnyline);
         }
 

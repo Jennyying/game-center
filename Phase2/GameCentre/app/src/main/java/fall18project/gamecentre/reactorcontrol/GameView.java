@@ -2,7 +2,6 @@ package fall18project.gamecentre.reactorcontrol;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -18,7 +17,6 @@ import fall18project.gamecentre.reactorcontrol.physics.DamagingBox;
 import fall18project.gamecentre.reactorcontrol.physics.GameState;
 import fall18project.gamecentre.reactorcontrol.physics.MassivePoint;
 import fall18project.gamecentre.reactorcontrol.physics.PlayerCharacter;
-import fall18project.gamecentre.user_management.GameOverActivity;
 
 public class GameView extends View {
     /**
@@ -41,29 +39,18 @@ public class GameView extends View {
      */
     private Paint paintScore = new Paint();
 
-    /**
-     * Load bitmap resources
-     */
-    private void loadBitmaps() {
-        player = BitmapFactory.decodeResource(getResources(), R.drawable.player);
-        coin = BitmapFactory.decodeResource(getResources(), R.drawable.coin);
-        laser = BitmapFactory.decodeResource(getResources(), R.drawable.laser);
-        life = BitmapFactory.decodeResource(getResources(), R.drawable.heart);
-        gameOver = BitmapFactory.decodeResource(getResources(), R.drawable.gameover);
-    }
-
     public GameView(Context context) {
         super(context);
         loadBitmaps();
 
         PlayerCharacter playerCharacter = new PlayerCharacter(
                 new MassivePoint(PlayerCharacter.DEFAULT_PLAYER_MASS, 0, 0),
-                player.getWidth()/2,
-                player.getHeight()/2,
+                player.getWidth() / 2,
+                player.getHeight() / 2,
                 0, 5
-                );
+        );
         DamagingBox laserBox =
-                new DamagingBox(1, GameState.MASSLESS_OBJECT, laser.getWidth()/2, laser.getHeight()/2);
+                new DamagingBox(1, GameState.MASSLESS_OBJECT, laser.getWidth() / 2, laser.getHeight() / 2);
         CoinBox coinBox =
                 new CoinBox(coin.getWidth(), coin.getHeight());
 
@@ -76,7 +63,19 @@ public class GameView extends View {
     }
 
     /**
+     * Load bitmap resources
+     */
+    private void loadBitmaps() {
+        player = BitmapFactory.decodeResource(getResources(), R.drawable.player);
+        coin = BitmapFactory.decodeResource(getResources(), R.drawable.coin);
+        laser = BitmapFactory.decodeResource(getResources(), R.drawable.laser);
+        life = BitmapFactory.decodeResource(getResources(), R.drawable.heart);
+        gameOver = BitmapFactory.decodeResource(getResources(), R.drawable.gameover);
+    }
+
+    /**
      * Return the score of this game
+     *
      * @return the score
      */
     public long getScore() {
@@ -85,6 +84,7 @@ public class GameView extends View {
 
     /**
      * Draw the amount of lives remaining
+     *
      * @param canvas canvas to draw on
      */
     private void drawLives(Canvas canvas) {
@@ -98,6 +98,7 @@ public class GameView extends View {
 
     /**
      * Draw the score
+     *
      * @param canvas canvas to draw on
      */
     private void drawScore(Canvas canvas) {
@@ -128,40 +129,44 @@ public class GameView extends View {
 
     /**
      * Draw a bitmap at center coordinates x, y on the given canvas
+     *
      * @param canvas the canvas to draw on
      * @param bitmap the bitmap to draw
-     * @param x the x coordinate of the center
-     * @param y the y coordinate of the center
+     * @param x      the x coordinate of the center
+     * @param y      the y coordinate of the center
      */
     private void drawCenterBitmap(Canvas canvas, Bitmap bitmap, int x, int y) {
         canvas.drawBitmap(
-                bitmap, x - bitmap.getWidth()/2, y - bitmap.getHeight()/2, null);
+                bitmap, x - bitmap.getWidth() / 2, y - bitmap.getHeight() / 2, null);
     }
 
     /**
-      * Draw the player
-      * @param canvas the canvas to draw on
-      * @param x x coordinate to draw the center of the player icon at
-      * @param y y coordinate to draw the center of the player icon at
-      */
+     * Draw the player
+     *
+     * @param canvas the canvas to draw on
+     * @param x      x coordinate to draw the center of the player icon at
+     * @param y      y coordinate to draw the center of the player icon at
+     */
     private void drawPlayer(Canvas canvas, int x, int y) {
         drawCenterBitmap(canvas, player, x, y);
     }
 
     /**
      * Draw the player
+     *
      * @param canvas the canvas to draw on
      */
     private void drawPlayer(Canvas canvas) {
-        if(!gameState.isOver())
+        if (!gameState.isOver())
             drawPlayer(canvas, gameState.getPlayerDrawX(), gameState.getPlayerDrawY());
     }
 
     /**
      * Draw a coin
+     *
      * @param canvas the canvas to draw on
-     * @param x x coordinate to draw the center of the coin at
-     * @param y y coordinate to draw the center of the coin at
+     * @param x      x coordinate to draw the center of the coin at
+     * @param y      y coordinate to draw the center of the coin at
      */
     private void drawCoin(Canvas canvas, int x, int y) {
         drawCenterBitmap(canvas, coin, x, y);
@@ -171,22 +176,23 @@ public class GameView extends View {
      * Draw game over effects (game over title on screen, score under it and instructions)
      */
     private void drawGameOverEffects(Canvas canvas) {
-        drawCenterBitmap(canvas, gameOver, getWidth()/2, getHeight()/2);
+        drawCenterBitmap(canvas, gameOver, getWidth() / 2, getHeight() / 2);
     }
 
     /**
      * Draw any coins on screen
      */
     private void drawCoins(Canvas canvas) {
-        if(gameState.shouldDrawCoins())
+        if (gameState.shouldDrawCoins())
             drawCoin(canvas, gameState.getCoinDrawX(), gameState.getCoinDrawY());
     }
 
     /**
      * Draw a laser
+     *
      * @param canvas the canvas to draw on
-     * @param x x coordinate to draw the center of the laser at
-     * @param y y coordinate to draw the center of the laser at
+     * @param x      x coordinate to draw the center of the laser at
+     * @param y      y coordinate to draw the center of the laser at
      */
     private void drawLaser(Canvas canvas, int x, int y) {
         drawCenterBitmap(canvas, laser, x, y);
@@ -194,20 +200,22 @@ public class GameView extends View {
 
     /**
      * Draw any lasers on screen
+     *
      * @param canvas the canvas to draw on
      */
     private void drawLasers(Canvas canvas) {
-        if(gameState.shouldDrawLaser())
+        if (gameState.shouldDrawLaser())
             drawLaser(canvas, gameState.getLaserDrawX(), gameState.getLaserDrawY());
     }
 
     /**
      * Draw information on the screen, which is either the game over information or the current
      * score and lives
+     *
      * @param canvas canvas to draw on
      */
     private void drawInformation(Canvas canvas) {
-        if(gameState.isOver()) {
+        if (gameState.isOver()) {
             drawGameOverEffects(canvas);
         } else {
             drawScore(canvas);
@@ -232,10 +240,10 @@ public class GameView extends View {
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
-    public boolean onTouchEvent(MotionEvent event){
+    public boolean onTouchEvent(MotionEvent event) {
 
         int eventAction = event.getAction();
-        if(eventAction == MotionEvent.ACTION_DOWN){
+        if (eventAction == MotionEvent.ACTION_DOWN) {
             //check whether screen is touched
             gameState.getPlayer().jump();
         }

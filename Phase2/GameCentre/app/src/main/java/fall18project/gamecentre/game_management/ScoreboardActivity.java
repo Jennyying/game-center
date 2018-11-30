@@ -1,18 +1,10 @@
 package fall18project.gamecentre.game_management;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.KeyEvent;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
-import android.widget.TextView;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
 
 import fall18project.gamecentre.R;
 import fall18project.gamecentre.user_management.UserScoreboard;
@@ -25,6 +17,7 @@ public class ScoreboardActivity extends AppCompatActivity {
     private ListView scoreboard;
     private String[] globalScoreTableCache;
     private ArrayAdapter<String> emptyView;
+
     /**
      * Update the global score table cache
      */
@@ -38,8 +31,10 @@ public class ScoreboardActivity extends AppCompatActivity {
     private void displayEmptyScoreboard() {
         scoreboard.setAdapter(emptyView);
     }
+
     /**
      * Display the scoreboard of the UserScoreboard object passed in
+     *
      * @param u scoreboard to display
      */
     private void displayUserScoreboard(UserScoreboard u) {

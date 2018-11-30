@@ -1,9 +1,9 @@
 package fall18project.gamecentre.minesweeper;
 
 import android.content.Context;
+import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.support.v7.widget.AppCompatTextView;
 
 
 public class TileTextView extends AppCompatTextView {

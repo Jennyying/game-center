@@ -1,10 +1,9 @@
 package fall18project.gamecentre.user_management;
 
 import android.content.Intent;
-import android.graphics.drawable.AnimationDrawable;
+import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -15,8 +14,6 @@ import android.widget.Toast;
 import java.util.List;
 
 import fall18project.gamecentre.R;
-import fall18project.gamecentre.StartingActivity;
-import fall18project.gamecentre.user_management.User;
 import fall18project.gamecentre.utilities.WeatherBackground;
 
 /**
@@ -144,12 +141,12 @@ public class LoginActivity extends AppCompatActivity {
         LoginManager.LoginStatus login = loginManager.login(
                 userNameField.getText().toString(),
                 passwordField.getText().toString());
-        switch(login) {
+        switch (login) {
             case LOGIN_BAD_PASSWORD:
                 Toast.makeText(this, "Invalid password", Toast.LENGTH_SHORT).show();
                 break;
             case LOGIN_BAD_USERNAME:
-                Toast.makeText(this,"Invalid username", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Invalid username", Toast.LENGTH_SHORT).show();
                 break;
             case LOGIN_GOOD:
                 //TODO: actually log the user in and return from the activity
