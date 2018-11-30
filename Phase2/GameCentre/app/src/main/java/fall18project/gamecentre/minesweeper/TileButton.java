@@ -7,9 +7,13 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.util.StateSet;
 
+/**
+ * Code adapted from https://github.com/kgleong/minesweeper.
+ */
+
 public class TileButton extends AppCompatButton {
-    public static String TAG = TileButton.class.getName();
     static final int COLOR_OFFSET = 40;
+    public static String TAG = TileButton.class.getName();
 
     public TileButton(Context context, AttributeSet attrs) {
         super(context, attrs);

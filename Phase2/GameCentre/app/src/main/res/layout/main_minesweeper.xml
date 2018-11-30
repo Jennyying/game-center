@@ -1,46 +1,42 @@
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/drawable_terminal_gradient"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:background="@drawable/drawable_terminal_gradient"
     tools:context="fall18project.gamecentre.minesweeper.GameActivity">
 
     <LinearLayout
         android:id="@+id/stats_header_view_group"
         android:layout_width="match_parent"
         android:layout_height="75dp"
-        android:orientation="horizontal"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:layout_marginBottom="@dimen/activity_vertical_margin"
-        >
+        android:orientation="horizontal">
 
         <fall18project.gamecentre.minesweeper.TileTextView
             android:id="@+id/remaining_flags_text_view"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:gravity="center"
             android:textColor="@color/light_blue_200"
             android:textSize="@dimen/large_text_size"
             android:textStyle="bold"
-            android:gravity="center"
-            custom:innerRectColor="@color/blue_grey_900"
-            custom:leftBevelColor="@color/blue_grey_300"
-            custom:topBevelColor="@color/blue_grey_400"
-            custom:rightBevelColor="@color/blue_grey_500"
             custom:bottomBevelColor="@color/blue_grey_700"
             custom:fillPercentage="0.75"
-            />
+            custom:innerRectColor="@color/blue_grey_900"
+            custom:leftBevelColor="@color/blue_grey_300"
+            custom:rightBevelColor="@color/blue_grey_500"
+            custom:topBevelColor="@color/blue_grey_400" />
 
         <ImageView
             android:id="@+id/status_image_view"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            />
+            android:layout_weight="1" />
 
         <fall18project.gamecentre.minesweeper.TileTextView
             android:id="@+id/elapsed_time_text_view"
@@ -48,17 +44,16 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/black"
+            android:gravity="center"
             android:textColor="@color/red_600"
             android:textSize="@dimen/large_text_size"
             android:textStyle="bold"
-            android:gravity="center"
-            custom:innerRectColor="@color/blue_grey_900"
-            custom:leftBevelColor="@color/blue_grey_300"
-            custom:topBevelColor="@color/blue_grey_400"
-            custom:rightBevelColor="@color/blue_grey_500"
             custom:bottomBevelColor="@color/blue_grey_700"
             custom:fillPercentage="0.75"
-            />
+            custom:innerRectColor="@color/blue_grey_900"
+            custom:leftBevelColor="@color/blue_grey_300"
+            custom:rightBevelColor="@color/blue_grey_500"
+            custom:topBevelColor="@color/blue_grey_400" />
     </LinearLayout>
 
     <fall18project.gamecentre.minesweeper.BoardView
@@ -67,55 +62,51 @@
         android:layout_height="match_parent"
         android:layout_below="@id/stats_header_view_group"
         android:background="@android:color/darker_gray"
-        custom:gridLineColor="@color/blue_400"
-        custom:gridLineWidth="3dp"
         custom:borderColor="@color/blue_400"
         custom:borderWidth="2dp"
-        />
+        custom:gridLineColor="@color/blue_400"
+        custom:gridLineWidth="3dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:layout_below="@id/board_layout_view"
-        >
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin">
 
         <fall18project.gamecentre.minesweeper.TileButton
             android:id="@+id/reset_button"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:layout_margin="@dimen/action_button_margin"
+            android:layout_weight="1"
             android:text="@string/reset_button"
+            android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="@dimen/medium_text_size"
-            android:textAllCaps="true"
-            custom:innerRectColor="@color/blue_grey_500"
-            custom:leftBevelColor="@color/blue_grey_300"
-            custom:topBevelColor="@color/blue_grey_400"
-            custom:rightBevelColor="@color/blue_grey_600"
             custom:bottomBevelColor="@color/blue_grey_700"
             custom:fillPercentage="0.75"
-            />
+            custom:innerRectColor="@color/blue_grey_500"
+            custom:leftBevelColor="@color/blue_grey_300"
+            custom:rightBevelColor="@color/blue_grey_600"
+            custom:topBevelColor="@color/blue_grey_400" />
 
         <fall18project.gamecentre.minesweeper.TileButton
             android:id="@+id/finish_button"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:layout_margin="@dimen/action_button_margin"
+            android:layout_weight="1"
             android:text="@string/finish_button"
+            android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="@dimen/medium_text_size"
-            android:textAllCaps="true"
-            custom:innerRectColor="@color/blue_grey_600"
-            custom:leftBevelColor="@color/blue_grey_300"
-            custom:topBevelColor="@color/blue_grey_400"
-            custom:rightBevelColor="@color/blue_grey_500"
             custom:bottomBevelColor="@color/blue_grey_700"
             custom:fillPercentage="0.75"
-            />
+            custom:innerRectColor="@color/blue_grey_600"
+            custom:leftBevelColor="@color/blue_grey_300"
+            custom:rightBevelColor="@color/blue_grey_500"
+            custom:topBevelColor="@color/blue_grey_400" />
 
     </LinearLayout>
 </RelativeLayout>

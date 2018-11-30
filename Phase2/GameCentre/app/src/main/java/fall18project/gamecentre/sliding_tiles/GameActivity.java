@@ -71,6 +71,26 @@ public class GameActivity extends AppCompatActivity implements Observer {
     private GestureDetectGridView gridView;
 
     /**
+     * Return the temporary filename to save games to
+     *
+     * @param cn the current user name
+     * @return the temporary filename to save games to
+     */
+    public static String getTempSaveFilename(String cn) {
+        return SAVE_FILENAME + cn + ".ser";
+    }
+
+    /**
+     * Return the filename to save games to
+     *
+     * @param cn the current user name
+     * @return the filename to save games to
+     */
+    public static String getSaveFilename(String cn) {
+        return SAVE_FILENAME + cn + ".ser";
+    }
+
+    /**
      * Set up the background image for each button based on the master list
      * of positions, and then call the adapter to set the view.
      */
@@ -89,32 +109,12 @@ public class GameActivity extends AppCompatActivity implements Observer {
     }
 
     /**
-     * Return the temporary filename to save games to
-     *
-     * @param cn the current user name
-     * @return the temporary filename to save games to
-     */
-    public static String getTempSaveFilename(String cn) {
-        return SAVE_FILENAME + cn + ".ser";
-    }
-
-    /**
      * Return the filename to save games to
      *
      * @return the filename to save games to
      */
     public String getSaveFilename() {
         return getSaveFilename(userManager.loadCurrentUserName());
-    }
-
-    /**
-     * Return the filename to save games to
-     *
-     * @param cn the current user name
-     * @return the filename to save games to
-     */
-    public static String getSaveFilename(String cn) {
-        return SAVE_FILENAME + cn + ".ser";
     }
 
     /**

@@ -6,11 +6,15 @@ import org.junit.Test;
 import fall18project.gamecentre.reactorcontrol.physics.DestructibleBox;
 import fall18project.gamecentre.reactorcontrol.physics.MassivePoint;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 @SuppressWarnings("deprecation")
 public class DestructibleBoxTest extends MassiveBoxTest {
-    /** The DestructibleBox for testing */
+    /**
+     * The DestructibleBox for testing
+     */
     private MassivePoint massivePoint;
     private DestructibleBox destructibleBoxAlive;
     private DestructibleBox destructibleBoxNotAlive;
@@ -27,14 +31,18 @@ public class DestructibleBoxTest extends MassiveBoxTest {
 
     }
 
-    /** Test whether the box has already interacted with the player*/
+    /**
+     * Test whether the box has already interacted with the player
+     */
     @Test
     public void keepAlive() {
         assertFalse(destructibleBoxAlive.keepAlive());
         assertTrue(destructibleBoxNotAlive.keepAlive());
     }
+
     /**
-     * Test if a destructibleBox is make alive again*/
+     * Test if a destructibleBox is make alive again
+     */
     @Test
     public void makeAlive() {
         destructibleBoxAlive.makeAlive();

@@ -172,7 +172,7 @@ public class LoginManager implements Saveable {
      * @param fileName file to attempt to store the password database to
      */
     private void storeToFile(Context context, String fileName) {
-        if(context == null) return;
+        if (context == null) return;
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
                     context.openFileOutput(fileName, Context.MODE_PRIVATE));

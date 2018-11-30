@@ -75,19 +75,19 @@ public class ShiftablePoint extends Point implements Shiftable, Serializable {
     }
 
     /**
-     * Get the point's y coordinate
-     */
-    public double getY() {
-        return y;
-    }
-
-    /**
      * Set the point's x position
      *
      * @param x the point's new x position
      */
     public void setX(double x) {
         this.x = x;
+    }
+
+    /**
+     * Get the point's y coordinate
+     */
+    public double getY() {
+        return y;
     }
 
     /**

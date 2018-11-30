@@ -24,15 +24,18 @@ import fall18project.gamecentre.game_management.SessionScore;
 import fall18project.gamecentre.user_management.UserManager;
 
 /**
+ * Code adapted from https://github.com/kgleong/minesweeper.
+ */
+
+
+/**
  * the game activity
  */
 public class GameActivity extends AppCompatActivity implements GameManager.Listener {
-    public static Bus gameBus = new Bus();
-
     static final int IN_PLAY_LEVEL = 0;
     static final int WON_LEVEL = 1;
     static final int LOST_LEVEL = 2;
-
+    public static Bus gameBus = new Bus();
     @Bind(R.id.board_layout_view)
     BoardView boardView;
     @Bind(R.id.remaining_flags_text_view)
@@ -78,16 +81,6 @@ public class GameActivity extends AppCompatActivity implements GameManager.Liste
 
     private Timer timer;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_minesweeper);
-        ButterKnife.bind(this);
-
-        setupViews();
-        setupGame();
-    }
-
     /**
      * @return the game bus for carrying game events
      */
@@ -96,6 +89,16 @@ public class GameActivity extends AppCompatActivity implements GameManager.Liste
             gameBus = new Bus();
         }
         return gameBus;
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main_minesweeper);
+        ButterKnife.bind(this);
+
+        setupViews();
+        setupGame();
     }
 
     /**

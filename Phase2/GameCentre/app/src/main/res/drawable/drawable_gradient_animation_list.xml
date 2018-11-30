@@ -12,5 +12,5 @@
         android:duration="15000" />
     <item
         android:drawable="@drawable/drawable_rainbow_gradient"
-        android:duration="15000"/>
+        android:duration="15000" />
 </animation-list>

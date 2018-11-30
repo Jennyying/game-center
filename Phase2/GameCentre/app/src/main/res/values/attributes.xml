@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="BoardView">
-        <attr name="gridLineColor" format="color"/>
-        <attr name="gridLineWidth" format="dimension"/>
+        <attr name="gridLineColor" format="color" />
+        <attr name="gridLineWidth" format="dimension" />
         <attr name="borderColor" format="color" />
         <attr name="borderWidth" format="dimension" />
     </declare-styleable>

@@ -5,6 +5,9 @@ import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 import android.util.Log;
 
+/**
+ * Code adapted from https://github.com/kgleong/minesweeper.
+ */
 
 public class TileTextView extends AppCompatTextView {
     public static String TAG = TileTextView.class.getName();

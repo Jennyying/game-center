@@ -8,14 +8,13 @@ import java.io.Serializable;
 public class CoinBox extends DestructibleBox implements PlayerInteractable, Serializable {
 
     /**
-     * The amount that this CoinBox increments the score by
-     */
-    private long scoreIncrement;
-
-    /**
      * The default mass for a CoinBox
      */
     public static final double DEFAULT_COINBOX_MASS = 1;
+    /**
+     * The amount that this CoinBox increments the score by
+     */
+    private long scoreIncrement;
 
 
     /**

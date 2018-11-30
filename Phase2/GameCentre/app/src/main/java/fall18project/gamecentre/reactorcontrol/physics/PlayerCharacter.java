@@ -8,26 +8,6 @@ import java.io.Serializable;
 public class PlayerCharacter extends DestructibleBox implements Serializable {
 
     /**
-     * The player's current shield
-     */
-    private double shield;
-
-    /**
-     * The player's current health
-     */
-    private int health;
-
-    /**
-     * The player's current score
-     */
-    private long score = 0;
-
-    /**
-     * The players jumping strength
-     */
-    private double jumpStrength = 1000;
-
-    /**
      * The default X radius of the bounding box surrounding the center of the player to check for collisions.
      */
     public static final double DEFAULT_BOUNDING_BOX_X_RADIUS = 150;
@@ -39,6 +19,22 @@ public class PlayerCharacter extends DestructibleBox implements Serializable {
      * The default starting mass for player characters
      */
     public static final double DEFAULT_PLAYER_MASS = 80;
+    /**
+     * The player's current shield
+     */
+    private double shield;
+    /**
+     * The player's current health
+     */
+    private int health;
+    /**
+     * The player's current score
+     */
+    private long score = 0;
+    /**
+     * The players jumping strength
+     */
+    private double jumpStrength = 1000;
 
     /**
      * Construct a new player at a given point, with a given size, mass and starting health and shield

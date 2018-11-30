@@ -6,6 +6,11 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Stack;
 
+/**
+ * Code adapted from https://github.com/kgleong/minesweeper.
+ */
+
+
 public class Game {
 
     private GameManager gameManager;

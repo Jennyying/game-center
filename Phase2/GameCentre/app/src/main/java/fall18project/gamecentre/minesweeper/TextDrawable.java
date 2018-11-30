@@ -8,6 +8,10 @@ import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 
+/**
+ * Code adapted from https://github.com/kgleong/minesweeper.
+ */
+
 public class TextDrawable extends Drawable {
     static final float DEFAULT_FILL_PERCENT = 0.75f;
 

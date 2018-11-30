@@ -111,22 +111,21 @@ public class MassiveBox extends Box implements Pushable, Serializable {
     }
 
     /**
-     * Get the centre's Y coordinate
-     *
-     * @return the centre's Y coordinate
-     */
-    public double getCentreY() {
-        return centre.getY();
-    }
-
-
-    /**
      * Set the centre's X coordinate
      *
      * @param x the centre's new X coordinate
      */
     public void setCentreX(double x) {
         centre.setX(x);
+    }
+
+    /**
+     * Get the centre's Y coordinate
+     *
+     * @return the centre's Y coordinate
+     */
+    public double getCentreY() {
+        return centre.getY();
     }
 
     /**
@@ -223,21 +222,21 @@ public class MassiveBox extends Box implements Pushable, Serializable {
     }
 
     /**
-     * Get the Y radius
-     *
-     * @return the box's Y radius
-     */
-    public double getYRadius() {
-        return yRadius;
-    }
-
-    /**
      * Set the X radius
      *
      * @param x the box's new X radius
      */
     public void setXRadius(double x) {
         xRadius = x;
+    }
+
+    /**
+     * Get the Y radius
+     *
+     * @return the box's Y radius
+     */
+    public double getYRadius() {
+        return yRadius;
     }
 
     /**

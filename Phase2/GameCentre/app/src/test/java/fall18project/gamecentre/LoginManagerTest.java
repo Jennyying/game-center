@@ -7,7 +7,6 @@ import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Set;
 
 import fall18project.gamecentre.user_management.LoginManager;
 
@@ -22,13 +21,13 @@ public class LoginManagerTest {
     /**
      * The login manager to test, which will be existing only in RAM (and hence have null context)
      */
-    LoginManager loginManager = new LoginManager((Context)null);
+    LoginManager loginManager = new LoginManager((Context) null);
 
     @Before
     public void setUp() {
         loginManager.registerUser("Aragorn", "Narsil123");
         loginManager.registerUser("Gandalf", "Mithrandir");
-        loginManager.registerUser("Frodo","Precious");
+        loginManager.registerUser("Frodo", "Precious");
         loginManager.registerUser("The Globgogabgelab", "Yeast");
         loginManager.registerUser("Meme Man", "Never Trust Orang");
     }
@@ -56,7 +55,7 @@ public class LoginManagerTest {
     @Test
     public void getUserNames() {
         String[] userNameArray = {
-            "Aragorn", "Gandalf", "Frodo", "The Globgogabgelab", "Meme Man"
+                "Aragorn", "Gandalf", "Frodo", "The Globgogabgelab", "Meme Man"
         };
 
         /**

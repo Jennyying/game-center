@@ -243,7 +243,7 @@ public class GameView extends View {
     }
 
     private void recordScore() {
-        if(!scoreRecorded) {
+        if (!scoreRecorded) {
             gameScoreboardManager.addScoreForGame(userManager, new SessionScore(
                     userManager.loadCurrentUserName(),
                     GameActivity.GAME_NAME,
@@ -270,7 +270,7 @@ public class GameView extends View {
         drawLasers(canvas);
         drawCoins(canvas);
         drawInformation(canvas);
-        if(gameState.isOver()) recordScore();
+        if (gameState.isOver()) recordScore();
     }
 
     @SuppressLint("ClickableViewAccessibility")
