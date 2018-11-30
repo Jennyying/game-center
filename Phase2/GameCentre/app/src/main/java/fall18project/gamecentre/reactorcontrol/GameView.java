@@ -8,6 +8,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.graphics.drawable.GradientDrawable;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
@@ -56,6 +57,11 @@ public class GameView extends View {
      * Paint for displaying the score
      */
     private Paint paintScore = new Paint();
+
+    /**
+     * A gradient background
+     */
+    private GradientDrawable gradientBackground;
 
     public GameView(Context context) {
         super(context);
@@ -169,6 +175,7 @@ public class GameView extends View {
      * @param y      y coordinate to draw the center of the player icon at
      */
     private void drawPlayer(Canvas canvas, int x, int y) {
+        if(gradientBackground != null) gradientBackground.setLevel(4 * y);
         drawCenterBitmap(canvas, player, x, y);
     }
 
@@ -283,6 +290,15 @@ public class GameView extends View {
             gameState.getPlayer().jump();
         }
         return true;
+    }
+
+    /**
+     * Set the background to be the gradient g
+     * @param g the gradient to use as background
+     */
+    public void setGradientBackground(GradientDrawable g) {
+        setBackground(g);
+        gradientBackground = g;
     }
 }
 
