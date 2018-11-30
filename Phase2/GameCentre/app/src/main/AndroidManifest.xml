@@ -12,6 +12,7 @@
         <activity android:name=".StartingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -22,8 +23,10 @@
         <activity android:name=".user_management.LoginActivity" />
         <activity android:name=".user_management.NewUserActivity" />
         <activity android:name=".IntroductionActivity" />
-        <activity android:name=".ChooseGameActivity"></activity>
-        <activity android:name=".minesweeper.GameActivity"></activity>
+        <activity android:name=".ChooseGameActivity"/>
+        <activity android:name=".minesweeper.GameActivity"/>
+        <activity android:name=".reactorcontrol.MainActivity"/>
+        <activity android:name=".reactorcontrol.GameActivity"/>
     </application>
 
 </manifest>

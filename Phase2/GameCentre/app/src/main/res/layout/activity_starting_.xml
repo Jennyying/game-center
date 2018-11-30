@@ -98,6 +98,26 @@
                 android:text="@string/text_sign_in" />
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/currentlyLoggedIn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20pt"
+            android:text="@string/text_not_logged_in"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:typeface="monospace" />
+
+        <TextView
+            android:id="@+id/currentUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textColor="@color/amber_600"
+            android:textSize="24sp"
+            android:typeface="monospace"
+            tools:text="SampleUsername" />
+
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
