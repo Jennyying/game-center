@@ -18,11 +18,6 @@ public class GameActivity extends AppCompatActivity {
     private GameView gameView;
 
     /**
-     * Handler for scheduling frame draws
-     */
-    private Handler handler = new Handler();
-
-    /**
      * Time interval between frames
      */
     private final static long TIME_INTERVAL = 30;
@@ -42,13 +37,7 @@ public class GameActivity extends AppCompatActivity {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        if(gameView.isOver()) gameOver();
-                        gameView.invalidate();
-                    }
-                });
+                gameView.invalidate();
             }
         },0, TIME_INTERVAL);
     }
@@ -58,7 +47,6 @@ public class GameActivity extends AppCompatActivity {
      */
     private void gameOver() {
         Intent over = new Intent(this, GameOverActivity.class);
-        handler.removeCallbacksAndMessages(null);
         /*over.putExtra("score", gameView.getScore());
         over.putExtra("gameName", "reactorControl");
         over.putExtra("userName", userName);*/

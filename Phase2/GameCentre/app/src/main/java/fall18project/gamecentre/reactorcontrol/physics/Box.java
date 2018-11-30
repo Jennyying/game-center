@@ -1,4 +1,4 @@
-package fall18project.gamecentre.reactorcontrol;
+package fall18project.gamecentre.reactorcontrol.physics;
 
 /**
  * A box, something with a centre (having x and y coordinates), an x radius and a y radius

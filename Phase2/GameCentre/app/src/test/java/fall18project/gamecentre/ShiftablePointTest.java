@@ -1,12 +1,11 @@
 package fall18project.gamecentre;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import fall18project.gamecentre.reactorcontrol.Box;
-import fall18project.gamecentre.reactorcontrol.Point;
-import fall18project.gamecentre.reactorcontrol.ShiftablePoint;
+import fall18project.gamecentre.reactorcontrol.physics.Box;
+import fall18project.gamecentre.reactorcontrol.physics.Point;
+import fall18project.gamecentre.reactorcontrol.physics.ShiftablePoint;
 
 import static org.junit.Assert.*;
 

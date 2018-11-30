@@ -1,4 +1,4 @@
-package fall18project.gamecentre.reactorcontrol;
+package fall18project.gamecentre.reactorcontrol.physics;
 
 /**
  * An object which moves with a certain velocity

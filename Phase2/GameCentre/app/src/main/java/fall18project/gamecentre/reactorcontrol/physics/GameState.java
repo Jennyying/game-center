@@ -1,6 +1,13 @@
-package fall18project.gamecentre.reactorcontrol;
+package fall18project.gamecentre.reactorcontrol.physics;
 
 import java.io.Serializable;
+
+import fall18project.gamecentre.reactorcontrol.physics.CoinBox;
+import fall18project.gamecentre.reactorcontrol.physics.DamagingBox;
+import fall18project.gamecentre.reactorcontrol.physics.MassivePoint;
+import fall18project.gamecentre.reactorcontrol.physics.PlayerCharacter;
+import fall18project.gamecentre.reactorcontrol.physics.Pushable;
+import fall18project.gamecentre.reactorcontrol.physics.Screen;
 
 /**
  * The state of a JumpingRabbit game, including:
@@ -17,7 +24,7 @@ public class GameState implements Serializable {
     /**
      * The maximum reward from touching a CoinBox
      */
-    private static final long MAX_REWARD = 15000;
+    private static final long MAX_REWARD = 3000;
 
     /**
      * The minimum reward from touching a CoinBox

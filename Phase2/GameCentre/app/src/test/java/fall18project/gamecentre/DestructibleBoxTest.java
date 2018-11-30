@@ -3,8 +3,8 @@ package fall18project.gamecentre;
 import org.junit.Before;
 import org.junit.Test;
 
-import fall18project.gamecentre.reactorcontrol.DestructibleBox;
-import fall18project.gamecentre.reactorcontrol.MassivePoint;
+import fall18project.gamecentre.reactorcontrol.physics.DestructibleBox;
+import fall18project.gamecentre.reactorcontrol.physics.MassivePoint;
 
 import static org.junit.Assert.*;
 

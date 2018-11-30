@@ -2,6 +2,7 @@ package fall18project.gamecentre.reactorcontrol;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -12,6 +13,12 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import fall18project.gamecentre.R;
+import fall18project.gamecentre.reactorcontrol.physics.CoinBox;
+import fall18project.gamecentre.reactorcontrol.physics.DamagingBox;
+import fall18project.gamecentre.reactorcontrol.physics.GameState;
+import fall18project.gamecentre.reactorcontrol.physics.MassivePoint;
+import fall18project.gamecentre.reactorcontrol.physics.PlayerCharacter;
+import fall18project.gamecentre.user_management.GameOverActivity;
 
 public class GameView extends View {
     /**

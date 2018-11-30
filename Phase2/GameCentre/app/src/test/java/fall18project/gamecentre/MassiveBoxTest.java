@@ -1,13 +1,10 @@
 package fall18project.gamecentre;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import fall18project.gamecentre.reactorcontrol.MassiveBox;
-import fall18project.gamecentre.reactorcontrol.MassivePoint;
-
-import static org.junit.Assert.*;
+import fall18project.gamecentre.reactorcontrol.physics.MassiveBox;
+import fall18project.gamecentre.reactorcontrol.physics.MassivePoint;
 
 public class MassiveBoxTest {
     /** The Massive Box for testing */
