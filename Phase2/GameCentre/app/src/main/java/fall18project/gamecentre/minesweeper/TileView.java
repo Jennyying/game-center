@@ -81,7 +81,7 @@ public class TileView extends View {
         this.xCoord = xCoord;
         this.yCoord = yCoord;
 
-        gameBus = MainApp.getGameBus();
+        gameBus = GameActivity.getGameBus();
         setupDrawableBackgrounds();
         setupListeners();
     }

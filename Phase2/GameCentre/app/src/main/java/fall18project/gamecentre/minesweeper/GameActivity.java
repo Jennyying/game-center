@@ -14,13 +14,14 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import java.util.Timer;
 import java.util.TimerTask;
-
+import com.squareup.otto.Bus;
 import fall18project.gamecentre.R;
 
 /**
  * the game activity
  */
 public class GameActivity extends AppCompatActivity implements GameManager.Listener {
+    public static Bus gameBus = new Bus();
 
     static final int IN_PLAY_LEVEL = 0;
     static final int WON_LEVEL = 1;
@@ -51,6 +52,13 @@ public class GameActivity extends AppCompatActivity implements GameManager.Liste
 
         setupViews();
         setupGame();
+    }
+
+    public static Bus getGameBus(){
+        if(gameBus == null){
+            gameBus = new Bus();
+        }
+        return gameBus;
     }
 
     private void setupGame() {

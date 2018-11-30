@@ -67,7 +67,7 @@ public class BoardView extends ViewGroup {
     public BoardView(Context context, AttributeSet attributeSet){
         super(context, attributeSet);
 
-        gameBus = MainApp.getGameBus();
+        gameBus = GameActivity.getGameBus();
         setWillNotDraw(false);
         extractAttributes(attributeSet);
         setupDrawObjects();

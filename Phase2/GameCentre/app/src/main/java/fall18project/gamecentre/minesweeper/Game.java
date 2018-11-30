@@ -55,7 +55,7 @@ public class Game {
         tileViewsGrid = new TileView[dimension][dimension];
 
         // Register to receive game state change events
-        MainApp.getGameBus().register(this);
+        GameActivity.getGameBus().register(this);
 
         // Publish initial stats
         gameManager.publishFlagsRemainingCount(numFlagsRemaining);
@@ -63,7 +63,7 @@ public class Game {
     }
 
     public void unregisterFromEventBus() {
-        MainApp.getGameBus().unregister(this);
+        GameActivity.getGameBus().unregister(this);
     }
     /**
      * Set the start time to current time.
