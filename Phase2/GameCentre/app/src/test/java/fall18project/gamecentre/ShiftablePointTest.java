@@ -1,4 +1,4 @@
-package fall18project.gamecentre.reactorcontrol.jumpprototype;
+package fall18project.gamecentre;
 
 import org.junit.After;
 import org.junit.Before;
