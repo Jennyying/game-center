@@ -4,10 +4,12 @@ import android.graphics.drawable.AnimationDrawable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -79,6 +81,7 @@ public class LoginActivity extends AppCompatActivity {
         passwordField = findViewById(R.id.password);
 
         setUpUsernameFieldAutocomplete();
+        setUpLoginButtion();
     }
 
     /**
@@ -88,6 +91,40 @@ public class LoginActivity extends AppCompatActivity {
         userNameField.setAdapter(new ArrayAdapter<>(this,
                 android.R.layout.simple_dropdown_item_1line,
                 usernameList));
+    }
+
+    /**
+     * Set up the login button to return from the activity if the login is valid with an intent
+     * indicating the new logged in user, or make a Toast if the login is invalid
+     */
+    private void setUpLoginButtion() {
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                attemptLogin();
+            }
+        });
+    }
+
+    /**
+     * Attempt to login
+     */
+    private void attemptLogin() {
+        LoginManager.LoginStatus login = loginManager.login(
+                userNameField.getText().toString(),
+                passwordField.getText().toString());
+        switch(login) {
+            case LOGIN_BAD_PASSWORD:
+                Toast.makeText(this, "Invalid password", Toast.LENGTH_SHORT).show();
+                break;
+            case LOGIN_BAD_USERNAME:
+                Toast.makeText(this,"Invalid username", Toast.LENGTH_SHORT).show();
+                break;
+            case LOGIN_GOOD:
+                //TODO: actually log the user in and return from the activity
+                Toast.makeText(this, "Logged in!", Toast.LENGTH_SHORT).show();
+                break;
+        }
     }
 
     @Override
