@@ -77,7 +77,7 @@ public class PlayerCharacter extends DestructibleBox implements Serializable {
      * Check whether the player has health remaining
      * @return whether the player has any health remaining
      */
-    public boolean hasHealth() {return health == 0;}
+    public boolean hasHealth() {return health > 0;}
 
     /**
      * Decrement the player's current health

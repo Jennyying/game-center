@@ -81,14 +81,6 @@ public class GameView extends View {
     }
 
     /**
-     * Return whether the game in this GameView is over
-     * @return whether the game is over
-     */
-    public boolean isOver() {
-        return gameState.isOver();
-    }
-
-    /**
      * Return the score of this game
      * @return the score
      */
@@ -166,7 +158,8 @@ public class GameView extends View {
      * @param canvas the canvas to draw on
      */
     private void drawPlayer(Canvas canvas) {
-        drawPlayer(canvas, gameState.getPlayerDrawX(), gameState.getPlayerDrawY());
+        if(!gameState.isOver())
+            drawPlayer(canvas, gameState.getPlayerDrawX(), gameState.getPlayerDrawY());
     }
 
     /**
