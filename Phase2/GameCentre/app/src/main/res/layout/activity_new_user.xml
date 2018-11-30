@@ -20,6 +20,7 @@
         app:srcCompat="@drawable/clippy" />
 
     <LinearLayout
+        android:id="@+id/yesButtonLayout"
         android:layout_width="365dp"
         android:layout_height="98dp"
         android:layout_marginStart="8dp"
@@ -50,12 +51,14 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="368dp"
+        android:id="@+id/newUserLayout"
+        android:layout_width="wrap_content"
         android:layout_height="442dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:orientation="vertical"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -64,6 +67,7 @@
             android:id="@+id/textView6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
             android:text="@string/text_new_user_intro_pushed"
             android:textColor="@color/colorMist_900" />
 
@@ -81,6 +85,8 @@
             android:id="@+id/textView11"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="20dp"
             android:text="@string/text_new_user_remind_name"
             android:textColor="@color/colorMist_900" />
 
@@ -101,15 +107,18 @@
 
             <Button
                 android:id="@+id/confirmUsername"
+                style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/invalid_username" />
+                android:text="@string/text_invalid_username" />
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/setPasswordLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -127,7 +136,7 @@
                     android:textColor="@color/colorMist_900" />
 
                 <TextView
-                    android:id="@+id/textView16"
+                    android:id="@+id/current_username"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"

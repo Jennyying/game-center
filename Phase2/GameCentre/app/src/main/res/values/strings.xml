@@ -36,7 +36,9 @@
     <string name="text_password_confirmed">
         Cool password! So, tell me when you\'re ready, and I\'ll go ahead and register you. Then I can give you a brief introduction, if you\'d like.
     </string>
-    <string name="invalid_username">Invalid</string>
+    <string name="text_invalid_username">Invalid</string>
+    <string name="text_choose_username">Select</string>
+    <string name="text_taken_username">Taken</string>
     <string name="clippy">Clippy</string>
     <string name="text_yes_button">Yes</string>
     <string name="text_hint_gamename">Game</string>
