@@ -152,7 +152,6 @@ public class GameState implements Serializable {
         if (laserSpawnTimer > LASER_SPAWN_TIMEOUT || !laser.collidesWith(screen)) {
             double newLaserX = screen.getCentreX() + screen.getXRadius() - 1;
             double newLaserY = (2 * Math.random() - 1) * 0.7 * screen.getYRadius() + screen.getCentreY();
-            //TODO: set speed properly
             double newLaserVx = -28;
             double newLaserVy = 0;
             laser.respawn(newLaserX, newLaserY, newLaserVx, newLaserVy);
@@ -209,8 +208,10 @@ public class GameState implements Serializable {
         updateRewardPosition();
         updatePlayerPosition();
 
-        player.incrementScore();
-        interactWithPlayer();
+        if(!isOver()) {
+            player.incrementScore();
+            interactWithPlayer();
+        }
     }
 
     /**
