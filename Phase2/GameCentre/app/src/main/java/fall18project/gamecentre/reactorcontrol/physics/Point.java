@@ -1,4 +1,7 @@
-package fall18project.gamecentre.reactorcontrol;
+package fall18project.gamecentre.reactorcontrol.physics;
+
+import fall18project.gamecentre.reactorcontrol.physics.Box;
+import fall18project.gamecentre.reactorcontrol.physics.BoxCollideable;
 
 /**
  * An abstract point in 2D, Euclidean space

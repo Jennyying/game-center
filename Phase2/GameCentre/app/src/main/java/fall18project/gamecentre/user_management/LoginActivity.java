@@ -15,6 +15,7 @@ import android.widget.Toast;
 import java.util.List;
 
 import fall18project.gamecentre.R;
+import fall18project.gamecentre.StartingActivity;
 import fall18project.gamecentre.user_management.User;
 import fall18project.gamecentre.utilities.WeatherBackground;
 
@@ -27,6 +28,11 @@ public class LoginActivity extends AppCompatActivity {
      * Login management system
      */
     private LoginManager loginManager;
+
+    /**
+     * User management system (to deal with current logged in user)
+     */
+    private UserManager userManager;
 
     /**
      * A list of all usernames in the login management system. We can compute this on creation, and
@@ -67,7 +73,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        loginManager = new LoginManager(this, LoginManager.DEFAULT_FILE_NAME);
+        loginManager = new LoginManager(this);
+        userManager = new UserManager(this);
         computeUsernameList();
 
         setUpInterface();
@@ -146,7 +153,8 @@ public class LoginActivity extends AppCompatActivity {
                 break;
             case LOGIN_GOOD:
                 //TODO: actually log the user in and return from the activity
-                Toast.makeText(this, "Logged in!", Toast.LENGTH_SHORT).show();
+                userManager.setCurrentUser(userNameField.getText().toString());
+                finish();
                 break;
         }
     }

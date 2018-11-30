@@ -29,6 +29,11 @@ public class NewUserActivity extends AppCompatActivity {
     private LoginManager loginManager;
 
     /**
+     * A user manager to handle updating the current user
+     */
+    private UserManager userManager;
+
+    /**
      * A handle to animate the clippy image used as mascot.
      */
     private ImageView clippy;
@@ -83,7 +88,8 @@ public class NewUserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_user);
 
-        loginManager = new LoginManager(this, LoginManager.DEFAULT_FILE_NAME);
+        loginManager = new LoginManager(this);
+        userManager = new UserManager(this);
         setUpInterface();
     }
 
@@ -120,6 +126,7 @@ public class NewUserActivity extends AppCompatActivity {
      */
     private void goToIntroduction() {
         Intent introduction = new Intent(this, IntroductionActivity.class);
+        userManager.setCurrentUser(currentUsername);
         startActivity(introduction);
     }
 
@@ -128,6 +135,7 @@ public class NewUserActivity extends AppCompatActivity {
      */
     private void goToChooseGame() {
         Intent chooseGame = new Intent(this, ChooseGameActivity.class);
+        userManager.setCurrentUser(currentUsername);
         startActivity(chooseGame);
     }
 

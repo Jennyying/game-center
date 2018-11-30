@@ -1,4 +1,4 @@
-package fall18project.gamecentre.reactorcontrol;
+package fall18project.gamecentre.reactorcontrol.physics;
 
 /**
  * An object which can be pushed with a force in the X and Y directions, impacting its velocity.
