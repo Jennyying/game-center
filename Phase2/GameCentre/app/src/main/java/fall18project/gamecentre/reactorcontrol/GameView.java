@@ -26,25 +26,19 @@ public class GameView extends View {
      */
     private GameState gameState;
 
-    private int poisonVelocity = 25;
-    private int poisonX;
-    private int poisonY;
-
     /**
      * Bitmaps to display
      */
     private Bitmap player;
     private Bitmap coin;
     private Bitmap laser;
-
-    //carrot
-    private int carrotVelocity = 17;
-    private int carrotX;
-    private int carrotY;
-
-    //life
     private Bitmap life;
-    //score
+    private Bitmap gameOver;
+
+
+    /**
+     * Paint for displaying the score
+     */
     private Paint paintScore = new Paint();
 
     /**
@@ -55,6 +49,7 @@ public class GameView extends View {
         coin = BitmapFactory.decodeResource(getResources(), R.drawable.coin);
         laser = BitmapFactory.decodeResource(getResources(), R.drawable.laser);
         life = BitmapFactory.decodeResource(getResources(), R.drawable.heart);
+        gameOver = BitmapFactory.decodeResource(getResources(), R.drawable.gameover);
     }
 
     public GameView(Context context) {
@@ -78,14 +73,6 @@ public class GameView extends View {
         paintScore.setTextSize(32);
         paintScore.setTypeface(Typeface.MONOSPACE);
         paintScore.setAntiAlias(true);
-    }
-
-    /**
-     * Return whether the game in this GameView is over
-     * @return whether the game is over
-     */
-    public boolean isOver() {
-        return gameState.isOver();
     }
 
     /**
@@ -166,7 +153,8 @@ public class GameView extends View {
      * @param canvas the canvas to draw on
      */
     private void drawPlayer(Canvas canvas) {
-        drawPlayer(canvas, gameState.getPlayerDrawX(), gameState.getPlayerDrawY());
+        if(!gameState.isOver())
+            drawPlayer(canvas, gameState.getPlayerDrawX(), gameState.getPlayerDrawY());
     }
 
     /**
@@ -177,6 +165,13 @@ public class GameView extends View {
      */
     private void drawCoin(Canvas canvas, int x, int y) {
         drawCenterBitmap(canvas, coin, x, y);
+    }
+
+    /**
+     * Draw game over effects (game over title on screen, score under it and instructions)
+     */
+    private void drawGameOverEffects(Canvas canvas) {
+        drawCenterBitmap(canvas, gameOver, getWidth()/2, getHeight()/2);
     }
 
     /**
@@ -206,6 +201,19 @@ public class GameView extends View {
             drawLaser(canvas, gameState.getLaserDrawX(), gameState.getLaserDrawY());
     }
 
+    /**
+     * Draw information on the screen, which is either the game over information or the current
+     * score and lives
+     * @param canvas canvas to draw on
+     */
+    private void drawInformation(Canvas canvas) {
+        if(gameState.isOver()) {
+            drawGameOverEffects(canvas);
+        } else {
+            drawScore(canvas);
+        }
+    }
+
 
     @Override
     protected void onDraw(Canvas canvas) {
@@ -214,12 +222,12 @@ public class GameView extends View {
         gameState.setScreenSize(canvasWidth, canvasHeight);
         gameState.runTick();
 
-        drawScore(canvas);
-        drawCoordinates(canvas);
+        //drawCoordinates(canvas);
         drawLives(canvas);
         drawPlayer(canvas);
         drawLasers(canvas);
         drawCoins(canvas);
+        drawInformation(canvas);
     }
 
     @SuppressLint("ClickableViewAccessibility")

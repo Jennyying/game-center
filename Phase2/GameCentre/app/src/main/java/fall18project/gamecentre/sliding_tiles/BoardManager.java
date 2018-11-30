@@ -174,7 +174,7 @@ public class BoardManager implements Serializable {
      * @return a session score with the username associated with this board and the score value
      */
     public SessionScore getScore() {
-        return new SessionScore(username, getScoreVal());
+        return new SessionScore(username, GameActivity.GAME_NAME, getScoreVal());
     }
 
     /**
