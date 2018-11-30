@@ -61,7 +61,7 @@ public class Tile {
     /**
      * @return if the tile contains a mine.
      */
-    public boolean doesContainMine() {
+    public boolean containsMine() {
         return containsMine;
     }
 
