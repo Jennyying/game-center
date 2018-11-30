@@ -2,11 +2,13 @@ package fall18project.gamecentre.sliding_tiles;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 
 import java.io.FileNotFoundException;
@@ -29,7 +31,9 @@ public class GameSetupActivity extends AppCompatActivity {
     private UserManager userManager;
 
     private SeekBar complexityBar;
-    private boolean imageSelected = false;
+    private Uri imageSelected = null;
+
+    private ImageView imageSelector;
 
     private int getCurrentComplexity() {
         return complexityBar.getProgress() + 2;
@@ -60,6 +64,17 @@ public class GameSetupActivity extends AppCompatActivity {
 
         complexityBar = (SeekBar) findViewById(R.id.seekBar);
         addPlayButtonListener();
+        addImageSelector();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == PICK_PHOTO_FOR_PUZZLE) {
+            if(resultCode == RESULT_OK) {
+                imageSelected = data.getData();
+                imageSelector.setImageURI(imageSelected);
+            }
+        }
     }
 
     /**
@@ -75,19 +90,17 @@ public class GameSetupActivity extends AppCompatActivity {
         });
     }
 
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PICK_PHOTO_FOR_PUZZLE && resultCode == Activity.RESULT_OK) {
-            if (data == null || data.getData() == null) return;
-            try {
-                InputStream is = getApplicationContext().getContentResolver().
-                        openInputStream(data.getData());
-            } catch (FileNotFoundException f) {
-                f.printStackTrace();
+    /**
+     * Activate the image selector
+     */
+    private void addImageSelector() {
+        imageSelector = findViewById(R.id.imageSelected);
+        imageSelector.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectImage();
             }
-        }
+        });
     }
 
     /**

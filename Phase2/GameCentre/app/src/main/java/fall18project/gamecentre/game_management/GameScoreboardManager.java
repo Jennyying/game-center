@@ -91,6 +91,8 @@ public class GameScoreboardManager {
         GameScoreboard loaded = null;
         String toLoadFrom = scorePrefix + gameName + ".ser";
 
+        Log.v("scoreboard manager", "attempting to load " + toLoadFrom);
+
         try {
             InputStream inputStream = context.openFileInput(toLoadFrom);
             if (inputStream != null) {
@@ -100,14 +102,16 @@ public class GameScoreboardManager {
             }
             if (loaded == null) return null;
         } catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + e.toString());
+            Log.e("scoreboard manager", "File not found: " + e.toString());
             return null;
         } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
+            Log.e("scoreboard manager", "Can not read file: " + e.toString());
             return null;
         } catch (ClassNotFoundException e) {
-            Log.e("login activity", "File contained unexpected data type: " + e.toString());
+            Log.e("scoreboard manager", "File contained unexpected data type: " + e.toString());
             return null;
+        } catch (NullPointerException e) {
+            Log.e("scoreboard manager", "NullPointerException");
         }
 
         return loaded;
