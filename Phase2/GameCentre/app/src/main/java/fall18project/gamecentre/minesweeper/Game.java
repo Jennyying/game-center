@@ -3,6 +3,7 @@ package fall18project.gamecentre.minesweeper;
 import com.squareup.otto.Subscribe;
 
 import java.util.HashSet;
+import java.util.Queue;
 import java.util.Set;
 import java.util.Stack;
 
@@ -13,11 +14,28 @@ import java.util.Stack;
 
 public class Game {
 
+    public static int DEFAULT_MAX_UNDOS = 3;
+
     private GameManager gameManager;
     /**
      * The board being played.
      */
     private Board board;
+
+    /**
+     * The current queue of uncovered tiles
+     */
+    private TileView[] queue = new TileView[DEFAULT_MAX_UNDOS];
+
+    /**
+     * The position in the queue
+     */
+    private int queuePos = 0;
+
+    /**
+     * The amount of undos remaining
+     */
+    private int undos = DEFAULT_MAX_UNDOS;
 
     /**
      * A representation of the board that contains the tiles.
@@ -257,6 +275,10 @@ public class Game {
                 // Uncovering a tile
                 case TileView.LONG_CLICK:
                     if (tileView.getState() == TileView.COVERED) {
+
+                        // Append this to the queue of uncovered tiles
+                        queue[queuePos++ % DEFAULT_MAX_UNDOS] = tileView;
+                        
                         // Even if a player loses, uncover the tile.
                         state = TileView.UNCOVERED;
                         isAllowed = true;
