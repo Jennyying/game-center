@@ -46,11 +46,34 @@ public class GameActivity extends AppCompatActivity implements GameManager.Liste
     @Bind(R.id.status_image_view)
     ImageView statusImageView;
 
+    /**
+     * The manager for the Minesweeper board
+     */
     private GameManager gameManager;
+
+    /**
+     * The manager for the currently logged in user
+     */
     private UserManager userManager = new UserManager(this);
+
+    /**
+     * The manager for the game scoreboards
+     */
     private GameScoreboardManager gameScoreboardManager = new GameScoreboardManager(this);
+
+    /**
+     * The dimension of the board
+     */
     private int dimension = Board.DEFAULT_DIMENSION;
+
+    /**
+     * The number of mines on the board
+     */
     private int numMines = Board.DEFAULT_NUM_MINES;
+
+    /**
+     * The tiles of the board
+     */
     private LevelListDrawable statusImageDrawable;
 
     private Timer timer;
@@ -65,6 +88,9 @@ public class GameActivity extends AppCompatActivity implements GameManager.Liste
         setupGame();
     }
 
+    /**
+     * @return the game bus for carrying game events
+     */
     public static Bus getGameBus() {
         if (gameBus == null) {
             gameBus = new Bus();
@@ -72,6 +98,9 @@ public class GameActivity extends AppCompatActivity implements GameManager.Liste
         return gameBus;
     }
 
+    /**
+     * Set up the Minesweeper game
+     */
     private void setupGame() {
         try {
             gameManager = new GameManager(dimension, numMines, boardView, this);
@@ -81,6 +110,9 @@ public class GameActivity extends AppCompatActivity implements GameManager.Liste
         }
     }
 
+    /**
+     * Set up the game's views
+     */
     private void setupViews() {
         finishButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,6 +142,9 @@ public class GameActivity extends AppCompatActivity implements GameManager.Liste
         setupStatusImageView();
     }
 
+    /**
+     * Sets up the ability of tiles to change from covered to uncovered
+     */
     private void setupStatusImageView() {
         float fillPercent = 0.8f;
         int inPlayOuter = getResources().getColor(R.color.blue_grey_300);
@@ -139,6 +174,9 @@ public class GameActivity extends AppCompatActivity implements GameManager.Liste
         stopTimer();
     }
 
+    /**
+     * Starts the game timer
+     */
     void startTimer() {
         if (gameManager != null && !gameManager.isGameFinished()) {
             gameManager.startTimer();
@@ -163,6 +201,9 @@ public class GameActivity extends AppCompatActivity implements GameManager.Liste
     }
 
 
+    /**
+     * Stops the game timer
+     */
     void stopTimer() {
         if (gameManager != null && timer != null) {
             gameManager.stopTimer();
