@@ -61,4 +61,20 @@
     <string name="text_energycoins">EnergyCoins</string>
     <string name="text_back_to_title">Back to Title</string>
     <string name="text_choose_image">Tap to choose new image</string>
+    <string name="text_intro">
+        It seems like you\'ve awakened a bit early… I wonder why. Ah, now I remember: the ship\'s reactors are failing. Fun!
+        Unfortunately, for security reasons, AIs are not allowed to control the reactors directly. The controls are physical and cannot be connected to through the ShipNet™.
+        We can, however project holograms to drastically simplify the controls. This is where you come in.
+        We have 3 reactor control panels we need you to manage.
+    </string>
+    <string name="text_sliding">
+        One is the "Reactor View", a set of "sliding tiles" that need to be arranged in sorted order. If you fling your ControlScreen™ left, you can undo, and if you fling it right, you can redo.
+    </string>
+    <string name="text_mines">
+        We also have the "Reactor Model", a collection of buttons to move the reactor\'s control rods. We kind of… forgot what each button did, but you can undo up to three erroneous rod insertions by pushing the
+        circular button at the top to inject coolant.
+    </string>
+    <string name="text_control">
+        Finally, we have the reactor controller, where you can try your hand at controlling the reactor\'s throttle. Hit red hot spots and you'll damage a core, hit blue squares and you\'ll increase efficiency
+    </string>
 </resources>
