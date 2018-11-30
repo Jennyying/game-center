@@ -44,8 +44,19 @@ public class StartingActivity extends AppCompatActivity {
     private User currentUser = null;
 
     /**
-     * The text view for the
+     * The text view for the current logged in user
      */
+    private TextView currentUserView;
+
+    /**
+     * The text view for the log in status
+     */
+    private TextView loginStatusView;
+
+    /**
+     * The login button
+     */
+    private Button loginButton;
 
     /**
      * A collection of funny quotes to put in the subtitle
@@ -78,6 +89,10 @@ public class StartingActivity extends AppCompatActivity {
      */
     private TextView subtitleBox = null;
 
+    /**
+     * A request for a logged in user, or null
+     */
+    public static int LOGGED_IN_REQUEST_CODE = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,12 +109,61 @@ public class StartingActivity extends AppCompatActivity {
         super.onResume();
         background.onResume();
         setRandomQuote();
+        updateLoginStatusDisplay();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         background.onPause();
+    }
+
+    /**
+     * Based off code found at
+     * http://www.learn-android-easily.com/2013/03/returning-result-from-activity.html
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == LOGGED_IN_REQUEST_CODE) {
+            String currentUserName = data.getStringExtra("userName");
+            if(currentUserName != null) {
+                currentUser = userManager.getUser(currentUserName);
+            }
+            updateLoginStatusDisplay();
+        }
+    }
+
+    /**
+     * Update login status display
+     */
+    private void updateLoginStatusDisplay() {
+        updateCurrentUserName();
+        updateLoginText();
+    }
+
+    /**
+     * Update the current user name display
+     */
+    private void updateCurrentUserName() {
+        if(currentUser != null) {
+            currentUserView.setText(currentUser.getUserName());
+            loginStatusView.setText(R.string.text_signed_in_as);
+        } else {
+            currentUserView.setText("");
+            loginStatusView.setText(R.string.text_not_logged_in);
+        }
+    }
+
+    /**
+     * Update the text of the login button
+     */
+    private void updateLoginText() {
+        if(currentUser == null) {
+            loginButton.setText(R.string.text_sign_in);
+        } else {
+            loginButton.setText(R.string.text_sign_out);
+        }
     }
 
     /**
@@ -115,6 +179,10 @@ public class StartingActivity extends AppCompatActivity {
         // Start animations
         background.start();
 
+        loginButton = findViewById(R.id.sign);
+        currentUserView = findViewById(R.id.currentUsername);
+        loginStatusView = findViewById(R.id.currentlyLoggedIn);
+
         registerSignInOutButton();
         registerPlayButton();
         registerNewPlayerButton();
@@ -128,11 +196,13 @@ public class StartingActivity extends AppCompatActivity {
      * signed in
      */
     private void registerSignInOutButton() {
-        Button loginButton = findViewById(R.id.sign);
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(currentUser != null) signOutCurrentUser();
+                if(currentUser != null) {
+                    signOutCurrentUser();
+                    updateLoginStatusDisplay();
+                }
                 else goToLogin();
             }
         });
@@ -156,7 +226,7 @@ public class StartingActivity extends AppCompatActivity {
      */
     private void goToLogin() {
         Intent login = new Intent(this, LoginActivity.class);
-        startActivity(login);
+        startActivityForResult(login, LOGGED_IN_REQUEST_CODE);
     }
 
     /**
@@ -202,7 +272,6 @@ public class StartingActivity extends AppCompatActivity {
      */
     private void goToNewUser() {
         Intent newUser = new Intent(this, NewUserActivity.class);
-        newUser.setFlags(newUser.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(newUser);
     }
 

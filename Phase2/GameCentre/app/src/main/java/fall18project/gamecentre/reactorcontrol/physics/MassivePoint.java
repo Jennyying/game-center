@@ -1,4 +1,4 @@
-package fall18project.gamecentre.reactorcontrol;
+package fall18project.gamecentre.reactorcontrol.physics;
 
 import java.io.Serializable;
 

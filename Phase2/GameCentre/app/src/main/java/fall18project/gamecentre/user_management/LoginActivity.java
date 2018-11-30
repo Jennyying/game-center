@@ -15,6 +15,7 @@ import android.widget.Toast;
 import java.util.List;
 
 import fall18project.gamecentre.R;
+import fall18project.gamecentre.StartingActivity;
 import fall18project.gamecentre.user_management.User;
 import fall18project.gamecentre.utilities.WeatherBackground;
 
@@ -146,7 +147,10 @@ public class LoginActivity extends AppCompatActivity {
                 break;
             case LOGIN_GOOD:
                 //TODO: actually log the user in and return from the activity
-                Toast.makeText(this, "Logged in!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent();
+                intent.putExtra("userName", userNameField.getText().toString());
+                setResult(StartingActivity.LOGGED_IN_REQUEST_CODE, intent);
+                finish();
                 break;
         }
     }
