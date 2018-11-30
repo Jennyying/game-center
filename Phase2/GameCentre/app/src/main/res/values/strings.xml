@@ -39,4 +39,14 @@
     <string name="invalid_username">Invalid</string>
     <string name="clippy">Clippy</string>
     <string name="text_yes_button">Yes</string>
+
+    <!--Error Messages-->
+    <string name="over_flag_limit_error">Mine flag limit reached.  Remove at least one mine flag</string>
+    <string name="uncover_tile_error">Must remove mine flag</string>
+    <string name="board_initialization_error">There was a problem setting up the game</string>
+    <string name="finish_button">finish</string>
+    <string name="reset_button">reset</string>
+    <string name="game_reset_error">There was a problem resetting the game</string>
+    <string name="win_message">You won!</string>
+    <string name="loss_message">You lost!</string>
 </resources>
