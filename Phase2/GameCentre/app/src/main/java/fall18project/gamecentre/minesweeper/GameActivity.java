@@ -28,8 +28,9 @@ import fall18project.gamecentre.user_management.UserManager;
  */
 
 
+
 /**
- * the game activity
+ * The game activity
  */
 public class GameActivity extends AppCompatActivity implements GameManager.Listener {
     static final int IN_PLAY_LEVEL = 0;
