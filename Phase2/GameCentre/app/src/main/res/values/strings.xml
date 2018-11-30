@@ -44,4 +44,8 @@
     <string name="text_hint_gamename">Game</string>
     <string name="text_introduction">Start Tutorial</string>
     <string name="text_skip_button">Skip</string>
+    <string name="text_go_to_sliding_tiles">Reactor View</string>
+    <string name="text_go_to_minesweeper">Reactor Model</string>
+    <string name="text_go_to_hyperslide">Reactor Controller</string>
+    <string name="text_go_to_choose_game">Let\'s Go</string>
 </resources>

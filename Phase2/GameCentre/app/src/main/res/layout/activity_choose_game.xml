@@ -6,4 +6,46 @@
     android:layout_height="match_parent"
     tools:context=".ChooseGameActivity">
 
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="163dp"
+        android:layout_height="186dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/clippy" />
+
+    <LinearLayout
+        android:layout_width="395dp"
+        android:layout_height="643dp"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp">
+
+        <Button
+            android:id="@+id/goToMinesweeper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text_go_to_minesweeper" />
+
+        <Button
+            android:id="@+id/goToSlidingTiles"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text_go_to_sliding_tiles" />
+
+        <Button
+            android:id="@+id/goToHyperslide"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text_go_to_hyperslide" />
+
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>
