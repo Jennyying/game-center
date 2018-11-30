@@ -14,7 +14,8 @@ public class MovementController {
     public MovementController() {
     }
 
-    /** Initialises class and sets local boardmanage variable
+    /**
+     * Initialises class and sets local boardmanage variable
      *
      * @param boardManager the boardmanage for this game
      */
@@ -22,12 +23,13 @@ public class MovementController {
         this.boardManager = boardManager;
     }
 
-    /** Processes whether a tap is valid or is a winning tap and displays the relavent information
+    /**
+     * Processes whether a tap is valid or is a winning tap and displays the relavent information
      * to the user
      *
-     * @param context context of the action
+     * @param context  context of the action
      * @param position position of the tap
-     * @param display display condition
+     * @param display  display condition
      */
     public void processTapMovement(Context context, int position, boolean display) {
         if (boardManager.isValidTap(position)) {

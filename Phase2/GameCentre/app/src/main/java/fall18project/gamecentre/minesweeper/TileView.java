@@ -6,11 +6,13 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.LevelListDrawable;
 import android.view.View;
-import fall18project.gamecentre.R;
+
 import com.squareup.otto.Bus;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import fall18project.gamecentre.R;
 
 
 public class TileView extends View {
@@ -27,27 +29,6 @@ public class TileView extends View {
      */
     public static final int CLICK = 0;
     public static final int LONG_CLICK = 1;
-
-    /**
-     * A Level List Drawable for the covered and uncovered states.
-     */
-    private LevelListDrawable drawableContainer;
-
-    /**
-     * The x coordinate of the tile.
-     */
-    private int xCoord;
-
-    /**
-     * The y coordinate of the tile.
-     */
-    private int yCoord;
-
-    /**
-     * A bus to share information between different activities.
-     */
-    private Bus gameBus;
-
     /**
      * A HashMap that maps the number of adjacent mines to colors.
      */
@@ -67,6 +48,23 @@ public class TileView extends View {
         adjacentMinesToColor.put(7, Color.YELLOW);
         adjacentMinesToColor.put(8, Color.MAGENTA);
     }
+
+    /**
+     * A Level List Drawable for the covered and uncovered states.
+     */
+    private LevelListDrawable drawableContainer;
+    /**
+     * The x coordinate of the tile.
+     */
+    private int xCoord;
+    /**
+     * The y coordinate of the tile.
+     */
+    private int yCoord;
+    /**
+     * A bus to share information between different activities.
+     */
+    private Bus gameBus;
 
     /**
      * Setting up the Tile view.
@@ -118,7 +116,7 @@ public class TileView extends View {
         setBackground(drawableContainer);
     }
 
-    private Drawable setupCoveredTile()  {
+    private Drawable setupCoveredTile() {
         int colorInner = Graphics.getColor(getContext(), R.color.blue_grey_200);
         int colorTop = Graphics.getColor(getContext(), R.color.blue_grey_300);
         int colorLeft = Graphics.getColor(getContext(), R.color.blue_grey_400);
@@ -133,17 +131,15 @@ public class TileView extends View {
     public void setupUncoveredTileDrawable(Tile tile) {
         Drawable uncoveredDrawable;
 
-        if(tile != null && tile.containsMine()) {
+        if (tile != null && tile.containsMine()) {
             uncoveredDrawable = new ConcentricCirclesDrawable(new int[]{Color.RED, Color.BLACK}, 0.50f);
-        }
-        else {
+        } else {
             String adjacentMineCountText;
             int textColor = 0;
 
-            if(tile == null) {
+            if (tile == null) {
                 adjacentMineCountText = "";
-            }
-            else {
+            } else {
                 int adjacentMinesCount = tile.getAdjacentMines();
 
                 textColor = adjacentMinesToColor.get(adjacentMinesCount);

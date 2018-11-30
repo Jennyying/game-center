@@ -111,7 +111,10 @@ public class User implements Serializable {
 
     /**
      * Get the user's personal settings
+     *
      * @return the user's personal settings
      */
-    public UserSettings getSettings() {return settings;}
+    public UserSettings getSettings() {
+        return settings;
+    }
 }

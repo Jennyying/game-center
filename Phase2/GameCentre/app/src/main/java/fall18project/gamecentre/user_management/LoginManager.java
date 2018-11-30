@@ -8,12 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,6 +44,7 @@ public class LoginManager implements Saveable {
 
     /**
      * Initialize a login manager with a given context
+     *
      * @param context context to use
      */
     public LoginManager(Context context) {
@@ -58,21 +54,23 @@ public class LoginManager implements Saveable {
     /**
      * Initialize a login manager with a given context and set a file to store to and attempt
      * to load from. If nothing can be loaded, generate a new map for the password database
-     * @param context context to use
+     *
+     * @param context  context to use
      * @param fileName file to store to/load from
      */
     public LoginManager(Context context, String fileName) {
         this.context = context;
         this.fileName = fileName;
         passwordDatabase = loadMapFromFile();
-        if(passwordDatabase == null) passwordDatabase = new HashMap<>();
+        if (passwordDatabase == null) passwordDatabase = new HashMap<>();
     }
 
     /**
      * Initialize a login manager with a given context and a given password database, and
      * set a file to store to
-     * @param context context to use
-     * @param fileName file to store to
+     *
+     * @param context          context to use
+     * @param fileName         file to store to
      * @param passwordDatabase map to use as password database
      */
     public LoginManager(
@@ -85,6 +83,7 @@ public class LoginManager implements Saveable {
 
     /**
      * Initialize a login manager with the given map as password database
+     *
      * @param passwordDatabase map to use as password database
      */
     public LoginManager(Map<String, SaltAndDigest> passwordDatabase) {
@@ -92,32 +91,9 @@ public class LoginManager implements Saveable {
     }
 
     /**
-     * @return the associated context
-     */
-    public Context getContext() {return context;}
-
-    /**
-     * @param context context to set
-     */
-    public void setContext(Context context) {
-        this.context = context;
-    }
-
-    /**
-     * @return the associated file name
-     */
-    public String getFileName() {return fileName;}
-
-    /**
-     * @param fileName file name to set
-     */
-    public void setFileName(String fileName) {
-       this.fileName = fileName;
-    }
-
-    /**
      * Load a password database map stored in a file
-     * @param context context to load the file using
+     *
+     * @param context  context to load the file using
      * @param fileName file to attempt to load password database from
      * @return a Map if the file contains a valid password database, null otherwise
      */
@@ -126,7 +102,7 @@ public class LoginManager implements Saveable {
             InputStream inputStream = context.openFileInput(fileName);
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
-                Map<String, SaltAndDigest> lm = (Map<String, SaltAndDigest>)input.readObject();
+                Map<String, SaltAndDigest> lm = (Map<String, SaltAndDigest>) input.readObject();
                 inputStream.close();
                 return lm;
             }
@@ -141,12 +117,41 @@ public class LoginManager implements Saveable {
     }
 
     /**
+     * @return the associated context
+     */
+    public Context getContext() {
+        return context;
+    }
+
+    /**
+     * @param context context to set
+     */
+    public void setContext(Context context) {
+        this.context = context;
+    }
+
+    /**
+     * @return the associated file name
+     */
+    public String getFileName() {
+        return fileName;
+    }
+
+    /**
+     * @param fileName file name to set
+     */
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    /**
      * Load a map from the context and filename stored in this object
+     *
      * @return a map if context and file are not null and a valid password database is in the file,
      * or null otherwise
      */
     private Map<String, SaltAndDigest> loadMapFromFile() {
-        if(this.context == null || this.fileName == null) return null;
+        if (this.context == null || this.fileName == null) return null;
         return loadMapFromFile(this.context, this.fileName);
     }
 
@@ -156,13 +161,14 @@ public class LoginManager implements Saveable {
      */
     public void loadFromFile() {
         Map<String, SaltAndDigest> lm = loadMapFromFile();
-        if(lm != null) this.passwordDatabase = lm;
+        if (lm != null) this.passwordDatabase = lm;
     }
 
     /**
      * Store this login manager's password database to a file without setting the file as the default
      * storage location
-     * @param context context to store the file using
+     *
+     * @param context  context to store the file using
      * @param fileName file to attempt to store the password database to
      */
     private void storeToFile(Context context, String fileName) {
@@ -185,6 +191,7 @@ public class LoginManager implements Saveable {
 
     /**
      * Check whether a certain username exists in the password database
+     *
      * @param userName username to check for
      * @return whether a user with name userName exists in the database
      */
@@ -194,37 +201,34 @@ public class LoginManager implements Saveable {
 
     /**
      * Register a user without updating the file on disk. Returns whether this was successful
+     *
      * @param userName username to register
      * @param password password to register
      * @return true if user successfully inserted, false if failed due to existing user with same
      * username
      */
     private boolean registerUserInMemory(String userName, String password) {
-        if(userExists(userName)) return false;
+        if (userExists(userName)) return false;
         passwordDatabase.put(userName, new SaltAndDigest(password));
         return true;
     }
 
     /**
      * Register a user after re-loading the file from disk, and then store back to disk
+     *
      * @param userName username to register
      * @param password password to register
      */
     public boolean registerUser(String userName, String password) {
-       loadFromFile();
-       boolean result = registerUserInMemory(userName, password);
-       storeToFile();
-       return result;
-    }
-
-    public enum LoginStatus {
-        LOGIN_GOOD,
-        LOGIN_BAD_USERNAME,
-        LOGIN_BAD_PASSWORD
+        loadFromFile();
+        boolean result = registerUserInMemory(userName, password);
+        storeToFile();
+        return result;
     }
 
     /**
      * Attempt to log in with a given username and password
+     *
      * @param userName username to attempt to login with
      * @param password password to attempt to login with
      * @return an enum indicating whether the login was successful, failed because there was no
@@ -232,13 +236,14 @@ public class LoginManager implements Saveable {
      */
     public LoginStatus login(String userName, String password) {
         SaltAndDigest sd = passwordDatabase.get(userName);
-        if(sd == null) return LoginStatus.LOGIN_BAD_USERNAME;
-        if(sd.equalMessage(password)) return LoginStatus.LOGIN_GOOD;
+        if (sd == null) return LoginStatus.LOGIN_BAD_USERNAME;
+        if (sd.equalMessage(password)) return LoginStatus.LOGIN_GOOD;
         return LoginStatus.LOGIN_BAD_PASSWORD;
     }
 
     /**
      * Get the usernames in the login database
+     *
      * @return a set of all usernames in the login database
      */
     public Set<String> getUserNames() {
@@ -247,8 +252,17 @@ public class LoginManager implements Saveable {
 
     /**
      * Get a list of all usernames in the login database
+     *
      * @return a list of all usernames in the login database
      */
-    public List<String> getUserNameList() {return new ArrayList<String>(getUserNames());}
+    public List<String> getUserNameList() {
+        return new ArrayList<String>(getUserNames());
+    }
+
+    public enum LoginStatus {
+        LOGIN_GOOD,
+        LOGIN_BAD_USERNAME,
+        LOGIN_BAD_PASSWORD
+    }
 
 }

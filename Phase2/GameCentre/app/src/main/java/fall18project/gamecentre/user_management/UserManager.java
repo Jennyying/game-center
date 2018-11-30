@@ -42,8 +42,9 @@ public class UserManager {
 
     /**
      * Construct a new user manager with a given context and user file prefix
-     * @param context context to use to load and store files
-     * @param userPrefix prefix before usernames for files to serialize User objects
+     *
+     * @param context     context to use to load and store files
+     * @param userPrefix  prefix before usernames for files to serialize User objects
      * @param userStorage storage directory for the current user
      */
     public UserManager(Context context, String userPrefix, String userStorage) {
@@ -54,7 +55,8 @@ public class UserManager {
 
     /**
      * Construct a new user manager with a given context user file prefix
-     * @param context context to use to load and store files
+     *
+     * @param context    context to use to load and store files
      * @param userPrefix prefix before usernames for files to serialize User objects
      */
     public UserManager(Context context, String userPrefix) {
@@ -71,15 +73,16 @@ public class UserManager {
     /**
      * A static method to load a User object with a given prefix.
      * Returns if loading encounters an error. Throws an exception if the wrong user is loaded
-     * @param context context to load file from. If null, will return nill
-     * @param userName username to attempt to load.
+     *
+     * @param context    context to load file from. If null, will return nill
+     * @param userName   username to attempt to load.
      * @param userPrefix prefix for serialization file.
      * @return User object for userName, or null if none can be found
      */
     public static User loadUser(
             Context context, String userName, String userPrefix) throws
-    RuntimeException {
-        if(context == null) return null;
+            RuntimeException {
+        if (context == null) return null;
 
         User loaded = null;
         String toLoadFrom = userPrefix + userName + ".ser";
@@ -88,10 +91,10 @@ public class UserManager {
             InputStream inputStream = context.openFileInput(toLoadFrom);
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
-                loaded = (User)input.readObject();
+                loaded = (User) input.readObject();
                 inputStream.close();
             }
-            if(loaded == null) return null;
+            if (loaded == null) return null;
         } catch (FileNotFoundException e) {
             Log.e("login activity", "File not found: " + e.toString());
             return null;
@@ -103,7 +106,7 @@ public class UserManager {
             return null;
         }
 
-        if(loaded.getUserName().compareTo(userName) != 0) {
+        if (loaded.getUserName().compareTo(userName) != 0) {
             throw new RuntimeException(
                     "Tried to load username " + userName + " but got " + loaded.getUserName());
         }
@@ -112,6 +115,7 @@ public class UserManager {
 
     /**
      * Attempt to load a user with the given username, returning null if this fails
+     *
      * @param userName username to attempt to load
      * @return User object loaded from disk, or null on failure
      */
@@ -129,10 +133,10 @@ public class UserManager {
             InputStream inputStream = context.openFileInput(userStorage);
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
-                loaded = (String)input.readObject();
+                loaded = (String) input.readObject();
                 inputStream.close();
             }
-            if(loaded == null) return null;
+            if (loaded == null) return null;
         } catch (FileNotFoundException e) {
             Log.e("login activity", "File not found: " + e.toString());
             return null;
@@ -151,7 +155,7 @@ public class UserManager {
      */
     public User loadCurrentUser() {
         String currentUserName = loadCurrentUserName();
-        if(currentUserName == null) return null;
+        if (currentUserName == null) return null;
         User result = getUser(currentUserName);
         storeUser(result);
         return result;
@@ -162,25 +166,27 @@ public class UserManager {
      * Attempt to load a user with the given username, and if there is none, create one without
      * storing to disk. Throws an exception if the file for userName contains the information of
      * a different user
+     *
      * @param userName username to attempt to load
      * @return User object loaded from disk, or new user if failed to load
      */
     public User getUser(String userName) {
         User result = loadUser(userName);
-        if(result == null)
+        if (result == null)
             result = new User(userName);
         return result;
     }
 
     /**
      * Attempt to store a user given by a User object to disk with a prefix
-     * @param context context to use to open a file
-     * @param user User object to serialize
+     *
+     * @param context    context to use to open a file
+     * @param user       User object to serialize
      * @param userPrefix prefix for the file to store
      */
     public static void storeUser(
             Context context, User user, String userPrefix) {
-        if(context == null) return;
+        if (context == null) return;
         String toStoreTo = userPrefix + user.getUserName() + ".ser";
 
         try {
@@ -196,6 +202,7 @@ public class UserManager {
 
     /**
      * Attempt to store a user given by a User object to disk with the current prefix
+     *
      * @param user User object to serialize
      */
     public void storeUser(User user) {
@@ -206,7 +213,7 @@ public class UserManager {
      * Set the current user on disk
      */
     public void setCurrentUser(String newCurrentUser) {
-        if(context == null) return;
+        if (context == null) return;
 
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(

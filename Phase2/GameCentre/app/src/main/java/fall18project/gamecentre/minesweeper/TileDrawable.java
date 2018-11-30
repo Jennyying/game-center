@@ -9,10 +9,11 @@ import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
-import fall18project.gamecentre.R;
 
 import java.util.Arrays;
 import java.util.List;
+
+import fall18project.gamecentre.R;
 
 public class TileDrawable extends Drawable {
     private static final float DEFAULT_FILL_PERCENT = 0.75f;
@@ -37,7 +38,7 @@ public class TileDrawable extends Drawable {
     private TileDrawableState drawableState;
 
     public TileDrawable(int[] colorList, Float fillPercent) {
-        if(fillPercent != null) {
+        if (fillPercent != null) {
             this.fillPercent = fillPercent;
         }
 
@@ -47,7 +48,7 @@ public class TileDrawable extends Drawable {
     }
 
     private void saveConstantState() {
-        if(drawableState == null) {
+        if (drawableState == null) {
             drawableState = new TileDrawableState();
             drawableState.mColorList = colorList;
             drawableState.mFillPercent = fillPercent;
@@ -139,10 +140,10 @@ public class TileDrawable extends Drawable {
         path.close();
     }
 
-    public static TileAttributeSet extractAttributes(Context context, AttributeSet attrs){
+    public static TileAttributeSet extractAttributes(Context context, AttributeSet attrs) {
         TileAttributeSet tileAttributeSet = null;
 
-        TypedArray attributesArray =  context.obtainStyledAttributes(attrs, R.styleable.TileView);
+        TypedArray attributesArray = context.obtainStyledAttributes(attrs, R.styleable.TileView);
 
         try {
             int[] colorList = new int[TileDrawable.REQUIRED_COLOR_COUNT];
@@ -155,8 +156,7 @@ public class TileDrawable extends Drawable {
             float fillPercent = attributesArray.getFloat(R.styleable.TileView_fillPercentage, -1);
 
             tileAttributeSet = new TileAttributeSet(colorList, fillPercent);
-        }
-        finally {
+        } finally {
             attributesArray.recycle();
             return tileAttributeSet;
         }
@@ -169,18 +169,18 @@ public class TileDrawable extends Drawable {
         public TileAttributeSet(int[] colorArray, float fillPercent) {
             boolean allColorsPresent = true;
 
-            for(int color : colorArray) {
-                if(color == -1) {
+            for (int color : colorArray) {
+                if (color == -1) {
                     allColorsPresent = false;
                     break;
                 }
             }
 
-            if(allColorsPresent) {
+            if (allColorsPresent) {
                 this.colorArray = colorArray;
             }
 
-            if(fillPercent > 0) {
+            if (fillPercent > 0) {
                 this.fillPercent = fillPercent;
             }
         }

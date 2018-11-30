@@ -1,10 +1,9 @@
 package fall18project.gamecentre.user_management;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -95,7 +94,7 @@ public class NewUserActivity extends AppCompatActivity {
 
     /**
      * Set up the interface by registering all listeners and handles.
-     *
+     * <p>
      * Animation loading code taken from
      * https://evgenii.com/blog/spring-button-animation-on-android
      */
@@ -198,7 +197,6 @@ public class NewUserActivity extends AppCompatActivity {
     }
 
 
-
     /**
      * Register the current user
      */
@@ -236,7 +234,7 @@ public class NewUserActivity extends AppCompatActivity {
         confirmUsername.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isInputtedUsernameValid()) {
+                if (isInputtedUsernameValid()) {
                     currentUsername = inputUsername.getText().toString();
                     currentUsernameDisplay.setText(currentUsername);
                     setPasswordLayout.setVisibility(View.VISIBLE);
@@ -277,9 +275,9 @@ public class NewUserActivity extends AppCompatActivity {
      * CHANGE if a username has already been chosen and the username is not invalid or taken
      */
     private void updateConfirmUsernameButtonText() {
-        if(inputUsername.getText().toString().isEmpty()) {
+        if (inputUsername.getText().toString().isEmpty()) {
             makeConfirmUsernameButtonInvalid();
-        } else if(isInputtedUsernameValid()) {
+        } else if (isInputtedUsernameValid()) {
             makeConfirmUsernameButtonChoose();
         } else {
             makeConfirmUsernameButtonTaken();

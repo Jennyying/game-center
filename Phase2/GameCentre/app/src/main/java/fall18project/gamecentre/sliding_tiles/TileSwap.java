@@ -22,9 +22,15 @@ public class TileSwap implements Move, Serializable {
     /**
      * Construct an invalid tile swap
      */
-    public TileSwap() {t1 = -1; t2 = -1;}
+    public TileSwap() {
+        t1 = -1;
+        t2 = -1;
+    }
 
-    public TileSwap(int a, int b) {t1 = a; t2 = b;}
+    public TileSwap(int a, int b) {
+        t1 = a;
+        t2 = b;
+    }
 
     /**
      * @return whether this is a valid TileSwap

@@ -26,6 +26,7 @@ public class UserSettings implements Serializable {
 
     /**
      * Check whether the introduction should be shown on opening the game
+     *
      * @return whether the introduction should be shown
      */
     public boolean shouldShowIntroduction() {
@@ -43,6 +44,7 @@ public class UserSettings implements Serializable {
 
     /**
      * Set whether to show the introduction, not show the introduction, or just show it one more time
+     *
      * @param status the value of ShowIntroductionStatus indicating your desired behaviour
      */
     public void setShowIntroduction(ShowIntroductionStatus status) {

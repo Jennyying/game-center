@@ -7,12 +7,14 @@ public interface MovingObject extends Shiftable {
 
     /**
      * Get this object's velocity in the X direction
+     *
      * @return the object's velocity in the X direction
      */
     public double getXVelocity();
 
     /**
      * Get this object's velocity in the Y direction
+     *
      * @return the object's velocity in the Y direction
      */
     public double getYVelocity();

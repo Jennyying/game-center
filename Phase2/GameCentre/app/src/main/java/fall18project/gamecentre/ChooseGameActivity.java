@@ -1,8 +1,8 @@
 package fall18project.gamecentre;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
@@ -30,14 +30,14 @@ public class ChooseGameActivity extends AppCompatActivity {
      */
     private void setUpInterface() {
         setUpReactorControl();
-        setUpMinesweeper();
+        setUpReactorModel();
     }
 
     /**
      * Set up the button to open the ReactorControl minigame
      */
     private void setUpReactorControl() {
-        Button reactorControlButton = findViewById(R.id.goToHyperslide);
+        Button reactorControlButton = findViewById(R.id.goToReactorControl);
         reactorControlButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,12 +49,12 @@ public class ChooseGameActivity extends AppCompatActivity {
     /**
      * Set up the button to open the Minesweeper minigame
      */
-    private void setUpMinesweeper() {
-        Button minesweeperButton = findViewById(R.id.goToMinesweeper);
+    private void setUpReactorModel() {
+        Button minesweeperButton = findViewById(R.id.goToReactorModel);
         minesweeperButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goToMinesweeper();
+                goToReactorModel();
             }
         });
     }
@@ -71,7 +71,7 @@ public class ChooseGameActivity extends AppCompatActivity {
     /**
      * Go to the minesweeper minigame
      */
-    private void goToMinesweeper() {
+    private void goToReactorModel() {
         Intent minesweeper = new Intent(
                 this, fall18project.gamecentre.minesweeper.GameActivity.class);
         startActivity(minesweeper);

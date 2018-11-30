@@ -24,7 +24,8 @@ public class MassiveBox extends Box implements Pushable, Serializable {
 
     /**
      * Create a new box with the given centre, x radius and y radius
-     * @param centre the centre of this box
+     *
+     * @param centre  the centre of this box
      * @param xRadius the x radius of this box
      * @param yRadius the y radius of this box
      */
@@ -36,6 +37,7 @@ public class MassiveBox extends Box implements Pushable, Serializable {
 
     /**
      * Push the box in the X direction with force fx
+     *
      * @param fx the amount of force to apply in the X direction
      */
     public void pushX(double fx) {
@@ -44,6 +46,7 @@ public class MassiveBox extends Box implements Pushable, Serializable {
 
     /**
      * Push the box in the Y direction with force fy
+     *
      * @param fy the amount of force to apply in the Y direction
      */
     public void pushY(double fy) {
@@ -52,6 +55,7 @@ public class MassiveBox extends Box implements Pushable, Serializable {
 
     /**
      * Push the box with a given force in the x and y directions
+     *
      * @param fx the amount of force to apply in the X direction
      * @param fy the amount of force to apply in the Y direction
      */
@@ -61,6 +65,7 @@ public class MassiveBox extends Box implements Pushable, Serializable {
 
     /**
      * Accelerate the object in the X direction by ax
+     *
      * @param ax the amount of acceleration to apply in the X direction
      */
     public void accX(double ax) {
@@ -69,6 +74,7 @@ public class MassiveBox extends Box implements Pushable, Serializable {
 
     /**
      * Push the object in the Y direction with acceleration ay
+     *
      * @param ay the amount of acceleration to apply in the Y direction
      */
     public void accY(double ay) {
@@ -77,6 +83,7 @@ public class MassiveBox extends Box implements Pushable, Serializable {
 
     /**
      * Push the object with a given force in the x and y directions
+     *
      * @param ax the amount of force to apply in the X direction
      * @param ay the amount of force to apply in the Y direction
      */
@@ -86,13 +93,17 @@ public class MassiveBox extends Box implements Pushable, Serializable {
 
     /**
      * Get this box's mass
+     *
      * @return mass of this box
      */
-    public double getMass() {return centre.getMass();}
+    public double getMass() {
+        return centre.getMass();
+    }
 
 
     /**
      * Get the centre's X coordinate
+     *
      * @return the centre's X coordinate
      */
     public double getCentreX() {
@@ -101,6 +112,7 @@ public class MassiveBox extends Box implements Pushable, Serializable {
 
     /**
      * Get the centre's Y coordinate
+     *
      * @return the centre's Y coordinate
      */
     public double getCentreY() {
@@ -110,6 +122,7 @@ public class MassiveBox extends Box implements Pushable, Serializable {
 
     /**
      * Set the centre's X coordinate
+     *
      * @param x the centre's new X coordinate
      */
     public void setCentreX(double x) {
@@ -118,6 +131,7 @@ public class MassiveBox extends Box implements Pushable, Serializable {
 
     /**
      * Set the centre's Y coordinate
+     *
      * @param y the centre's new Y coordinate
      */
     public void setCentreY(double y) {
@@ -126,6 +140,7 @@ public class MassiveBox extends Box implements Pushable, Serializable {
 
     /**
      * Shift the object dx in the x direction
+     *
      * @param dx how much to shift by
      */
     public void shiftX(double dx) {
@@ -134,6 +149,7 @@ public class MassiveBox extends Box implements Pushable, Serializable {
 
     /**
      * Shift the object dy in the y direction
+     *
      * @param dy how much to shift by
      */
     public void shiftY(double dy) {
@@ -142,6 +158,7 @@ public class MassiveBox extends Box implements Pushable, Serializable {
 
     /**
      * Shift the object's position
+     *
      * @param dx how much to shift the x position by
      * @param dy how much to shift the y position by
      */
@@ -152,6 +169,7 @@ public class MassiveBox extends Box implements Pushable, Serializable {
 
     /**
      * Get this box's velocity in the X direction
+     *
      * @return this box's velocity in the X direction
      */
     public double getXVelocity() {
@@ -160,6 +178,7 @@ public class MassiveBox extends Box implements Pushable, Serializable {
 
     /**
      * Get this box's velocity in the Y direction
+     *
      * @return this box's velocity in the Y direction
      */
     public double getYVelocity() {
@@ -169,18 +188,25 @@ public class MassiveBox extends Box implements Pushable, Serializable {
 
     /**
      * Set the object's velocity in the x direction to be vx
+     *
      * @param vx the object's new velocity in the x direction
      */
-    public void setVx(double vx) { centre.setVx(vx); }
+    public void setVx(double vx) {
+        centre.setVx(vx);
+    }
 
     /**
      * Set the object's velocity in the y direction to be vy
+     *
      * @param vy the object's new velocity in the y direction
      */
-    public void setVy(double vy) { centre.setVy(vy); }
+    public void setVy(double vy) {
+        centre.setVy(vy);
+    }
 
     /**
      * Get the centre
+     *
      * @return the centre as a Point
      */
     public Point getCentre() {
@@ -189,6 +215,7 @@ public class MassiveBox extends Box implements Pushable, Serializable {
 
     /**
      * Get the X radius
+     *
      * @return the box's X radius
      */
     public double getXRadius() {
@@ -197,6 +224,7 @@ public class MassiveBox extends Box implements Pushable, Serializable {
 
     /**
      * Get the Y radius
+     *
      * @return the box's Y radius
      */
     public double getYRadius() {
@@ -205,6 +233,7 @@ public class MassiveBox extends Box implements Pushable, Serializable {
 
     /**
      * Set the X radius
+     *
      * @param x the box's new X radius
      */
     public void setXRadius(double x) {
@@ -213,6 +242,7 @@ public class MassiveBox extends Box implements Pushable, Serializable {
 
     /**
      * Set the Y radius
+     *
      * @param y the box's new Y radius
      */
     public void setYRadius(double y) {
@@ -222,6 +252,7 @@ public class MassiveBox extends Box implements Pushable, Serializable {
     /**
      * Bind the centre of this box to the inside of a larger box. If it can't fit, snap to the centre
      * of the other box
+     *
      * @param b the box to bind to
      */
     public void boundWithinBox(Box b) {
@@ -231,7 +262,8 @@ public class MassiveBox extends Box implements Pushable, Serializable {
     /**
      * Bind the centre of this box to the inside of a larger box with padding.
      * If it can't fit, snap to the centre of the other box
-     * @param b the box to bind to
+     *
+     * @param b        the box to bind to
      * @param paddingX the amount of padding to use in the X direction
      * @param paddingY the amount of padding to use in the Y direction
      */

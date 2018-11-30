@@ -1,7 +1,7 @@
 package fall18project.gamecentre;
 
-import java.util.ArrayList;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 
 public class MoveStack<T> implements Serializable, Undoable {
@@ -18,6 +18,7 @@ public class MoveStack<T> implements Serializable, Undoable {
 
     /**
      * Check if moves are remaining in the move stack
+     *
      * @return whether moves are remaining in the move stack
      */
     public boolean hasMoves() {
@@ -26,44 +27,49 @@ public class MoveStack<T> implements Serializable, Undoable {
 
     /**
      * Check whether any moves can be undone
+     *
      * @return whether any moves can be undone
      */
     public boolean hasUndos() {
         return undid > 0 && moves.size() != 0;
     }
 
-    /** Increments undid and returns whether there are still moves to do
+    /**
+     * Increments undid and returns whether there are still moves to do
      *
      * @return boolean - returns whether there are still moves to do
      */
     public boolean undo() {
-        if(!hasMoves()) return false;
+        if (!hasMoves()) return false;
         undid++;
         return true;
     }
 
-    /** Decrements undid counter and returns whether there are undos moves to do
+    /**
+     * Decrements undid counter and returns whether there are undos moves to do
      *
      * @return boolean - returns whether there are still undos to do
      */
     public boolean redo() {
-        if(!hasUndos()) return false;
+        if (!hasUndos()) return false;
         undid--;
         return true;
     }
 
-    /** Clears part of moves sublist and returns whether there are undos moves to do
+    /**
+     * Clears part of moves sublist and returns whether there are undos moves to do
      *
      * @return boolean - returns whether there are still undos to do
      */
     public boolean truncate() {
-        if(!hasUndos()) return false;
+        if (!hasUndos()) return false;
         moves.subList(moves.size() - undid, moves.size()).clear();
         return true;
     }
 
     /**
      * Add a move to the move stack and truncate any moves after it
+     *
      * @param mv the move to be added
      */
     public void move(T mv) {

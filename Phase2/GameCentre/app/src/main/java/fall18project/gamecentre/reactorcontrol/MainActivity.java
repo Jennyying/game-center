@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
             }
-        },0, TIME_INTERVAL);
+        }, 0, TIME_INTERVAL);
     }
 
 }

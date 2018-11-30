@@ -27,17 +27,16 @@ public class ConcentricCirclesDrawable extends Drawable {
      *
      * @param ringColorList list of colors assigned from the outside
      *                      ring (index 0) to the center ring (index n)
-     * @param fillPercent percent of space this drawable should take up within its bounds.
+     * @param fillPercent   percent of space this drawable should take up within its bounds.
      */
     public ConcentricCirclesDrawable(int[] ringColorList, Float fillPercent) {
-        if(ringColorList == null) {
+        if (ringColorList == null) {
             this.ringColorList = new int[]{DEFAULT_OUTER_RING_COLOR, DEFAULT_INNER_RING_COLOR};
-        }
-        else {
+        } else {
             this.ringColorList = ringColorList;
         }
 
-        if(fillPercent != null) {
+        if (fillPercent != null) {
             this.fillPercent = fillPercent;
         }
 
@@ -46,7 +45,7 @@ public class ConcentricCirclesDrawable extends Drawable {
     }
 
     private void saveConstantState() {
-        if(drawableState == null) {
+        if (drawableState == null) {
             drawableState = new ConcentricCirclesDrawableState();
             drawableState.mfillPercent = fillPercent;
             drawableState.mRingColorList = ringColorList;
@@ -64,7 +63,7 @@ public class ConcentricCirclesDrawable extends Drawable {
 
         float interval = fillPercent / ringColorList.length;
 
-        for(int i = 0; i < ringColorList.length; i++) {
+        for (int i = 0; i < ringColorList.length; i++) {
             paint.setColor(ringColorList[i]);
             drawCenteredCircle(bounds, fillPercent - (i * interval), canvas, paint);
         }
