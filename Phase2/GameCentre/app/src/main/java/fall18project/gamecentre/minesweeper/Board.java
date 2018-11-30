@@ -43,7 +43,7 @@ public class Board {
     private int dimension;
 
     /**
-     * An adjacency list style representation of the board.
+     * A representation of the board.
      */
     private Tile[][] boardGrid = null;
 
@@ -134,7 +134,7 @@ public class Board {
 
                         if (tile == null) {
                             boardGrid[j][i] = tile = new Tile(i, j);
-                        } else if (tile.doesContainMine()) {
+                        } else if (tile.containsMine()) {
                             // Don't need to calculate adjacent mines count for
                             // tiles containing mines.
                             continue;
