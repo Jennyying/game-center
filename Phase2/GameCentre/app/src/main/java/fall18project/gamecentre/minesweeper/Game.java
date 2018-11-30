@@ -86,6 +86,7 @@ public class Game {
         if(undos > 0 && queuePos > 0) {
             undoMove(queue[--queuePos % DEFAULT_MAX_UNDOS]);
             undos--;
+            gameFinished = false;
         }
     }
 
