@@ -113,6 +113,7 @@ public class StartingActivity extends AppCompatActivity {
 
         registerSignInOutButton();
         registerPlayButton();
+        registerNewPlayerButton();
         registerScoresButton();
         setRandomQuote();
     }
@@ -180,10 +181,24 @@ public class StartingActivity extends AppCompatActivity {
     }
 
     /**
+     * Register the new player button to create a new user (logging out the current user)
+     */
+    private void registerNewPlayerButton() {
+        Button newPlayerButton = findViewById(R.id.player);
+        newPlayerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToNewUser();
+            }
+        });
+    }
+
+    /**
      * Go to NewUserActivity
      */
     private void goToNewUser() {
         Intent newUser = new Intent(this, NewUserActivity.class);
+        newUser.setFlags(newUser.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(newUser);
     }
 

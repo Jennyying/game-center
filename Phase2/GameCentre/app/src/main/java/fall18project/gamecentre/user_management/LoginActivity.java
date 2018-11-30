@@ -1,5 +1,6 @@
 package fall18project.gamecentre.user_management;
 
+import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -82,6 +83,29 @@ public class LoginActivity extends AppCompatActivity {
 
         setUpUsernameFieldAutocomplete();
         setUpLoginButtion();
+        setUpNewGameButton();
+    }
+
+    /**
+     * Set up the new game button
+     */
+    private void setUpNewGameButton() {
+        Button newGameButton = findViewById(R.id.new_game);
+        newGameButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToNewUser();
+            }
+        });
+    }
+
+    /**
+     * Go to the new user screen
+     */
+    private void goToNewUser() {
+        Intent newUser = new Intent(this, NewUserActivity.class);
+        newUser.setFlags(newUser.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
+        startActivity(newUser);
     }
 
     /**
