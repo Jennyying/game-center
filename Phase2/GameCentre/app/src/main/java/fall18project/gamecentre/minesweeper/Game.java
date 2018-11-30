@@ -120,6 +120,16 @@ public class Game {
      * Display the result of the game on the screen.
      */
     private void publishResult(boolean won) {
+        if(!gameFinished) {
+            gameFinished = true;
+            gameManager.publishGameFinished();
+
+            if (won) {
+                gameManager.publishWin();
+            } else {
+                gameManager.publishLoss();
+            }
+        }
 
     }
 
