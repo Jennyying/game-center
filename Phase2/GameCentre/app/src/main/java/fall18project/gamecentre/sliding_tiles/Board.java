@@ -244,4 +244,37 @@ public class Board extends Observable implements Serializable, Iterable<Tile>, U
                 "tiles=" + Arrays.toString(tiles) +
                 '}';
     }
+
+    /**
+     * Count the number of inversions for the board.
+     */
+    public int inversions() {
+        int inversions = 0;
+        for (int i = 1; i <= sideLength * sideLength; i++) {
+            for (int j = 0; j < sideLength; j++) {
+                for (int k = 0; k < sideLength; k++) {
+                    int tileVal = getTile(j, k).getId();
+                    if (tileVal < i) {
+                        inversions++;
+                    }
+                }
+            }
+        }
+        return inversions;
+    }
+
+    /**
+     * Get Blank Tile x coordinate.
+     */
+    public int getBlankTileXCoord() {
+        int coord = 0;
+        for (int i = 0; i < sideLength; i++) {
+            for (int j = 0; j < sideLength; j++) {
+                if (getTile(i, j).getId() == sideLength * sideLength) {
+                    coord = i + 1;
+                }
+            }
+        }
+        return coord;
+    }
 }
