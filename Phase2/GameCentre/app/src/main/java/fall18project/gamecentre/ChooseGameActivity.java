@@ -31,6 +31,7 @@ public class ChooseGameActivity extends AppCompatActivity {
     private void setUpInterface() {
         setUpReactorControl();
         setUpReactorModel();
+        setUpSlidingTiles();
     }
 
     /**
@@ -60,12 +61,34 @@ public class ChooseGameActivity extends AppCompatActivity {
     }
 
     /**
+     *
+     */
+    private void setUpSlidingTiles() {
+        Button slidingTilesButton = findViewById(R.id.goToSlidingTiles);
+        slidingTilesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToSlidingTiles();
+            }
+        });
+    }
+
+    /**
      * Go to the ReactorControl minigame
      */
     private void goToReactorControl() {
         Intent reactorControl = new Intent(
                 this, fall18project.gamecentre.reactorcontrol.GameActivity.class);
         startActivity(reactorControl);
+    }
+
+    /**
+     * Go to the SlidingTiles minigame
+     */
+    private void goToSlidingTiles() {
+        Intent slidingTiles = new Intent(
+                this, fall18project.gamecentre.sliding_tiles.GameSetupActivity.class);
+        startActivity(slidingTiles);
     }
 
     /**

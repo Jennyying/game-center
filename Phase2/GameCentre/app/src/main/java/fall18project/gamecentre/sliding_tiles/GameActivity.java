@@ -85,7 +85,17 @@ public class GameActivity extends AppCompatActivity implements Observer {
      * @return the temporary save filename for the current user
      */
     public String getTempSaveFilename() {
-        return TEMP_SAVE_FILENAME + userManager.loadCurrentUserName() + ".ser";
+        return getTempSaveFilename(userManager.loadCurrentUserName());
+    }
+
+    /**
+     * Return the temporary filename to save games to
+     *
+     * @param cn the current user name
+     * @return the temporary filename to save games to
+     */
+    public static String getTempSaveFilename(String cn) {
+        return SAVE_FILENAME + cn + ".ser";
     }
 
     /**
@@ -94,7 +104,17 @@ public class GameActivity extends AppCompatActivity implements Observer {
      * @return the filename to save games to
      */
     public String getSaveFilename() {
-        return SAVE_FILENAME + userManager.loadCurrentUserName() + ".ser";
+        return getSaveFilename(userManager.loadCurrentUserName());
+    }
+
+    /**
+     * Return the filename to save games to
+     *
+     * @param cn the current user name
+     * @return the filename to save games to
+     */
+    public static String getSaveFilename(String cn) {
+        return SAVE_FILENAME + cn + ".ser";
     }
 
     /**
@@ -115,10 +135,11 @@ public class GameActivity extends AppCompatActivity implements Observer {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadGameFromTempFile();
 
         scoreboardManager = new GameScoreboardManager(this);
         userManager = new UserManager(this);
+
+        loadGameFromTempFile();
 
         createTileButtons(this);
         setContentView(R.layout.activity_main);

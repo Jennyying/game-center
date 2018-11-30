@@ -16,6 +16,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import fall18project.gamecentre.R;
+import fall18project.gamecentre.user_management.UserManager;
 
 public class GameSetupActivity extends AppCompatActivity {
 
@@ -25,6 +26,8 @@ public class GameSetupActivity extends AppCompatActivity {
     private static final int PICK_PHOTO_FOR_PUZZLE = 0;
 
     private BoardManager boardManager;
+
+    private UserManager userManager;
 
     private SeekBar complexityBar;
     private boolean imageSelected = false;
@@ -43,9 +46,9 @@ public class GameSetupActivity extends AppCompatActivity {
      * Switch to the GameActivity view to play the game.
      */
     private void switchToGame() {
-        boardManager = new BoardManager(getCurrentComplexity(),
-                getIntent().getExtras().getString("username"));
-        //saveGameToFile(GameActivity.TEMP_SAVE_FILENAME);
+        userManager = new UserManager(this);
+        boardManager = new BoardManager(getCurrentComplexity(), userManager.loadCurrentUserName());
+        saveGameToFile(GameActivity.getSaveFilename(userManager.loadCurrentUserName()));
 
         Intent tmp = new Intent(this, GameActivity.class);
         startActivity(tmp);
@@ -57,7 +60,6 @@ public class GameSetupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game_setup);
 
         complexityBar = (SeekBar) findViewById(R.id.seekBar);
-
         addPlayButtonListener();
     }
 
@@ -88,30 +90,6 @@ public class GameSetupActivity extends AppCompatActivity {
             }
         }
     }
-
-    /**
-     * Load the board manager from fileName.
-     *
-     * @param fileName the name of the file
-     */
-    private void loadGameFromFile(String fileName) {
-
-        try {
-            InputStream inputStream = this.openFileInput(fileName);
-            if (inputStream != null) {
-                ObjectInputStream input = new ObjectInputStream(inputStream);
-                boardManager = (BoardManager) input.readObject();
-                inputStream.close();
-            }
-        } catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + e.toString());
-        } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
-        } catch (ClassNotFoundException e) {
-            Log.e("login activity", "File contained unexpected data type: " + e.toString());
-        }
-    }
-
 
     /**
      * Save the board manager to fileName.
