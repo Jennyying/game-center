@@ -6,23 +6,26 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import fall18project.gamecentre.user_management.User;
+import fall18project.gamecentre.user_management.UserManager;
+
 /**
  * Give a user the introduction to In the Colonel, and then modify the user settings appropriately
  */
 public class IntroductionActivity extends AppCompatActivity {
 
-    /**
-     * Username of current logged in user
-     */
-    String userName;
+    UserManager userManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_introduction);
-
-        userName = getIntent().getStringExtra("userName");
         setUpInterface();
+
+        userManager = new UserManager(this);
+        User cu = userManager.loadCurrentUser();
+        cu.getSettings().onShownIntroduction();
+        userManager.storeUser(cu);
     }
 
     /**
@@ -50,7 +53,6 @@ public class IntroductionActivity extends AppCompatActivity {
      */
     private void goToChooseGame() {
         Intent chooseGame = new Intent(this, ChooseGameActivity.class);
-        chooseGame.putExtra("userName", userName);
         startActivity(chooseGame);
     }
 }
