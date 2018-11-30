@@ -52,10 +52,10 @@ public class BoardManager implements Serializable {
         }
         boolean notToShuffle = false;
 
+        board = new Board(tiles, sl);
+
         while (!notToShuffle) {
-            BoardShuffler bs = new BoardShuffler(tiles, numTiles, sl);
-            tiles = bs.shuffle();
-            board = new Board(tiles, sl);
+            board.shuffleTiles();
             int inversions = board.inversions();
             notToShuffle = (board.getSideLength() % 2 == 1) && (inversions % 2 == 0)
                     || ((board.getSideLength() % 2 == 0) &&
