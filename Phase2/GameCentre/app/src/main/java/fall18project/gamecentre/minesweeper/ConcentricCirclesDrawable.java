@@ -4,16 +4,40 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.Paint;
+import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 
 public class ConcentricCirclesDrawable extends Drawable {
-    static final float DEFAULT_FILL_PERCENT = 0.55f;
-    static final int DEFAULT_OUTER_RING_COLOR = Color.GREEN;
-    static final int DEFAULT_INNER_RING_COLOR = Color.YELLOW;
 
+    /**
+     * The default ratio between the size of the inner and outer circle
+     */
+    private static final float DEFAULT_FILL_PERCENT = 0.55f;
+
+    /**
+     * The default color of the outer circle
+     */
+    private static final int DEFAULT_OUTER_RING_COLOR = Color.GREEN;
+
+    /**
+     * The default color of the inner circle
+     */
+    private static final int DEFAULT_INNER_RING_COLOR = Color.YELLOW;
+
+    /**
+     * The ratio between the size of the inner and outer circle
+     */
     private float fillPercent = DEFAULT_FILL_PERCENT;
+
+    /**
+     * A list containing the colors of concentric rings
+     */
     private int[] ringColorList;
+
+    /**
+     * A Paint object to draw the concentric circles
+     */
     private Paint paint;
 
     private ConcentricCirclesDrawableState drawableState;
@@ -86,7 +110,7 @@ public class ConcentricCirclesDrawable extends Drawable {
 
     @Override
     public int getOpacity() {
-        return 0;
+        return PixelFormat.UNKNOWN;
     }
 
     @Override
