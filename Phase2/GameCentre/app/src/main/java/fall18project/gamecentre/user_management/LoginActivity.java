@@ -30,6 +30,11 @@ public class LoginActivity extends AppCompatActivity {
     private LoginManager loginManager;
 
     /**
+     * User management system (to deal with current logged in user)
+     */
+    private UserManager userManager;
+
+    /**
      * A list of all usernames in the login management system. We can compute this on creation, and
      * re-compute on resumption, since we know that while this activity is open the list of usernames
      * will not changed
@@ -68,7 +73,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        loginManager = new LoginManager(this, LoginManager.DEFAULT_FILE_NAME);
+        loginManager = new LoginManager(this);
+        userManager = new UserManager(this);
         computeUsernameList();
 
         setUpInterface();
@@ -147,9 +153,7 @@ public class LoginActivity extends AppCompatActivity {
                 break;
             case LOGIN_GOOD:
                 //TODO: actually log the user in and return from the activity
-                Intent intent = new Intent();
-                intent.putExtra("userName", userNameField.getText().toString());
-                setResult(StartingActivity.LOGGED_IN_REQUEST_CODE, intent);
+                userManager.setCurrentUser(userNameField.getText().toString());
                 finish();
                 break;
         }

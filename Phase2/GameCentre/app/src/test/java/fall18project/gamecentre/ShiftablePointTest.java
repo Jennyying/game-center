@@ -7,7 +7,7 @@ import fall18project.gamecentre.reactorcontrol.physics.Box;
 import fall18project.gamecentre.reactorcontrol.physics.Point;
 import fall18project.gamecentre.reactorcontrol.physics.ShiftablePoint;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 /**
  * Unit test for class ShiftablePointTest.
@@ -16,11 +16,9 @@ import static org.junit.Assert.assertEquals;
 @SuppressWarnings("ALL")
 public class ShiftablePointTest {
 
-    /**
-     * The shiftable point for testing.
-     */
+    /** The shiftable point for testing.*/
     private ShiftablePoint shiftablepoint;
-    private Box box = new Box() {
+    private Box box  = new Box() {
         @Override
         public double getCentreX() {
             return 0;
@@ -47,9 +45,7 @@ public class ShiftablePointTest {
         }
     };
 
-    /**
-     * Make a valid Shiftable point.
-     */
+    /** Make a valid Shiftable point. */
     @Before
     public void setUp() throws Exception {
         double x = 0.0;
@@ -57,66 +53,51 @@ public class ShiftablePointTest {
         shiftablepoint = new ShiftablePoint(x, y);
     }
 
-    /**
-     * Test whether the method shiftXByZero() will not change coord X .
-     */
+    /** Test whether the method shiftXByZero() will not change coord X .*/
     @Test
     public void shiftXByZero() {
-        shiftablepoint.shiftX(0.0);
-        assertEquals(0.0, shiftablepoint.getX(), 0.0001);
+       shiftablepoint.shiftX(0.0);
+       assertEquals(0.0, shiftablepoint.getX(), 0.0001);
     }
 
-    /**
-     * Test whether the method shiftXByNonZero() will change coord X correctly.
-     */
+    /** Test whether the method shiftXByNonZero() will change coord X correctly.*/
     @Test
     public void shiftXByNonZero() {
         shiftablepoint.shiftX(5.0);
-        assertEquals(5.0, shiftablepoint.getX(), 0.0001);
+        assertEquals(5.0, shiftablepoint.getX(),0.0001);
     }
-
-    /**
-     * Test whether the method shiftYByZero() will not change coord Y .
-     */
+    /** Test whether the method shiftYByZero() will not change coord Y .*/
     @Test
     public void shiftYByZero() {
         shiftablepoint.shiftY(0.0);
         assertEquals(0.0, shiftablepoint.getY(), 0.0001);
     }
 
-    /**
-     * Test whether the method shiftYByNonZero() will change coord Y correctly.
-     */
+    /** Test whether the method shiftYByNonZero() will change coord Y correctly.*/
     @Test
     public void shiftYByNonZero() {
         shiftablepoint.shiftY(5.0);
-        assertEquals(5.0, shiftablepoint.getY(), 0.0001);
+        assertEquals(5.0, shiftablepoint.getY(),0.0001);
     }
 
-    /**
-     * Test whether shift() shifts the points x and y coordinates correctly.
-     */
+    /** Test whether shift() shifts the points x and y coordinates correctly.*/
     @Test
     public void shift() {
         shiftablepoint.shift(0.0, 0.0);
         assertEquals(0.0, shiftablepoint.getX(), 0.0001);
-        assertEquals(0.0, shiftablepoint.getY(), 0.0001);
+        assertEquals(0.0, shiftablepoint.getY(),0.0001);
     }
 
 
-    /**
-     * Test whether setPosition() sets the point correctly.
-     */
+   /** Test whether setPosition() sets the point correctly.*/
     @Test
     public void setPosition() {
-        shiftablepoint.setPosition(2.0, 3.0);
-        assertEquals(2.0, shiftablepoint.getX(), 0.0001);
-        assertEquals(3.0, shiftablepoint.getY(), 0.0001);
+        shiftablepoint.setPosition(2.0,3.0);
+        assertEquals(2.0, shiftablepoint.getX(),0.0001);
+        assertEquals(3.0,shiftablepoint.getY(), 0.0001);
     }
 
-    /**
-     * Test whether boudWithin can bound a point to within a box b.
-     */
+    /** Test whether boudWithin can bound a point to within a box b. */
     @Test
     public void boundWithin() {
 

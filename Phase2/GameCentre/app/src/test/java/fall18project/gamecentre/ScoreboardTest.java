@@ -4,14 +4,12 @@ import org.junit.Test;
 
 import java.util.Iterator;
 
-import fall18project.gamecentre.game_management.ScoreboardManager;
 import fall18project.gamecentre.game_management.SessionScore;
+import fall18project.gamecentre.game_management.ScoreboardManager;
 import fall18project.gamecentre.user_management.LoginManager;
 import fall18project.gamecentre.user_management.UserManager;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 
 public class ScoreboardTest {

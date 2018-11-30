@@ -39,11 +39,6 @@ public class StartingActivity extends AppCompatActivity {
     private UserManager userManager;
 
     /**
-     * The current logged in user. Is null if and only if no one is logged in
-     */
-    private User currentUser = null;
-
-    /**
      * The text view for the current logged in user
      */
     private TextView currentUserView;
@@ -98,7 +93,7 @@ public class StartingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_starting_);
-        userManager = new UserManager(this, UserManager.DEFAULT_USER_PREFIX);
+        userManager = new UserManager(this);
 
         // Set up the interface
         setUpInterface();
@@ -119,22 +114,6 @@ public class StartingActivity extends AppCompatActivity {
     }
 
     /**
-     * Based off code found at
-     * http://www.learn-android-easily.com/2013/03/returning-result-from-activity.html
-     */
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == LOGGED_IN_REQUEST_CODE) {
-            String currentUserName = data.getStringExtra("userName");
-            if(currentUserName != null) {
-                currentUser = userManager.getUser(currentUserName);
-            }
-            updateLoginStatusDisplay();
-        }
-    }
-
-    /**
      * Update login status display
      */
     private void updateLoginStatusDisplay() {
@@ -146,8 +125,9 @@ public class StartingActivity extends AppCompatActivity {
      * Update the current user name display
      */
     private void updateCurrentUserName() {
-        if(currentUser != null) {
-            currentUserView.setText(currentUser.getUserName());
+        String currentUserName = userManager.loadCurrentUserName();
+        if(currentUserName != null) {
+            currentUserView.setText(currentUserName);
             loginStatusView.setText(R.string.text_signed_in_as);
         } else {
             currentUserView.setText("");
@@ -159,7 +139,8 @@ public class StartingActivity extends AppCompatActivity {
      * Update the text of the login button
      */
     private void updateLoginText() {
-        if(currentUser == null) {
+        String currentUserName = userManager.loadCurrentUserName();
+        if(currentUserName == null) {
             loginButton.setText(R.string.text_sign_in);
         } else {
             loginButton.setText(R.string.text_sign_out);
@@ -187,6 +168,8 @@ public class StartingActivity extends AppCompatActivity {
         registerPlayButton();
         registerNewPlayerButton();
         registerScoresButton();
+
+        updateLoginStatusDisplay();
         setRandomQuote();
     }
 
@@ -199,8 +182,9 @@ public class StartingActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                User currentUser = userManager.loadCurrentUser();
                 if(currentUser != null) {
-                    signOutCurrentUser();
+                    userManager.resetCurrentUser();
                     updateLoginStatusDisplay();
                 }
                 else goToLogin();
@@ -226,7 +210,7 @@ public class StartingActivity extends AppCompatActivity {
      */
     private void goToLogin() {
         Intent login = new Intent(this, LoginActivity.class);
-        startActivityForResult(login, LOGGED_IN_REQUEST_CODE);
+        startActivity(login);
     }
 
     /**
@@ -247,6 +231,7 @@ public class StartingActivity extends AppCompatActivity {
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                User currentUser = userManager.loadCurrentUser();
                 if(currentUser == null) goToNewUser();
                 else if(currentUser.getSettings().shouldShowIntroduction()) goToIntroduction();
                 else goToChooseGame();
@@ -280,7 +265,6 @@ public class StartingActivity extends AppCompatActivity {
      */
     private void goToIntroduction() {
         Intent introduction = new Intent(this, IntroductionActivity.class);
-        introduction.putExtra("name", currentUser.getUserName());
         startActivity(introduction);
     }
 
@@ -289,7 +273,6 @@ public class StartingActivity extends AppCompatActivity {
      */
     private void goToChooseGame() {
         Intent chooseGame = new Intent(this, ChooseGameActivity.class);
-        chooseGame.putExtra("name", currentUser.getUserName());
         startActivity(chooseGame);
     }
 
@@ -297,8 +280,7 @@ public class StartingActivity extends AppCompatActivity {
      * Sign out the current user (by saving it and setting it to null if it isn't already)
      */
     private void signOutCurrentUser() {
-        if(currentUser != null) userManager.storeUser(currentUser);
-        currentUser = null;
+        userManager.resetCurrentUser();
     }
 
     private void setRandomQuote() {
