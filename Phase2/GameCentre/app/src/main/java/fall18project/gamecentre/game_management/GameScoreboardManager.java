@@ -26,54 +26,23 @@ public class GameScoreboardManager {
      * The default location for the global scoreboard
      */
     public static final String DEFAULT_GLOBAL_SCOREBOARD_LOCATION = "global_scoreboard";
-
-    /**
-     * The prefix to use for Scoreboard object serialization files. Might be null
-     */
-    private String scorePrefix;
-
-    /**
-     * The location to store the global scoreboard
-     */
-    private String globalLocation;
-
     /**
      * The global scoreboard
      */
     GameScoreboard globalScoreboard = null;
-
+    /**
+     * The prefix to use for Scoreboard object serialization files. Might be null
+     */
+    private String scorePrefix;
+    /**
+     * The location to store the global scoreboard
+     */
+    private String globalLocation;
     /**
      * The context to use for loading files. If null, then the userManager operates entirely in
      * RAM, and never saves anything to disk, which is only useful in testing
      */
     private Context context;
-
-    /**
-     * Reload the global scoreboard from disk, creating a new one if none is saved yet
-     *
-     * @return the global scoreboard
-     */
-    public GameScoreboard reloadGlobalScoreboard() {
-        globalScoreboard = loadScoreboard(context, globalLocation, "");
-        if (globalScoreboard == null) globalScoreboard = new GameScoreboard();
-        return globalScoreboard;
-    }
-
-    /**
-     * Get the current global scoreboard
-     *
-     * @return the global scoreboard
-     */
-    public GameScoreboard getGlobalScoreboard() {
-        return globalScoreboard;
-    }
-
-    /**
-     * Write the current global scoreboard to disk
-     */
-    public void writeGlobalScoreboard() {
-        storeScoreboard(context, globalLocation, globalScoreboard, "");
-    }
 
     /**
      * Construct a new scoreboard manager with a given context and score file prefix
@@ -98,7 +67,6 @@ public class GameScoreboardManager {
     public GameScoreboardManager(Context context, String scorePrefix) {
         this(context, scorePrefix, DEFAULT_GLOBAL_SCOREBOARD_LOCATION);
     }
-
 
     /**
      * Construct a scoreboard manager with a given context
@@ -146,6 +114,56 @@ public class GameScoreboardManager {
     }
 
     /**
+     * Attempt to store a scoreboard into a context
+     *
+     * @param context     context to use to open a file
+     * @param gameName    name of game associated with scoreboard
+     * @param board       scoreboard to serialize
+     * @param scorePrefix prefix for the file to store
+     */
+    public static void storeScoreboard(
+            Context context, String gameName, GameScoreboard board, String scorePrefix) {
+        if (context == null) return;
+        String toStoreTo = scorePrefix + gameName + ".ser";
+
+        try {
+            ObjectOutputStream outputStream = new ObjectOutputStream(
+                    context.openFileOutput(toStoreTo, Context.MODE_PRIVATE));
+            outputStream.writeObject(board);
+            outputStream.close();
+        } catch (IOException e) {
+            Log.e("Exception", "File write failed: " + e.toString());
+        }
+    }
+
+    /**
+     * Reload the global scoreboard from disk, creating a new one if none is saved yet
+     *
+     * @return the global scoreboard
+     */
+    public GameScoreboard reloadGlobalScoreboard() {
+        globalScoreboard = loadScoreboard(context, globalLocation, "");
+        if (globalScoreboard == null) globalScoreboard = new GameScoreboard();
+        return globalScoreboard;
+    }
+
+    /**
+     * Get the current global scoreboard
+     *
+     * @return the global scoreboard
+     */
+    public GameScoreboard getGlobalScoreboard() {
+        return globalScoreboard;
+    }
+
+    /**
+     * Write the current global scoreboard to disk
+     */
+    public void writeGlobalScoreboard() {
+        storeScoreboard(context, globalLocation, globalScoreboard, "");
+    }
+
+    /**
      * Attempt to load a scoreboard with the given game name, returning null if this fails
      *
      * @param gameName game name to attempt to load
@@ -169,30 +187,6 @@ public class GameScoreboardManager {
             result = new GameScoreboard();
         return result;
     }
-
-    /**
-     * Attempt to store a scoreboard into a context
-     *
-     * @param context     context to use to open a file
-     * @param gameName    name of game associated with scoreboard
-     * @param board       scoreboard to serialize
-     * @param scorePrefix prefix for the file to store
-     */
-    public static void storeScoreboard(
-            Context context, String gameName, GameScoreboard board, String scorePrefix) {
-        if (context == null) return;
-        String toStoreTo = scorePrefix + gameName + ".ser";
-
-        try {
-            ObjectOutputStream outputStream = new ObjectOutputStream(
-                    context.openFileOutput(toStoreTo, Context.MODE_PRIVATE));
-            outputStream.writeObject(board);
-            outputStream.close();
-        } catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
-        }
-    }
-
 
     /**
      * Attempt to store a scoreboard into the context

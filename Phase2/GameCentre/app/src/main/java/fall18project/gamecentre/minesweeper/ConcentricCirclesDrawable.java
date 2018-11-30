@@ -7,6 +7,11 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 
+/**
+ * Code adapted from https://github.com/kgleong/minesweeper.
+ */
+
+
 public class ConcentricCirclesDrawable extends Drawable {
     static final float DEFAULT_FILL_PERCENT = 0.55f;
     static final int DEFAULT_OUTER_RING_COLOR = Color.GREEN;

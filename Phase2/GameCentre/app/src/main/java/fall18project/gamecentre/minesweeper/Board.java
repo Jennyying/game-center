@@ -5,6 +5,10 @@ import java.util.Random;
 import java.util.Set;
 
 /**
+ * Code adapted from https://github.com/kgleong/minesweeper.
+ */
+
+/**
  * The minesweeper board.
  */
 public class Board {

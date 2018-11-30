@@ -15,16 +15,18 @@ import java.util.List;
 
 import fall18project.gamecentre.R;
 
+/**
+ * Code adapted from https://github.com/kgleong/minesweeper.
+ */
+
 public class TileDrawable extends Drawable {
+    public static final int REQUIRED_COLOR_COUNT = 5;
     private static final float DEFAULT_FILL_PERCENT = 0.75f;
     private static final int INNER_RECT_COLOR_INDEX = 0;
     private static final int LEFT_BEVEL_COLOR_INDEX = 1;
     private static final int TOP_BEVEL_COLOR_INDEX = 2;
     private static final int RIGHT_BEVEL_COLOR_INDEX = 3;
     private static final int BOTTOM_BEVEL_COLOR_INDEX = 4;
-
-    public static final int REQUIRED_COLOR_COUNT = 5;
-
     private float fillPercent = DEFAULT_FILL_PERCENT;
 
     private int[] colorList;
@@ -47,6 +49,28 @@ public class TileDrawable extends Drawable {
         saveConstantState();
     }
 
+    public static TileAttributeSet extractAttributes(Context context, AttributeSet attrs) {
+        TileAttributeSet tileAttributeSet = null;
+
+        TypedArray attributesArray = context.obtainStyledAttributes(attrs, R.styleable.TileView);
+
+        try {
+            int[] colorList = new int[TileDrawable.REQUIRED_COLOR_COUNT];
+
+            colorList[INNER_RECT_COLOR_INDEX] = attributesArray.getColor(R.styleable.TileView_innerRectColor, -1);
+            colorList[LEFT_BEVEL_COLOR_INDEX] = attributesArray.getColor(R.styleable.TileView_leftBevelColor, -1);
+            colorList[TOP_BEVEL_COLOR_INDEX] = attributesArray.getColor(R.styleable.TileView_topBevelColor, -1);
+            colorList[RIGHT_BEVEL_COLOR_INDEX] = attributesArray.getColor(R.styleable.TileView_rightBevelColor, -1);
+            colorList[BOTTOM_BEVEL_COLOR_INDEX] = attributesArray.getColor(R.styleable.TileView_bottomBevelColor, -1);
+            float fillPercent = attributesArray.getFloat(R.styleable.TileView_fillPercentage, -1);
+
+            tileAttributeSet = new TileAttributeSet(colorList, fillPercent);
+        } finally {
+            attributesArray.recycle();
+            return tileAttributeSet;
+        }
+    }
+
     private void saveConstantState() {
         if (drawableState == null) {
             drawableState = new TileDrawableState();
@@ -65,7 +89,6 @@ public class TileDrawable extends Drawable {
         bottomBevelPath = new Path();
         righBevelPath = new Path();
     }
-
 
     @Override
     public void draw(Canvas canvas) {
@@ -140,26 +163,24 @@ public class TileDrawable extends Drawable {
         path.close();
     }
 
-    public static TileAttributeSet extractAttributes(Context context, AttributeSet attrs) {
-        TileAttributeSet tileAttributeSet = null;
+    @Override
+    public void setAlpha(int alpha) {
 
-        TypedArray attributesArray = context.obtainStyledAttributes(attrs, R.styleable.TileView);
+    }
 
-        try {
-            int[] colorList = new int[TileDrawable.REQUIRED_COLOR_COUNT];
+    @Override
+    public void setColorFilter(ColorFilter cf) {
 
-            colorList[INNER_RECT_COLOR_INDEX] = attributesArray.getColor(R.styleable.TileView_innerRectColor, -1);
-            colorList[LEFT_BEVEL_COLOR_INDEX] = attributesArray.getColor(R.styleable.TileView_leftBevelColor, -1);
-            colorList[TOP_BEVEL_COLOR_INDEX] = attributesArray.getColor(R.styleable.TileView_topBevelColor, -1);
-            colorList[RIGHT_BEVEL_COLOR_INDEX] = attributesArray.getColor(R.styleable.TileView_rightBevelColor, -1);
-            colorList[BOTTOM_BEVEL_COLOR_INDEX] = attributesArray.getColor(R.styleable.TileView_bottomBevelColor, -1);
-            float fillPercent = attributesArray.getFloat(R.styleable.TileView_fillPercentage, -1);
+    }
 
-            tileAttributeSet = new TileAttributeSet(colorList, fillPercent);
-        } finally {
-            attributesArray.recycle();
-            return tileAttributeSet;
-        }
+    @Override
+    public int getOpacity() {
+        return 0;
+    }
+
+    @Override
+    public ConstantState getConstantState() {
+        return drawableState;
     }
 
     public static class TileAttributeSet {
@@ -192,26 +213,6 @@ public class TileDrawable extends Drawable {
         public Float getFillPercent() {
             return fillPercent;
         }
-    }
-
-    @Override
-    public void setAlpha(int alpha) {
-
-    }
-
-    @Override
-    public void setColorFilter(ColorFilter cf) {
-
-    }
-
-    @Override
-    public int getOpacity() {
-        return 0;
-    }
-
-    @Override
-    public ConstantState getConstantState() {
-        return drawableState;
     }
 
     private class TileDrawableState extends ConstantState {

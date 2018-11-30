@@ -114,6 +114,28 @@ public class UserManager {
     }
 
     /**
+     * Attempt to store a user given by a User object to disk with a prefix
+     *
+     * @param context    context to use to open a file
+     * @param user       User object to serialize
+     * @param userPrefix prefix for the file to store
+     */
+    public static void storeUser(
+            Context context, User user, String userPrefix) {
+        if (context == null) return;
+        String toStoreTo = userPrefix + user.getUserName() + ".ser";
+
+        try {
+            ObjectOutputStream outputStream = new ObjectOutputStream(
+                    context.openFileOutput(toStoreTo, Context.MODE_PRIVATE));
+            outputStream.writeObject(user);
+            outputStream.close();
+        } catch (IOException e) {
+            Log.e("Exception", "File write failed: " + e.toString());
+        }
+    }
+
+    /**
      * Attempt to load a user with the given username, returning null if this fails
      *
      * @param userName username to attempt to load
@@ -161,7 +183,6 @@ public class UserManager {
         return result;
     }
 
-
     /**
      * Attempt to load a user with the given username, and if there is none, create one without
      * storing to disk. Throws an exception if the file for userName contains the information of
@@ -176,29 +197,6 @@ public class UserManager {
             result = new User(userName);
         return result;
     }
-
-    /**
-     * Attempt to store a user given by a User object to disk with a prefix
-     *
-     * @param context    context to use to open a file
-     * @param user       User object to serialize
-     * @param userPrefix prefix for the file to store
-     */
-    public static void storeUser(
-            Context context, User user, String userPrefix) {
-        if (context == null) return;
-        String toStoreTo = userPrefix + user.getUserName() + ".ser";
-
-        try {
-            ObjectOutputStream outputStream = new ObjectOutputStream(
-                    context.openFileOutput(toStoreTo, Context.MODE_PRIVATE));
-            outputStream.writeObject(user);
-            outputStream.close();
-        } catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
-        }
-    }
-
 
     /**
      * Attempt to store a user given by a User object to disk with the current prefix

@@ -12,6 +12,11 @@ import com.squareup.otto.Bus;
 
 import fall18project.gamecentre.R;
 
+/**
+ * Code adapted from https://github.com/kgleong/minesweeper.
+ */
+
+
 public class BoardView extends ViewGroup {
     /**
      * The default line color.

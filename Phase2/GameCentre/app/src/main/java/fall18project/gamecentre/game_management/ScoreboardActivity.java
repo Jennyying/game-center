@@ -1,18 +1,13 @@
 package fall18project.gamecentre.game_management;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -21,7 +16,6 @@ import fall18project.gamecentre.R;
 import fall18project.gamecentre.user_management.LoginManager;
 import fall18project.gamecentre.user_management.User;
 import fall18project.gamecentre.user_management.UserManager;
-import fall18project.gamecentre.user_management.UserScoreboard;
 
 public class ScoreboardActivity extends AppCompatActivity {
 
@@ -33,6 +27,7 @@ public class ScoreboardActivity extends AppCompatActivity {
     private ListView scoreboard;
     private String[] globalScoreTableCache;
     private ArrayAdapter<String> emptyView;
+
     /**
      * Update the global score table cache
      */
@@ -46,12 +41,14 @@ public class ScoreboardActivity extends AppCompatActivity {
     private void displayEmptyScoreboard() {
         scoreboard.setAdapter(emptyView);
     }
+
     /**
      * Display the Scoreboard object passed in. Display nothing if null is passed in
+     *
      * @param u scoreboard to display
      */
-    private void displayScoreboard(Scoreboard u) {  
-        if(u == null) {
+    private void displayScoreboard(Scoreboard u) {
+        if (u == null) {
             scoreboard.setAdapter(emptyView);
             return;
         }
@@ -63,15 +60,16 @@ public class ScoreboardActivity extends AppCompatActivity {
 
     /**
      * Display a game filtered scoreboard
+     *
      * @param gf the filter to apply to the game
-     * @param u the scoreboard to filter
+     * @param u  the scoreboard to filter
      */
     private void displayFilteredScoreboard(String gf, Scoreboard u) {
         ArrayList<String> filteredScores = new ArrayList<>(u.size());
         Iterator<SessionScore> stringIterator = u.iterator();
-        while(stringIterator.hasNext()) {
+        while (stringIterator.hasNext()) {
             SessionScore score = stringIterator.next();
-            if(score.getGameName().equals(gf)) filteredScores.add(score.toString());
+            if (score.getGameName().equals(gf)) filteredScores.add(score.toString());
         }
 
         scoreboard.setAdapter(new ArrayAdapter<String>(this,
@@ -175,14 +173,14 @@ public class ScoreboardActivity extends AppCompatActivity {
     public void updateScoreboard() {
         String s = userNameView.getText().toString();
         String g = gameNameView.getText().toString();
-        if(s.isEmpty() && g.isEmpty()) {
+        if (s.isEmpty() && g.isEmpty()) {
             displayGlobalScoreboard();
-        } else if(s.isEmpty()) {
+        } else if (s.isEmpty()) {
             displayScoreboard(scoreboardManager.getScoreboard(g));
         } else {
             User u = userManager.loadUser(s);
-            if(u == null) displayEmptyScoreboard();
-            else if(g.isEmpty()) displayScoreboard(u.getScoreboard());
+            if (u == null) displayEmptyScoreboard();
+            else if (g.isEmpty()) displayScoreboard(u.getScoreboard());
             else displayFilteredScoreboard(g, u.getScoreboard());
         }
     }

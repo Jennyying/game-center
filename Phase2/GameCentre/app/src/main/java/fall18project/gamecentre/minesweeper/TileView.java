@@ -14,6 +14,10 @@ import java.util.Map;
 
 import fall18project.gamecentre.R;
 
+/**
+ * Code adapted from https://github.com/kgleong/minesweeper.
+ */
+
 
 public class TileView extends View {
 

@@ -3,6 +3,10 @@ package fall18project.gamecentre.minesweeper;
 
 import android.util.Log;
 
+/**
+ * Code adapted from https://github.com/kgleong/minesweeper.
+ */
+
 public class GameManager {
     private Listener listener;
     private BoardView boardView;
@@ -10,10 +14,11 @@ public class GameManager {
 
     /**
      * Initializes a GameManager for a game of minesweeper
+     *
      * @param dimension the side length of the Minesweeper board
-     * @param numMines the number of mines to place on the board
+     * @param numMines  the number of mines to place on the board
      * @param boardView the board view to display the board on
-     * @param listener a listener for updates to the board's state
+     * @param listener  a listener for updates to the board's state
      */
     public GameManager(int dimension, int numMines, BoardView boardView, Listener listener) {
 
@@ -25,8 +30,9 @@ public class GameManager {
 
     /**
      * Initializes the game with a given dimension and number of mines
+     *
      * @param dimension the side length of the Minesweeper board
-     * @param numMines the number of mines to place on the board
+     * @param numMines  the number of mines to place on the board
      */
     public void initGame(int dimension, int numMines) {
         // Ensure that old games don't receive game events.
@@ -66,6 +72,7 @@ public class GameManager {
 
     /**
      * Tells the listener how many flags are remaining
+     *
      * @param flagsRemaining the amount of flags to tell the listener are remaining
      */
     public void publishFlagsRemainingCount(int flagsRemaining) {
@@ -74,6 +81,7 @@ public class GameManager {
 
     /**
      * Tells the listener how much time has elapsed
+     *
      * @param elapsedTime the amount of time to tell the listener has elapsed
      */
     public void publishElapsedTime(long elapsedTime) {
@@ -129,12 +137,14 @@ public class GameManager {
     public interface Listener {
         /**
          * Update the amount of time elapsed
+         *
          * @param elapsedTime the desired new value for time elapsed
          */
         void updateTimeElapsed(long elapsedTime);
 
         /**
          * Update the number of flags remaining
+         *
          * @param flagsRemaining the new number of flags remaining
          */
         void updateMineFlagsRemainingCount(int flagsRemaining);

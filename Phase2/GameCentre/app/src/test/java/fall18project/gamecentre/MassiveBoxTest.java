@@ -7,7 +7,9 @@ import fall18project.gamecentre.reactorcontrol.physics.MassiveBox;
 import fall18project.gamecentre.reactorcontrol.physics.MassivePoint;
 
 public class MassiveBoxTest {
-    /** The Massive Box for testing */
+    /**
+     * The Massive Box for testing
+     */
     private MassiveBox massiveBox;
 
     /**
@@ -43,7 +45,6 @@ public class MassiveBoxTest {
     @Test
     public void acc() {
     }
-
 
 
     @Test

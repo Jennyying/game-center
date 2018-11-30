@@ -23,63 +23,44 @@ public class GameState implements Serializable {
      * The minimum reward from touching a CoinBox
      */
     private static final long MIN_REWARD = 1000;
-
+    /**
+     * Laser spawn timeout
+     */
+    private static int LASER_SPAWN_TIMEOUT = 100;
+    /**
+     * Reward spawn timeout
+     */
+    private static int REWARD_SPAWN_TIMEOUT = 100;
     /**
      * The screen, which can be moved by in-game events
      */
     private Screen screen;
-
     /**
      * The player character
      */
     private PlayerCharacter player;
-
     /**
      * The a laser, modelled as a DamagingBox with mass 0 doing 1 damage and having x and y
      * radii of 1
      */
     private DamagingBox laser;
-
     /**
      * The coin reward box, modelled as a CoinBox with mass 1 giving a random number of coins between
      * MIN_REWARD and MAX_REWARD
      */
     private CoinBox reward;
-
     /**
      * The force of gravity
      */
     private double gravityLevel = -1;
-
     /**
      * Laser spawn timer
      */
     private int laserSpawnTimer = 0;
-
-    /**
-     * Laser spawn timeout
-     */
-    private static int LASER_SPAWN_TIMEOUT = 100;
-
     /**
      * Reward spawn timer
      */
     private int rewardSpawnTimer = 0;
-
-    /**
-     * Reward spawn timeout
-     */
-    private static int REWARD_SPAWN_TIMEOUT = 100;
-
-    /**
-     * Apply gravity on a Pushable game object
-     *
-     * @param p object to apply gravity to
-     */
-    private void applyGravity(Pushable p) {
-        if (p.getMass() == MASSLESS_OBJECT) return;
-        p.accY(gravityLevel);
-    }
 
     /**
      * Create a new GameState for a given screen width and height
@@ -99,6 +80,16 @@ public class GameState implements Serializable {
         this.player = player;
         this.laser = laser;
         this.reward = reward;
+    }
+
+    /**
+     * Apply gravity on a Pushable game object
+     *
+     * @param p object to apply gravity to
+     */
+    private void applyGravity(Pushable p) {
+        if (p.getMass() == MASSLESS_OBJECT) return;
+        p.accY(gravityLevel);
     }
 
     /**
@@ -208,7 +199,7 @@ public class GameState implements Serializable {
         updateRewardPosition();
         updatePlayerPosition();
 
-        if(!isOver()) {
+        if (!isOver()) {
             player.incrementScore();
             interactWithPlayer();
         }

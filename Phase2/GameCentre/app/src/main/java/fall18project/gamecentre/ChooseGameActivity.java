@@ -12,9 +12,9 @@ import android.widget.Button;
 public class ChooseGameActivity extends AppCompatActivity {
 
     public static final String[] GAME_NAMES = {
-        "SlidingTiles",
-        "ReactorControl",
-        "Minesweeper"
+            "SlidingTiles",
+            "ReactorControl",
+            "Minesweeper"
     };
 
     @Override

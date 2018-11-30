@@ -37,6 +37,22 @@ public class LoginActivity extends AppCompatActivity {
      * will not changed
      */
     private List<String> usernameList;
+    /**
+     * Username field
+     */
+    private AutoCompleteTextView userNameField;
+    /**
+     * Password field
+     */
+    private EditText passwordField;
+    /**
+     * Login button
+     */
+    private Button loginButton;
+    /**
+     * Background graphics manager (for rain effect and gradient animation)
+     */
+    private WeatherBackground background;
 
     /**
      * Compute the list of usernames in the login manager
@@ -44,26 +60,6 @@ public class LoginActivity extends AppCompatActivity {
     private void computeUsernameList() {
         usernameList = loginManager.getUserNameList();
     }
-
-    /**
-     * Username field
-     */
-    private AutoCompleteTextView userNameField;
-
-    /**
-     * Password field
-     */
-    private EditText passwordField;
-
-    /**
-     * Login button
-     */
-    private Button loginButton;
-
-    /**
-     * Background graphics manager (for rain effect and gradient animation)
-     */
-    private WeatherBackground background;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

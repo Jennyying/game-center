@@ -2,6 +2,10 @@ package fall18project.gamecentre.minesweeper;
 
 import android.content.Context;
 
+/**
+ * Code adapted from https://github.com/kgleong/minesweeper.
+ */
+
 public class Graphics {
 
     public static int getColor(Context context, int resId) {

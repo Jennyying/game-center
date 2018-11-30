@@ -9,16 +9,6 @@ import java.io.Serializable;
 public class UserSettings implements Serializable {
 
     /**
-     * Whether to show the introduction every time (yes), show the introduction once and not again
-     * (once) or not to show the introduction (no)
-     */
-    public enum ShowIntroductionStatus implements Serializable{
-        YES,
-        NO,
-        ONCE
-    }
-
-    /**
      * Whether to show the user the introduction/tutorial screen on opening the game. See doc
      * for the enum ShowIntroductionStatus
      */
@@ -49,6 +39,16 @@ public class UserSettings implements Serializable {
      */
     public void setShowIntroduction(ShowIntroductionStatus status) {
         showIntroduction = status;
+    }
+
+    /**
+     * Whether to show the introduction every time (yes), show the introduction once and not again
+     * (once) or not to show the introduction (no)
+     */
+    public enum ShowIntroductionStatus implements Serializable {
+        YES,
+        NO,
+        ONCE
     }
 
 }

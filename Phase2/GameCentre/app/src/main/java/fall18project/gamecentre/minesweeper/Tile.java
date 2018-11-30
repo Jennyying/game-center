@@ -1,5 +1,9 @@
 package fall18project.gamecentre.minesweeper;
 
+/**
+ * Code adapted from https://github.com/kgleong/minesweeper.
+ */
+
 public class Tile {
 
     /**
