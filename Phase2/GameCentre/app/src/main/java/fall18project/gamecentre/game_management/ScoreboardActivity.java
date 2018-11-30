@@ -1,4 +1,4 @@
-package fall18project.gamecentre;
+package fall18project.gamecentre.game_management;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,12 +14,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 
+import fall18project.gamecentre.R;
 import fall18project.gamecentre.game_management.ScoreboardManager;
 import fall18project.gamecentre.user_management.UserScoreboard;
 
 public class ScoreboardActivity extends AppCompatActivity {
 
-    private ScoreboardManager scoreboardManager;
+    //TODO: fix this initialization
+    private ScoreboardManager scoreboardManager = new ScoreboardManager();
     private AutoCompleteTextView textView;
     private ListView scoreboard;
     private String[] globalScoreTableCache;

@@ -156,8 +156,8 @@ public class BoardManager implements Serializable {
      * Get the score,
      * @return (10*numTiles*e^(-0.05 * moves/sideLength))
      */
-    public double getScoreVal() {
-        return 10 * board.numTiles() * Math.exp(-0.05 * moves / board.getSideLength());
+    public long getScoreVal() {
+        return Math.max(0, 10000 - moves);
     }
 
     /**
