@@ -22,7 +22,6 @@ public class GameSetupActivity extends AppCompatActivity {
     /*
      Photo choosing code adapted from https://gist.github.com/bunjix/7bcf36633e11f787215e by bunjix
      */
-
     private static final int PICK_PHOTO_FOR_PUZZLE = 0;
 
     private BoardManager boardManager;
@@ -46,7 +45,7 @@ public class GameSetupActivity extends AppCompatActivity {
     private void switchToGame() {
         boardManager = new BoardManager(getCurrentComplexity(),
                 getIntent().getExtras().getString("username"));
-        //saveGameToFile(StartingActivity.TEMP_SAVE_FILENAME);
+        //saveGameToFile(GameActivity.TEMP_SAVE_FILENAME);
 
         Intent tmp = new Intent(this, GameActivity.class);
         startActivity(tmp);

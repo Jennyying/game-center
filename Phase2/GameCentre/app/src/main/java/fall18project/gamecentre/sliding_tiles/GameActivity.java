@@ -17,12 +17,28 @@ import java.util.Observable;
 import java.util.Observer;
 
 import fall18project.gamecentre.R;
-import fall18project.gamecentre.game_management.ScoreboardManager;
+import fall18project.gamecentre.game_management.GameScoreboardManager;
+import fall18project.gamecentre.user_management.UserManager;
 
 /**
  * The game activity.
  */
 public class GameActivity extends AppCompatActivity implements Observer {
+
+    /**
+     * The prefix for user's temporary saved games
+     */
+    public static final String TEMP_SAVE_FILENAME = "sliding_tiles_temp_";
+
+    /**
+     * The prefix for user's saved games
+     */
+    public static final String SAVE_FILENAME = "sliding_tiles_";
+
+    /**
+     * The name of this game
+     */
+    public static final String GAME_NAME = "SlidingTiles";
 
     /**
      * Constants for swiping directions. Should be an enum, probably.
@@ -36,10 +52,17 @@ public class GameActivity extends AppCompatActivity implements Observer {
      * The board manager.
      */
     private BoardManager boardManager;
+
     /**
      * The scoreboard manager
      */
-    private ScoreboardManager scoreboardManager;
+    private GameScoreboardManager scoreboardManager;
+
+    /**
+     * The user manager
+     */
+    private UserManager userManager;
+
     /**
      * The buttons to display.
      */
@@ -51,20 +74,61 @@ public class GameActivity extends AppCompatActivity implements Observer {
      * Set up the background image for each button based on the master list
      * of positions, and then call the adapter to set the view.
      */
-    // Display
     public void display() {
         updateTileButtons();
         gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
     }
 
+    /**
+     * Return the temporary save filename to save to
+     * @return the temporary save filename for the current user
+     */
+    public String getTempSaveFilename() {
+        return TEMP_SAVE_FILENAME + userManager.loadCurrentUserName() + ".ser";
+    }
+
+    /**
+     * Return the filename to save games to
+     * @return the filename to save games to
+     */
+    public String getSaveFilename() {
+        return SAVE_FILENAME + userManager.loadCurrentUserName() + ".ser";
+    }
+
+    /**
+     * Load the game from the temp file
+     */
+    private void loadGameFromTempFile() {
+        loadGameFromFile(getTempSaveFilename());
+    }
+
+    /**
+     * Load the game from the save file
+     */
+    private void loadGameFromSaveFile() {
+        loadGameFromFile(getSaveFilename());
+    }
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //loadGameFromFile(StartingActivity.TEMP_SAVE_FILENAME);
-        //loadScoresFromFile(StartingActivity.SCORE_SAVE_FILENAME);
+        loadGameFromTempFile();
+
+        scoreboardManager = new GameScoreboardManager(this);
+        userManager = new UserManager(this);
+
         createTileButtons(this);
         setContentView(R.layout.activity_main);
 
+        setUpGridView();
+    }
+
+    /**
+     * Set up gridView and the associated board observers
+     */
+    protected void setUpGridView() {
         // Add View to activity
         gridView = findViewById(R.id.grid);
         gridView.setNumColumns(boardManager.getBoard().getSideLength());
@@ -86,7 +150,6 @@ public class GameActivity extends AppCompatActivity implements Observer {
                         display();
                     }
                 });
-        //new AutoSaver(this);
     }
 
     /**
@@ -128,10 +191,9 @@ public class GameActivity extends AppCompatActivity implements Observer {
         super.onPause();
         // If the board has been solved, record the score
         if (boardManager.hasScore()) {
-            scoreboardManager.add(boardManager.getScore());
+            scoreboardManager.addScoreForGame(boardManager.getScore(), GAME_NAME);
         }
-        //saveGameToFile(StartingActivity.TEMP_SAVE_FILENAME);
-        //saveScoresToFile(StartingActivity.SCORE_SAVE_FILENAME);
+        saveGameToTempFile();
     }
 
     /**
@@ -146,29 +208,6 @@ public class GameActivity extends AppCompatActivity implements Observer {
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
                 boardManager = (BoardManager) input.readObject();
-                inputStream.close();
-            }
-        } catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + e.toString());
-        } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
-        } catch (ClassNotFoundException e) {
-            Log.e("login activity", "File contained unexpected data type: " + e.toString());
-        }
-    }
-
-    /**
-     * Load the scoreboard manager from fileName
-     *
-     * @param fileName the name of the file
-     */
-    private void loadScoresFromFile(String fileName) {
-
-        try {
-            InputStream inputStream = this.openFileInput(fileName);
-            if (inputStream != null) {
-                ObjectInputStream input = new ObjectInputStream(inputStream);
-                scoreboardManager = (ScoreboardManager) input.readObject();
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {
@@ -197,21 +236,18 @@ public class GameActivity extends AppCompatActivity implements Observer {
     }
 
     /**
-     * Save the scoreboard manager to fileName.
-     *
-     * @param fileName the name of the file
+     * Save the board manager to the save file
      */
-    public void saveScoresToFile(String fileName) {
-        try {
-            ObjectOutputStream outputStream = new ObjectOutputStream(
-                    this.openFileOutput(fileName, MODE_PRIVATE));
-            outputStream.writeObject(scoreboardManager);
-            outputStream.close();
-        } catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
-        }
+    public void saveGameToTempFile() {
+        saveGameToFile(getTempSaveFilename());
     }
 
+    /**
+     * Save the board manager to the temp file
+     */
+    public void saveGameToSaveFile() {
+        saveGameToFile(getSaveFilename());
+    }
 
     @Override
     public void update(Observable o, Object arg) {
