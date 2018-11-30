@@ -26,7 +26,7 @@ public class GameScoreboardManager {
     /**
      * The default location for the global scoreboard
      */
-    public static final String DEFAULT_GLOBAL_SCOREBOARD_LOCATION = "global_scoreboard.ser";
+    public static final String DEFAULT_GLOBAL_SCOREBOARD_LOCATION = "global_scoreboard";
 
     /**
      * The prefix to use for Scoreboard object serialization files. Might be null

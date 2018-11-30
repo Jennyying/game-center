@@ -50,7 +50,7 @@ public class ScoreboardActivity extends AppCompatActivity {
      * Display the Scoreboard object passed in. Display nothing if null is passed in
      * @param u scoreboard to display
      */
-    private void displayScoreboard(Scoreboard u) {
+    private void displayScoreboard(Scoreboard u) {  
         if(u == null) {
             scoreboard.setAdapter(emptyView);
             return;
@@ -97,7 +97,6 @@ public class ScoreboardActivity extends AppCompatActivity {
         scoreboardManager = new GameScoreboardManager(this);
         loginManager = new LoginManager(this);
         userManager = new UserManager(this);
-
 
         setUpInterface();
     }
@@ -181,7 +180,7 @@ public class ScoreboardActivity extends AppCompatActivity {
         } else if(s.isEmpty()) {
             displayScoreboard(scoreboardManager.getScoreboard(g));
         } else {
-            User u = userManager.getUser(s);
+            User u = userManager.loadUser(s);
             if(u == null) displayEmptyScoreboard();
             else if(g.isEmpty()) displayScoreboard(u.getScoreboard());
             else displayFilteredScoreboard(g, u.getScoreboard());

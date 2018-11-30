@@ -126,7 +126,6 @@ public class NewUserActivity extends AppCompatActivity {
      */
     private void goToIntroduction() {
         Intent introduction = new Intent(this, IntroductionActivity.class);
-        userManager.setCurrentUser(currentUsername);
         startActivity(introduction);
     }
 
@@ -135,7 +134,6 @@ public class NewUserActivity extends AppCompatActivity {
      */
     private void goToChooseGame() {
         Intent chooseGame = new Intent(this, ChooseGameActivity.class);
-        userManager.setCurrentUser(currentUsername);
         startActivity(chooseGame);
     }
 
@@ -205,6 +203,7 @@ public class NewUserActivity extends AppCompatActivity {
      * Register the current user
      */
     private void registerCurrentUser() {
+        userManager.setCurrentUser(currentUsername);
         loginManager.registerUser(currentUsername, inputPassword.getText().toString());
     }
 

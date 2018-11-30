@@ -70,7 +70,7 @@ public class SessionScore implements Serializable, Comparable<SessionScore> {
      * @returns the session score represented as username : score
      */
     public String toString() {
-        return userName + " : " + score;
+        return userName + " got " + score + " in " + gameName;
     }
 
 }
