@@ -269,6 +269,15 @@ public class LoginManager implements Saveable {
     }
 
     /**
+     * Check whether a certain username exists in the password database
+     * @param userName username to check for
+     * @return whether a user with name userName exists in the database
+     */
+    public boolean userExists(String userName) {
+        return passwordDatabase.containsKey(userName);
+    }
+
+    /**
      * Register a user without updating the file on disk. Returns whether this was successful
      * @param userName username to register
      * @param password password to register
@@ -276,7 +285,7 @@ public class LoginManager implements Saveable {
      * username
      */
     private boolean registerUserInMemory(String userName, String password) {
-        if(passwordDatabase.containsKey(userName)) return false;
+        if(userExists(userName)) return false;
         passwordDatabase.put(userName, new SaltAndDigest(password));
         return true;
     }

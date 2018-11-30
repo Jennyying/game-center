@@ -42,4 +42,6 @@
     <string name="clippy">Clippy</string>
     <string name="text_yes_button">Yes</string>
     <string name="text_hint_gamename">Game</string>
+    <string name="text_introduction">Start Tutorial</string>
+    <string name="text_skip_button">Skip</string>
 </resources>

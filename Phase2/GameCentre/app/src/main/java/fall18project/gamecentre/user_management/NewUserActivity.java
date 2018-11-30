@@ -1,5 +1,6 @@
 package fall18project.gamecentre.user_management;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -13,12 +14,19 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import fall18project.gamecentre.ChooseGameActivity;
+import fall18project.gamecentre.IntroductionActivity;
 import fall18project.gamecentre.R;
 
 /**
  * Activity to create a new user
  */
 public class NewUserActivity extends AppCompatActivity {
+
+    /**
+     * A login manager to handle creating new users
+     */
+    private LoginManager loginManager;
 
     /**
      * A handle to animate the clippy image used as mascot.
@@ -46,6 +54,16 @@ public class NewUserActivity extends AppCompatActivity {
     private EditText inputUsername;
 
     /**
+     * A handle for the set password layout
+     */
+    private LinearLayout setPasswordLayout;
+
+    /**
+     * The password input box
+     */
+    private EditText inputPassword;
+
+    /**
      * The current username
      */
     private String currentUsername = null;
@@ -60,6 +78,7 @@ public class NewUserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_user);
 
+        loginManager = new LoginManager(this, LoginManager.DEFAULT_FILE_NAME);
         setUpInterface();
     }
 
@@ -75,14 +94,71 @@ public class NewUserActivity extends AppCompatActivity {
         newUserLayout = findViewById(R.id.newUserLayout);
         confirmUsername = findViewById(R.id.confirmUsername);
         inputUsername = findViewById(R.id.inputUsername);
+        setPasswordLayout = findViewById(R.id.setPasswordLayout);
+        inputPassword = findViewById(R.id.inputPassword);
         bounce = AnimationUtils.loadAnimation(this, R.anim.bounce);
 
         yesLayout.setVisibility(View.VISIBLE);
         newUserLayout.setVisibility(View.INVISIBLE);
+        setPasswordLayout.setVisibility(View.INVISIBLE);
 
         setUpClippyTapAnimation();
         setUpYesButton();
-        setUpConfirmUsernameButtonText();
+        setUpConfirmUsernameButton();
+        SetUpIntroductionButton();
+        SetUpSkipButton();
+    }
+
+    /**
+     * Go to the introduction
+     */
+    private void goToIntroduction() {
+        Intent introduction = new Intent(this, IntroductionActivity.class);
+        startActivity(introduction);
+    }
+
+    /**
+     * Go straight to the game choice screen
+     */
+    private void goToChooseGame() {
+        Intent chooseGame = new Intent(this, ChooseGameActivity.class);
+        startActivity(chooseGame);
+    }
+
+    /**
+     * Make tapping the introduction button register the new user and start an IntroductionActivity
+     */
+    private void SetUpIntroductionButton() {
+
+        Button introductionButton = findViewById(R.id.introduction_button);
+        introductionButton.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        registerCurrentUser();
+                        goToIntroduction();
+                    }
+                }
+        );
+
+    }
+
+    /**
+     * Make tapping the skip button register the new user and start a ChooseGameActivity
+     */
+    private void SetUpSkipButton() {
+
+        Button skipButton = findViewById(R.id.skip_button);
+        skipButton.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        registerCurrentUser();
+                        goToChooseGame();
+                    }
+                }
+        );
+
     }
 
     /**
@@ -101,6 +177,30 @@ public class NewUserActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * @return whether the username currently in the EditText box inputUsername is valid
+     */
+    private boolean isInputtedUsernameValid() {
+        //TODO: implement
+        return !loginManager.userExists(inputUsername.getText().toString());
+    }
+
+
+
+    /**
+     * Register the current user
+     */
+    private void registerCurrentUser() {
+        loginManager.registerUser(currentUsername, inputPassword.getText().toString());
+    }
+
+    /**
+     * Set up the confirm username button
+     */
+    private void setUpConfirmUsernameButton() {
+        setUpConfirmUsernameButtonText();
+        setUpConfirmUsernameButtonClick();
+    }
 
     /**
      * Set up a listener for changes in the username textbox to update the button text
@@ -111,6 +211,22 @@ public class NewUserActivity extends AppCompatActivity {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 updateConfirmUsernameButtonText();
                 return true;
+            }
+        });
+    }
+
+    /**
+     * Set up a listener to show the password setting screen and set the current username if a valid
+     * username is chosen
+     */
+    private void setUpConfirmUsernameButtonClick() {
+        confirmUsername.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isInputtedUsernameValid()) {
+                    currentUsername = inputUsername.getText().toString();
+                    setPasswordLayout.setVisibility(View.VISIBLE);
+                }
             }
         });
     }
@@ -149,10 +265,10 @@ public class NewUserActivity extends AppCompatActivity {
     private void updateConfirmUsernameButtonText() {
         if(inputUsername.getText().toString().isEmpty()) {
             makeConfirmUsernameButtonInvalid();
-        } else if(false) { //TODO: replace this for a check of whether the username is already taken
-            makeConfirmUsernameButtonTaken();
-        } else {
+        } else if(isInputtedUsernameValid()) {
             makeConfirmUsernameButtonChoose();
+        } else {
+            makeConfirmUsernameButtonTaken();
         }
     }
 
