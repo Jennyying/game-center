@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import fall18project.gamecentre.reactorcontrol.GameActivity;
-
 /**
  * An activity for choosing from a list of games in the game centre
  */
@@ -26,6 +24,7 @@ public class ChooseGameActivity extends AppCompatActivity {
      */
     private void setUpInterface() {
         setUpReactorControl();
+        setUpMinesweeper();
     }
 
     /**
@@ -42,10 +41,34 @@ public class ChooseGameActivity extends AppCompatActivity {
     }
 
     /**
+     * Set up the button to open the Minesweeper minigame
+     */
+    private void setUpMinesweeper() {
+        Button minesweeperButton = findViewById(R.id.goToMinesweeper);
+        minesweeperButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToMinesweeper();
+            }
+        });
+    }
+
+    /**
      * Go to the ReactorControl minigame
      */
     private void goToReactorControl() {
-        Intent reactorControl = new Intent(this, GameActivity.class);
+        Intent reactorControl = new Intent(
+                this, fall18project.gamecentre.reactorcontrol.GameActivity.class);
         startActivity(reactorControl);
     }
+
+    /**
+     * Go to the minesweeper minigame
+     */
+    private void goToMinesweeper() {
+        Intent minesweeper = new Intent(
+                this, fall18project.gamecentre.minesweeper.GameActivity.class);
+        startActivity(minesweeper);
+    }
 }
+
