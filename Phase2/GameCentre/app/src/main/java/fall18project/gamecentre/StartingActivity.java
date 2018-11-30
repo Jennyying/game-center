@@ -44,6 +44,10 @@ public class StartingActivity extends AppCompatActivity {
     private User currentUser = null;
 
     /**
+     * The text view for the
+     */
+
+    /**
      * A collection of funny quotes to put in the subtitle
      */
     private static final String[] funnySubtitles = {

@@ -12,25 +12,20 @@
     <string name="text_scores">Scores</string>
     <string name="text_haskell">Should\'ve been written in Haskell</string>
     <string name="text_new_user_intro">
-        It looks like you\'re trying to awaken from cryosleep. Would you like my help?
+        Clippy: It looks like you\'re trying to awaken from cryosleep. Would you like my help?
     </string>
     <string name="text_new_user_intro_pushed">
-        Excellent! It says here your name is
+        Clippy: Excellent! It says here your name is
     </string>
     <string name ="text_new_user_forgot_name">
         Program received signal SIGSEGV: Segmentation Fault
     </string>
     <string name="text_new_user_remind_name">
-        Ah, I seem to have forgotten it. Remind me\?
+        Clippy: Ah, I seem to have forgotten it. Remind me\?
     </string>
-    <string name="text_new_user_greets">
-        So..\.
-    </string>
-    <string name="text_new_user_password_start">
-        Clippy: I pronounce that right? Anyways, our
-    </string>
+    <string name="text_new_user_greets">So...</string>
     <string name="text_new_user_password_end">
-        Active Starship Administrator™ set a policy requiring all users to have a password.
+        Clippy: I pronounce that right? Anyways, our Macrosoft™ Active Starship Administrator™ set a policy requiring all users to have a password.
         That said, they didn\'t set a minimum length, so you can make like Stallman and set it to newline (i.e. nothing)
     </string>
     <string name="text_password_confirmed">
@@ -58,4 +53,6 @@
     <string name="game_reset_error">There was a problem resetting the game</string>
     <string name="win_message">You won!</string>
     <string name="loss_message">You lost!</string>
+    <string name="text_not_logged_in">Not logged in.</string>
+    <string name="text_signed_in_as">Signed in as</string>
 </resources>

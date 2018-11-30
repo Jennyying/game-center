@@ -69,6 +69,11 @@ public class NewUserActivity extends AppCompatActivity {
     private String currentUsername = null;
 
     /**
+     * The current username display box
+     */
+    private TextView currentUsernameDisplay;
+
+    /**
      * The animation for clippy bouncing
      */
     private Animation bounce;
@@ -96,6 +101,7 @@ public class NewUserActivity extends AppCompatActivity {
         inputUsername = findViewById(R.id.inputUsername);
         setPasswordLayout = findViewById(R.id.setPasswordLayout);
         inputPassword = findViewById(R.id.inputPassword);
+        currentUsernameDisplay = findViewById(R.id.current_username);
         bounce = AnimationUtils.loadAnimation(this, R.anim.bounce);
 
         yesLayout.setVisibility(View.VISIBLE);
@@ -225,6 +231,7 @@ public class NewUserActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(isInputtedUsernameValid()) {
                     currentUsername = inputUsername.getText().toString();
+                    currentUsernameDisplay.setText(currentUsername);
                     setPasswordLayout.setVisibility(View.VISIBLE);
                 }
             }
