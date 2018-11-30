@@ -12,6 +12,7 @@ import com.github.matteobattilana.weather.WeatherView;
 
 import java.util.Random;
 
+import fall18project.gamecentre.game_management.ScoreboardActivity;
 import fall18project.gamecentre.user_management.LoginActivity;
 import fall18project.gamecentre.user_management.LoginManager;
 import fall18project.gamecentre.user_management.NewUserActivity;
@@ -41,6 +42,10 @@ public class StartingActivity extends AppCompatActivity {
      * The current logged in user. Is null if and only if no one is logged in
      */
     private User currentUser = null;
+
+    /**
+     * The text view for the
+     */
 
     /**
      * A collection of funny quotes to put in the subtitle
@@ -112,6 +117,8 @@ public class StartingActivity extends AppCompatActivity {
 
         registerSignInOutButton();
         registerPlayButton();
+        registerNewPlayerButton();
+        registerScoresButton();
         setRandomQuote();
     }
 
@@ -132,11 +139,32 @@ public class StartingActivity extends AppCompatActivity {
     }
 
     /**
+     * Register an on-click listener to go to the scoreboard activity
+     */
+    private void registerScoresButton() {
+        Button scoresButton = findViewById(R.id.scores);
+        scoresButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToScoreboard();
+            }
+        });
+    }
+
+    /**
      * Go to the login interface
      */
     private void goToLogin() {
         Intent login = new Intent(this, LoginActivity.class);
         startActivity(login);
+    }
+
+    /**
+     * Go to the scoreboard
+     */
+    private void goToScoreboard() {
+        Intent scoreboard = new Intent(this, ScoreboardActivity.class);
+        startActivity(scoreboard);
     }
 
     /**
@@ -157,10 +185,24 @@ public class StartingActivity extends AppCompatActivity {
     }
 
     /**
+     * Register the new player button to create a new user (logging out the current user)
+     */
+    private void registerNewPlayerButton() {
+        Button newPlayerButton = findViewById(R.id.player);
+        newPlayerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToNewUser();
+            }
+        });
+    }
+
+    /**
      * Go to NewUserActivity
      */
     private void goToNewUser() {
         Intent newUser = new Intent(this, NewUserActivity.class);
+        newUser.setFlags(newUser.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(newUser);
     }
 

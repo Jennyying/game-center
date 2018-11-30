@@ -6,7 +6,7 @@ import java.io.Serializable;
  * A user account with a name, balance of coins, total amount of coins earned and set of scores
  * The password is not stored with the account, since it should be handled by the password manager
  * (and potentially, other forms of authentication could be used, like Google logins, etc.)
- *
+ * <p>
  * User accounts are optionally associated with an email (i.e. the email string could be null)
  */
 public class User implements Serializable {
@@ -43,6 +43,7 @@ public class User implements Serializable {
 
     /**
      * Construct a user with the given user ID and username
+     *
      * @param name the username to set
      */
     public User(String name) {
@@ -51,6 +52,7 @@ public class User implements Serializable {
 
     /**
      * Get this user's username
+     *
      * @return the username
      */
     public String getUserName() {
@@ -59,18 +61,25 @@ public class User implements Serializable {
 
     /**
      * Get coin balance
+     *
      * @return the current coin balance
      */
-    public long getCoinBalance() {return coinBalance;}
+    public long getCoinBalance() {
+        return coinBalance;
+    }
 
     /**
      * Get coins earned
+     *
      * @return the total number of coins ever earned
      */
-    public long getCoinsEarned() {return coinsEarned;}
+    public long getCoinsEarned() {
+        return coinsEarned;
+    }
 
     /**
      * Give the user a certain number of coins
+     *
      * @param amount how many coins to give
      */
     public void giveCoins(long amount) {
@@ -81,17 +90,19 @@ public class User implements Serializable {
     /**
      * Take a certain number of coins from the user. If the user doesn't have enough coins, return
      * false and do not update the user's balance, otherwise return true
+     *
      * @param amount how many coins to spend
      * @return whether the user has enough coins
      */
     public boolean spendCoins(long amount) {
-        if(amount > coinBalance) return false;
+        if (amount > coinBalance) return false;
         coinBalance -= amount;
         return true;
     }
 
     /**
      * Get the user's personal scoreboard
+     *
      * @return the user's scoreboard
      */
     public UserScoreboard getScoreboard() {

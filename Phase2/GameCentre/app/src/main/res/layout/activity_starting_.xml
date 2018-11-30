@@ -29,10 +29,12 @@
         android:layout_width="match_parent"
         android:layout_height="633dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:orientation="vertical"
         android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -95,6 +97,26 @@
                 android:layout_marginLeft="10dp"
                 android:text="@string/text_sign_in" />
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/currentlyLoggedIn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20pt"
+            android:text="@string/text_not_logged_in"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:typeface="monospace" />
+
+        <TextView
+            android:id="@+id/currentUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textColor="@color/amber_600"
+            android:textSize="24sp"
+            android:typeface="monospace"
+            tools:text="SampleUsername" />
 
     </LinearLayout>
 
