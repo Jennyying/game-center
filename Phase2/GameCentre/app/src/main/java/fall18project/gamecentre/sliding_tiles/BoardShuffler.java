@@ -18,12 +18,12 @@ public class BoardShuffler {
      */
     private int[] rand;
     /**
-     * Dimesnion of board
+     * Dimension of board
      */
     private int dimension;
 
     /**
-     * Initialises class tiles variable, and dimension with inputed parameters. Creates a
+     * Initialises class tiles variable, and dimension with input parameters. Creates a
      * list of random numbers.
      *
      * @param dimension - the dimension of the board
