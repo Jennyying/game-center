@@ -166,12 +166,13 @@ public class LoginManager implements Saveable {
 
     /**
      * Store this login manager's password database to a file without setting the file as the default
-     * storage location
+     * storage location. Does nothing if context is null
      *
      * @param context  context to store the file using
      * @param fileName file to attempt to store the password database to
      */
     private void storeToFile(Context context, String fileName) {
+        if(context == null) return;
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
                     context.openFileOutput(fileName, Context.MODE_PRIVATE));
