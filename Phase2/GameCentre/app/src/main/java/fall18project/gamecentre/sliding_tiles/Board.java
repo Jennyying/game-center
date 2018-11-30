@@ -2,6 +2,7 @@ package fall18project.gamecentre.sliding_tiles;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
@@ -23,6 +24,13 @@ public class Board extends Observable implements Serializable, Iterable<Tile>, U
      * The tiles on the board in row-major order.
      */
     private Tile[] tiles;
+
+    /**
+     * Shuffle the tiles in the board
+     */
+    public void shuffleTiles() {
+        Collections.shuffle(Arrays.asList(tiles));
+    }
 
     /*
      * A record of the moves made on the board
