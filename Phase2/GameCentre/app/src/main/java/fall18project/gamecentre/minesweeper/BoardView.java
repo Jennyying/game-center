@@ -6,10 +6,11 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.ViewGroup;
-import fall18project.gamecentre.R;
+
 import com.squareup.otto.Bus;
+
+import fall18project.gamecentre.R;
 
 public class BoardView extends ViewGroup {
     /**
@@ -64,7 +65,13 @@ public class BoardView extends ViewGroup {
      */
     private Bus gameBus;
 
-    public BoardView(Context context, AttributeSet attributeSet){
+    /**
+     * The BoardView constructor
+     *
+     * @param context      the context
+     * @param attributeSet an AttributeSet for the boardview xml files.
+     */
+    public BoardView(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
 
         gameBus = GameActivity.getGameBus();
@@ -73,7 +80,13 @@ public class BoardView extends ViewGroup {
         setupDrawObjects();
     }
 
-    private void extractAttributes(AttributeSet attributeSet){
+    /**
+     * Extract attributes from attributeSet and set the boardview attributes to the associated
+     * attributes.
+     *
+     * @param attributeSet the attribute set.
+     */
+    private void extractAttributes(AttributeSet attributeSet) {
         TypedArray attributesArray = getContext().obtainStyledAttributes(attributeSet, R.styleable.BoardView);
         // Convert default values to pixels
         float defaultBorderStrokeWidthInPx = Graphics.dpToPx(BORDER_WIDTH, getContext());
@@ -91,13 +104,15 @@ public class BoardView extends ViewGroup {
 
             borderStrokeWidth = attributesArray.getDimension(
                     R.styleable.BoardView_borderWidth, defaultBorderStrokeWidthInPx);
-        }
-        finally {
+        } finally {
             attributesArray.recycle();
         }
 
     }
 
+    /**
+     * Set up the style and color information for the grid lines and the borders in the board.
+     */
     private void setupDrawObjects() {
         gridlinesPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         gridlinesPaint.setColor(gridlineColor);
@@ -118,7 +133,7 @@ public class BoardView extends ViewGroup {
         int interval = Math.min(getMeasuredWidth(), getMeasuredHeight()) / dimension;
 
         // Place all tiles
-        for(int i = 0; i < childCount; i++ ) {
+        for (int i = 0; i < childCount; i++) {
             TileView tileView = (TileView) getChildAt(i);
 
             int top = (i / dimension) * interval;
@@ -150,12 +165,18 @@ public class BoardView extends ViewGroup {
         drawBorder(width, height, canvas);
     }
 
+    /**
+     *
+     * @param width
+     * @param height
+     * @param canvas
+     */
     private void drawBorder(int width, int height, Canvas canvas) {
         canvas.drawRect(0, 0, width, height, borderPaint);
     }
 
     private void drawGridLines(int width, int height, Canvas canvas) {
-        if(board != null) {
+        if (board != null) {
             int dimension = board.getDimension();
             int interval = height / dimension;
 
@@ -165,7 +186,7 @@ public class BoardView extends ViewGroup {
             float endY;
 
             // Horizontal lines
-            for(int i = 1; i < dimension; i++) {
+            for (int i = 1; i < dimension; i++) {
                 startY = endY = interval * i;
                 canvas.drawLine(startX, startY, endX, endY, gridlinesPaint);
             }
@@ -174,7 +195,7 @@ public class BoardView extends ViewGroup {
             endY = height;
 
             // Vertical lines
-            for(int i = 1; i < dimension; i++) {
+            for (int i = 1; i < dimension; i++) {
                 startX = endX = interval * i;
                 canvas.drawLine(startX, startY, endX, endY, gridlinesPaint);
             }
