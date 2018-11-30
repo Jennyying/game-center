@@ -1,28 +1,43 @@
 package fall18project.gamecentre.game_management;
 
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
+import android.widget.TextView;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.util.ArrayList;
+import java.util.Iterator;
+
+import fall18project.gamecentre.ChooseGameActivity;
 import fall18project.gamecentre.R;
+import fall18project.gamecentre.user_management.LoginManager;
+import fall18project.gamecentre.user_management.User;
+import fall18project.gamecentre.user_management.UserManager;
 import fall18project.gamecentre.user_management.UserScoreboard;
 
 public class ScoreboardActivity extends AppCompatActivity {
 
-    //TODO: fix this initialization
-    //private ScoreboardManager scoreboardManager = new ScoreboardManager(null, null, null);
-    private AutoCompleteTextView textView;
+    private GameScoreboardManager scoreboardManager;
+    private LoginManager loginManager;
+    private UserManager userManager;
+    private AutoCompleteTextView userNameView;
+    private AutoCompleteTextView gameNameView;
     private ListView scoreboard;
     private String[] globalScoreTableCache;
     private ArrayAdapter<String> emptyView;
-
     /**
      * Update the global score table cache
      */
     private void updateGlobalScoreTableCache() {
-        //globalScoreTableCache = scoreboardManager.getGlobalScores().getPrintedScores();
+        globalScoreTableCache = scoreboardManager.getGlobalScoreboard().getPrintedScores();
     }
 
     /**
@@ -31,16 +46,37 @@ public class ScoreboardActivity extends AppCompatActivity {
     private void displayEmptyScoreboard() {
         scoreboard.setAdapter(emptyView);
     }
-
     /**
-     * Display the scoreboard of the UserScoreboard object passed in
-     *
+     * Display the Scoreboard object passed in. Display nothing if null is passed in
      * @param u scoreboard to display
      */
-    private void displayUserScoreboard(UserScoreboard u) {
+    private void displayScoreboard(Scoreboard u) {  
+        if(u == null) {
+            scoreboard.setAdapter(emptyView);
+            return;
+        }
         scoreboard.setAdapter(new ArrayAdapter<String>(this,
                 android.R.layout.simple_dropdown_item_1line,
                 u.getPrintedScores()
+        ));
+    }
+
+    /**
+     * Display a game filtered scoreboard
+     * @param gf the filter to apply to the game
+     * @param u the scoreboard to filter
+     */
+    private void displayFilteredScoreboard(String gf, Scoreboard u) {
+        ArrayList<String> filteredScores = new ArrayList<>(u.size());
+        Iterator<SessionScore> stringIterator = u.iterator();
+        while(stringIterator.hasNext()) {
+            SessionScore score = stringIterator.next();
+            if(score.getGameName().equals(gf)) filteredScores.add(score.toString());
+        }
+
+        scoreboard.setAdapter(new ArrayAdapter<String>(this,
+                android.R.layout.simple_dropdown_item_1line,
+                filteredScores
         ));
     }
 
@@ -56,24 +92,45 @@ public class ScoreboardActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //loadFromFile(StartingActivity.SCORE_SAVE_FILENAME);
         setContentView(R.layout.activity_scoreboard);
 
-        /*
-        scoreboardManager.add(new SessionScore("Aragorn", 50.0));
-        scoreboardManager.add(new SessionScore("Sauron", 200.0));
-        scoreboardManager.add(new SessionScore("Frodo", 400.0));
-        */
+        scoreboardManager = new GameScoreboardManager(this);
+        loginManager = new LoginManager(this);
+        userManager = new UserManager(this);
 
-        /*
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+        setUpInterface();
+    }
+
+    /**
+     * Set up the scoreboard interface
+     */
+    private void setUpInterface() {
+        scoreboard = findViewById(R.id.scoreboard);
+
+        emptyView = new ArrayAdapter<String>(this,
                 android.R.layout.simple_dropdown_item_1line,
-                scoreboardManager.getUserNames()
+                new String[0]
         );
 
-        textView = findViewById(R.id.user_search);
-        textView.setAdapter(adapter);
-        textView.setOnEditorActionListener(
+        setUpAutoUsernameInput();
+        setUpAutoGameInput();
+
+        updateGlobalScoreTableCache();
+        displayGlobalScoreboard();
+    }
+
+    /**
+     * Set up the username input box
+     */
+    private void setUpAutoUsernameInput() {
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_dropdown_item_1line,
+                loginManager.getUserNameList()
+        );
+
+        userNameView = findViewById(R.id.user_search);
+        userNameView.setAdapter(adapter);
+        userNameView.setOnEditorActionListener(
                 new TextView.OnEditorActionListener() {
                     @Override
                     public boolean onEditorAction(TextView v, int a, KeyEvent e) {
@@ -82,17 +139,28 @@ public class ScoreboardActivity extends AppCompatActivity {
                     }
                 }
         );
-        */
+    }
 
-        scoreboard = findViewById(R.id.scoreboard);
-
-        emptyView = new ArrayAdapter<String>(this,
+    /**
+     * Set up the game name input box
+     */
+    private void setUpAutoGameInput() {
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_dropdown_item_1line,
-                new String[0]
+                ChooseGameActivity.GAME_NAMES
         );
 
-        updateGlobalScoreTableCache();
-        displayGlobalScoreboard();
+        gameNameView = findViewById(R.id.game_name);
+        gameNameView.setAdapter(adapter);
+        gameNameView.setOnEditorActionListener(
+                new TextView.OnEditorActionListener() {
+                    @Override
+                    public boolean onEditorAction(TextView v, int a, KeyEvent e) {
+                        updateScoreboard();
+                        return true;
+                    }
+                }
+        );
     }
 
     @Override
@@ -105,18 +173,18 @@ public class ScoreboardActivity extends AppCompatActivity {
      * Update the scoreboard displayed based off the contents of the username field
      */
     public void updateScoreboard() {
-        /*
-        String s = textView.getText().toString();
-        if(s.isEmpty()) {
+        String s = userNameView.getText().toString();
+        String g = gameNameView.getText().toString();
+        if(s.isEmpty() && g.isEmpty()) {
             displayGlobalScoreboard();
+        } else if(s.isEmpty()) {
+            displayScoreboard(scoreboardManager.getScoreboard(g));
+        } else {
+            User u = userManager.loadUser(s);
+            if(u == null) displayEmptyScoreboard();
+            else if(g.isEmpty()) displayScoreboard(u.getScoreboard());
+            else displayFilteredScoreboard(g, u.getScoreboard());
         }
-        UserScoreboard u = scoreboardManager.searchUserScoreboard(s);
-        if(u == null) {
-            displayEmptyScoreboard();
-            return;
-        }
-        displayUserScoreboard(u);
-        */
     }
 
 }

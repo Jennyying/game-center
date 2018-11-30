@@ -11,6 +11,12 @@ import android.widget.Button;
  */
 public class ChooseGameActivity extends AppCompatActivity {
 
+    public static final String[] GAME_NAMES = {
+        "SlidingTiles",
+        "ReactorControl",
+        "Minesweeper"
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -1,16 +1,18 @@
 package fall18project.gamecentre.user_management;
 
+import java.io.Serializable;
+
 /**
  * A class for encapsulating a user's individual game settings (for things like whether to
  * display hints or play the intro)
  */
-public class UserSettings {
+public class UserSettings implements Serializable {
 
     /**
      * Whether to show the introduction every time (yes), show the introduction once and not again
      * (once) or not to show the introduction (no)
      */
-    public enum ShowIntroductionStatus {
+    public enum ShowIntroductionStatus implements Serializable{
         YES,
         NO,
         ONCE
