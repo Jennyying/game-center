@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * The current state of the player's character, i.e. position, velocity and health remaining
  */
-public class PlayerCharacter extends MassiveBox implements Serializable {
+public class PlayerCharacter extends DestructibleBox implements Serializable {
 
     /**
      * The player's current shield
@@ -21,6 +21,11 @@ public class PlayerCharacter extends MassiveBox implements Serializable {
      * The player's current score
      */
     private long score = 0;
+
+    /**
+     * The players jumping strength
+     */
+    private double jumpStrength = 1000;
 
     /**
      * The default X radius of the bounding box surrounding the center of the player to check for collisions.
@@ -44,20 +49,22 @@ public class PlayerCharacter extends MassiveBox implements Serializable {
      * @param health the given player's starting health
      */
     public PlayerCharacter(MassivePoint centre, double rx, double ry, double shield, int health) {
-        super(centre, rx, ry);
+        super(true, centre, rx, ry);
         this.shield = shield;
         this.health = health;
     }
 
     /**
-     * Construct a new player at a given point with a given mass, starting health and shield using the
-     * default starting size
-     * @param centre the given player's starting position and velocity
+     * Construct a new player with a given size, mass and starting health and shield
+     * @param rx the given player's starting x radius
+     * @param ry the given player's starting y radius
      * @param shield the given player's starting shield
      * @param health the given player's starting health
      */
-    public PlayerCharacter(MassivePoint centre, double shield, int health) {
-        this(centre, DEFAULT_BOUNDING_BOX_X_RADIUS, DEFAULT_BOUNDING_BOX_Y_RADIUS, shield, health);
+    public PlayerCharacter(double m, double rx, double ry, double shield, int health) {
+        super(false, new MassivePoint(m, 0, 0), rx, ry);
+        this.shield = shield;
+        this.health = health;
     }
 
     /**
@@ -130,5 +137,20 @@ public class PlayerCharacter extends MassiveBox implements Serializable {
      * @param amount amount to increment the score by
      */
     public void incrementScore(long amount) {score += amount;}
+
+    /**
+     * Make the player jump
+     */
+    public void jump() {
+        pushY(jumpStrength);
+    }
+
+    /**
+     * Set the player's jump strength
+     * @param strength the player's new jump strength
+     */
+    public void setJumpStrength(double strength) {
+        jumpStrength = strength;
+    }
 
 }

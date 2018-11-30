@@ -39,7 +39,7 @@ public class DamagingBox extends DestructibleBox implements PlayerInteractable, 
      * @param p player to interact with
      */
     public void interactWith(PlayerCharacter p) {
-        if(this.collidesWith(p)) {p.doDamage(damage); makeSpent();}
+        if(keepAlive() && this.collidesWith(p)) {p.doDamage(damage); makeSpent();}
     }
 
 }

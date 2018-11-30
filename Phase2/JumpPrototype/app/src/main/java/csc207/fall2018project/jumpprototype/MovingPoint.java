@@ -94,7 +94,7 @@ public class MovingPoint extends ShiftablePoint implements MovingObject, Seriali
      * Set the object's velocity in the y direction to be vy
      * @param vy the object's new velocity in the y direction
      */
-    public void setVy(double vy) { this.vy += vy; }
+    public void setVy(double vy) { this.vy = vy; }
 
     /**
      * Move this point inertially for one time step

@@ -9,7 +9,20 @@ import java.io.Serializable;
  */
 public class GameState implements Serializable {
 
+    /**
+     * A constant indicating zero mass, just for clarity
+     */
     public static final double MASSLESS_OBJECT = 0.0;
+
+    /**
+     * The maximum reward from touching a CoinBox
+     */
+    private static final long MAX_REWARD = 15000;
+
+    /**
+     * The minimum reward from touching a CoinBox
+     */
+    private static final long MIN_REWARD = 1000;
 
     /**
      * The screen, which can be moved by in-game events
@@ -28,19 +41,35 @@ public class GameState implements Serializable {
     private DamagingBox laser;
 
     /**
+     * The coin reward box, modelled as a CoinBox with mass 1 giving a random number of coins between
+     * MIN_REWARD and MAX_REWARD
+     */
+    private CoinBox reward;
+
+    /**
      * The force of gravity
      */
-    private double gravityLevel = -2;
+    private double gravityLevel = -1;
 
     /**
      * Laser spawn timer
      */
-    private int spawnTimer = 0;
+    private int laserSpawnTimer = 0;
 
     /**
      * Laser spawn timeout
      */
     private static int LASER_SPAWN_TIMEOUT = 100;
+
+    /**
+     * Reward spawn timer
+     */
+    private int rewardSpawnTimer = 0;
+
+    /**
+     * Reward spawn timeout
+     */
+    private static int REWARD_SPAWN_TIMEOUT = 100;
 
     /**
      * Apply gravity on a Pushable game object
@@ -55,13 +84,19 @@ public class GameState implements Serializable {
      * Create a new GameState for a given screen width and height
      * @param player the player character
      * @param laser the laser shooting at the character
+     * @param reward a CoinBox launched at the player potentially giving a reward
      * @param width the screen's width
      * @param height the screen's height
      */
-    public GameState(PlayerCharacter player, DamagingBox laser, int width, int height) {
+    public GameState(
+            PlayerCharacter player,
+            DamagingBox laser,
+            CoinBox reward,
+            int width, int height) {
         screen = new Screen(new MassivePoint(Screen.DEFAULT_SCREEN_MASS, 0, 0), width, height);
         this.player = player;
         this.laser = laser;
+        this.reward = reward;
     }
 
     /**
@@ -80,31 +115,78 @@ public class GameState implements Serializable {
     }
 
     /**
+     * Update the laser's position, respawning it if necessary
+     */
+    private void updateLaserPosition() {
+        laser.moveTimeStep();
+
+        if(laser.keepAlive()) laserSpawnTimer = 0;
+        else laserSpawnTimer++;
+
+        // Respawn the laser if it exits the screen, or has been destroyed for LASER_SPAWN_TIMEOUT
+        // ticks
+        if(laserSpawnTimer > LASER_SPAWN_TIMEOUT || !laser.collidesWith(screen)) {
+            double newLaserX = screen.getCentreX() + screen.getXRadius() - 1;
+            double newLaserY = (2* Math.random() - 1) * 0.7 * screen.getYRadius() + screen.getCentreY();
+            //TODO: set speed properly
+            double newLaserVx = -28;
+            double newLaserVy = 0;
+            laser.respawn(newLaserX, newLaserY, newLaserVx, newLaserVy);
+        }
+    }
+
+    /**
+     * Update the reward's position
+     */
+    private void updateRewardPosition() {
+        applyGravity(reward);
+        reward.moveTimeStep();
+
+        if(!reward.collidesWith(screen)) reward.makeSpent();
+
+        if(reward.keepAlive()) rewardSpawnTimer = 0;
+        else rewardSpawnTimer++;
+
+        // Respawn the laser if it exits the screen, or has been destroyed for LASER_SPAWN_TIMEOUT
+        // ticks
+        if(rewardSpawnTimer > REWARD_SPAWN_TIMEOUT) {
+            double newRewardX = screen.getCentreX() + screen.getXRadius() - 1;
+            double newRewardY = (1.5* Math.random() - 1) * 0.7 * screen.getYRadius() + screen.getCentreY();
+            //TODO: set speeds properly
+            double newRewardVx = -30;
+            double newRewardVy = 30;
+            reward.respawn(newRewardX, newRewardY, newRewardVx, newRewardVy);
+            reward.setScoreIncrement((int)((MAX_REWARD - MIN_REWARD) * Math.random() + MIN_REWARD));
+        }
+    }
+
+    /**
+     * Update the player's position
+     */
+    private void updatePlayerPosition() {
+        applyGravity(player);
+        player.moveTimeStep();
+        player.boundWithinBox(screen);
+    }
+
+    /**
+     * Interact between objects and the player
+     */
+    private void interactWithPlayer() {
+        laser.interactWith(player);
+        reward.interactWith(player);
+    }
+
+    /**
      * Run a single game tick
      */
     public void runTick() {
-        applyGravity(player);
+        updateLaserPosition();
+        updateRewardPosition();
+        updatePlayerPosition();
 
-        //TODO: set the player's x coordinate properly...
-        if(player.getCentreX() > -0.7 * screen.getXRadius()) {
-            player.setCentreX(-0.7 * screen.getXRadius());
-        }
-
-        laser.moveTimeStep();
-        if(laser.keepAlive()) spawnTimer = 0;
-        else spawnTimer++;
-        if(spawnTimer > LASER_SPAWN_TIMEOUT || !laser.collidesWith(screen)) {
-            laser.setCentreX(screen.getCentreX() + screen.getXRadius() - 1);
-            laser.setCentreY((2* Math.random() - 1) * 0.7 * screen.getYRadius() + screen.getCentreY());
-            laser.setVx(-28);
-            laser.setVy(0);
-            laser.makeAlive();
-        }
-        player.moveTimeStep();
-
-        player.boundWithinBox(screen);
-
-        laser.interactWith(player);
+        player.incrementScore();
+        interactWithPlayer();
     }
 
     /**
@@ -124,26 +206,53 @@ public class GameState implements Serializable {
     }
 
     /**
-     * Get the X coordinate of the poison on the screen
-     * @return x coordinate to draw the poison at
+     * Get the X coordinate of the laser on the screen
+     * @return x coordinate to draw the laser at
      */
     public int getLaserDrawX() {
         return screen.getDrawXPosition(laser.getCentreX());
     }
 
     /**
-     * Get the Y coordinate of the poison on the screen
-     * @return y coordinate to draw the poison at
+     * Get the Y coordinate of the laser on the screen
+     * @return y coordinate to draw the laser at
      */
     public int getLaserDrawY() {
         return screen.getDrawYPosition(laser.getCentreY());
     }
 
     /**
+     * Get the X coordinate of the coins on the screen
+     * @return x coordinate to draw the coins at
+     */
+    public int getCoinDrawX() { return screen.getDrawXPosition(reward.getCentreX()); }
+
+    /**
+     * Get the Y coordinate of the coins on the screen
+     * @return y coordinate to draw the coins at
+     */
+    public int getCoinDrawY() {
+        return screen.getDrawYPosition(reward.getCentreY());
+    }
+
+
+    /**
      * Whether to draw the laser or not
      * @return whether the laser is alive
      */
     public boolean shouldDrawLaser() {return laser.keepAlive();}
+
+    /**
+     * Whether to draw the coins or not
+     * @return whether the coins are alive
+     */
+    public boolean shouldDrawCoins() {return reward.keepAlive();}
+
+    /**
+     * Whether to draw the coin box or not
+     * @return whether the coin box is alive
+     */
+    public boolean shouldDrawCoinBox() {return reward.keepAlive();}
 
     /**
      * Set the screen size

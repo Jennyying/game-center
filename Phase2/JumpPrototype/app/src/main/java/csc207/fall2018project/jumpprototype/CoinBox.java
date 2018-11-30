@@ -7,7 +7,15 @@ import java.io.Serializable;
  */
 public class CoinBox extends DestructibleBox implements PlayerInteractable, Serializable {
 
+    /**
+     * The amount that this CoinBox increments the score by
+     */
     private long scoreIncrement;
+
+    /**
+     * The default mass for a CoinBox
+     */
+    public static final double DEFAULT_COINBOX_MASS = 1;
 
 
     /**
@@ -30,9 +38,28 @@ public class CoinBox extends DestructibleBox implements PlayerInteractable, Seri
      * @param ry y radius of the box
      */
     public CoinBox(long score, double m, double rx, double ry) {
-
         super(true, new MassivePoint(m, 0, 0), rx, ry);
         scoreIncrement = score;
+    }
+
+    /**
+     * Create a new spent coin box which awards no score, having only a mass, x radius and y radius
+     * @param m mass of the box
+     * @param rx x radius of the box
+     * @param ry y radius of the box
+     */
+    public CoinBox(double m, double rx, double ry) {
+        this(0, m, rx, ry);
+    }
+
+    /**
+     * Create a new spent coin box which awards no score and has the default mass with a given
+     * x radius and y radius
+     * @param rx x radius of the box
+     * @param ry y radius of the box
+     */
+    public CoinBox(double rx, double ry) {
+        this(0, DEFAULT_COINBOX_MASS, rx, ry);
     }
 
     /**
@@ -41,7 +68,15 @@ public class CoinBox extends DestructibleBox implements PlayerInteractable, Seri
      * @param p player to interact with
      */
     public void interactWith(PlayerCharacter p) {
-        if(this.collidesWith(p)) {p.incrementScore(scoreIncrement); makeSpent();}
+        if(keepAlive() && this.collidesWith(p)) {p.incrementScore(scoreIncrement); makeSpent();}
+    }
+
+    /**
+     * Set the score increment obtained when touching this coin box
+     * @param increment the new increment to set
+     */
+    public void setScoreIncrement(long increment) {
+        scoreIncrement = increment;
     }
 
 }

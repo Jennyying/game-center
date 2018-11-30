@@ -61,12 +61,14 @@ public class GameView extends View {
                 );
         DamagingBox laserBox =
                 new DamagingBox(1, GameState.MASSLESS_OBJECT, laser.getWidth()/2, laser.getHeight()/2);
+        CoinBox coinBox =
+                new CoinBox(coin.getWidth(), coin.getHeight());
 
-        gameState = new GameState(playerCharacter, laserBox, getWidth(), getHeight());
+        gameState = new GameState(playerCharacter, laserBox, coinBox, getWidth(), getHeight());
 
-        paintScore.setColor(Color.GREEN);
-        paintScore.setTextSize(64);
-        paintScore.setTypeface(Typeface.DEFAULT);
+        paintScore.setColor(Color.YELLOW);
+        paintScore.setTextSize(32);
+        paintScore.setTypeface(Typeface.MONOSPACE);
         paintScore.setAntiAlias(true);
     }
 
@@ -75,6 +77,7 @@ public class GameView extends View {
      * @param canvas canvas to draw on
      */
     private void drawLives(Canvas canvas) {
+        canvas.drawText("Cores: " + gameState.getPlayer().getHealth(), 20, 120, paintScore);
         for (int i = 0; i < gameState.getPlayer().getHealth(); i++) {
             int x = (int) (560 + life.getWidth() * 1.5 * i);
             int y = 30;
@@ -95,6 +98,11 @@ public class GameView extends View {
      */
     private void drawCoordinates(Canvas canvas) {
         canvas.drawText(
+                "Coins: ("
+                        + gameState.getCoinDrawX()
+                        + ", " + gameState.getCoinDrawY() + ")",
+                20, getHeight() - 180, paintScore);
+        canvas.drawText(
                 "Laser: ("
                         + gameState.getLaserDrawX()
                         + ", " + gameState.getLaserDrawY() + ")",
@@ -102,8 +110,9 @@ public class GameView extends View {
         canvas.drawText(
                 "Position: ("
                         + gameState.getPlayerDrawX()
-                            + ", " + gameState.getPlayerDrawY() + ")",
-                    20, getHeight() - 60, paintScore); }
+                        + ", " + gameState.getPlayerDrawY() + ")",
+                20, getHeight() - 60, paintScore);
+    }
 
 
     /**
@@ -150,7 +159,8 @@ public class GameView extends View {
      * Draw any coins on screen
      */
     private void drawCoins(Canvas canvas) {
-        //TODO: implement
+        if(gameState.shouldDrawCoins())
+            drawCoin(canvas, gameState.getCoinDrawX(), gameState.getCoinDrawY());
     }
 
     /**
@@ -185,7 +195,7 @@ public class GameView extends View {
         drawLives(canvas);
         drawPlayer(canvas);
         drawLasers(canvas);
-
+        drawCoins(canvas);
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -195,7 +205,7 @@ public class GameView extends View {
         int eventAction = event.getAction();
         if(eventAction == MotionEvent.ACTION_DOWN){
             //check whether screen is touched
-            gameState.getPlayer().accY(50);
+            gameState.getPlayer().jump();
         }
         return true;
     }

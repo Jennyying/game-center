@@ -2,7 +2,7 @@ package csc207.fall2018project.jumpprototype;
 
 import java.io.Serializable;
 
-public class DestructibleBox extends MassiveBox implements Serializable, DestructibleGameObject {
+public class DestructibleBox extends MassiveBox implements Serializable, VelocityRespawnable {
     private boolean spent;
 
     /**
@@ -34,5 +34,31 @@ public class DestructibleBox extends MassiveBox implements Serializable, Destruc
      * Spend a destructible box, i.e. make it stop being alive
      */
     public void makeSpent() {spent = true;}
+
+    /**
+     * Respawn this box at a given (x, y) position
+     * @param x new x position
+     * @param y new y position
+     */
+    public void respawn(double x, double y) {
+        makeAlive();
+        setCentreX(x);
+        setCentreY(y);
+    }
+
+    /**
+     * Respawn this object at a given (x, y) position with velocity (vx, vy), making it alive again
+     * @param x new x position
+     * @param y new y position
+     * @param vx new x velocity
+     * @param vy new y velocity
+     */
+    public void respawn(double x, double y, double vx, double vy) {
+        makeAlive();
+        setCentreX(x);
+        setCentreY(y);
+        setVx(vx);
+        setVy(vy);
+    }
 
 }
