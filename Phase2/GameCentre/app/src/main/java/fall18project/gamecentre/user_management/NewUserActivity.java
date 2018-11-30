@@ -120,6 +120,7 @@ public class NewUserActivity extends AppCompatActivity {
      */
     private void goToIntroduction() {
         Intent introduction = new Intent(this, IntroductionActivity.class);
+        introduction.putExtra("userName", currentUsername);
         startActivity(introduction);
     }
 
@@ -128,6 +129,7 @@ public class NewUserActivity extends AppCompatActivity {
      */
     private void goToChooseGame() {
         Intent chooseGame = new Intent(this, ChooseGameActivity.class);
+        chooseGame.putExtra("userName", currentUsername);
         startActivity(chooseGame);
     }
 

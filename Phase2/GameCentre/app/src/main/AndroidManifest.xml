@@ -21,13 +21,15 @@
         <activity android:name=".game_management.ScoreboardActivity" />
         <activity android:name=".sliding_tiles.GameSetupActivity" />
         <activity android:name=".user_management.LoginActivity" />
-        <activity android:name=".user_management.NewUserActivity" />
-        <activity android:name=".IntroductionActivity" />
+        <activity android:name=".user_management.NewUserActivity"
+            android:noHistory="true"/>
+        <activity android:name=".IntroductionActivity"
+            android:noHistory="true"/>
         <activity android:name=".ChooseGameActivity" />
         <activity android:name=".minesweeper.GameActivity" />
         <activity android:name=".reactorcontrol.MainActivity" />
         <activity android:name=".reactorcontrol.GameActivity" />
-        <activity android:name=".user_management.GameOverActivity"></activity>
+        <activity android:name=".user_management.GameOverActivity"/>
     </application>
 
 </manifest>

@@ -272,7 +272,6 @@ public class StartingActivity extends AppCompatActivity {
      */
     private void goToNewUser() {
         Intent newUser = new Intent(this, NewUserActivity.class);
-        newUser.setFlags(newUser.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(newUser);
     }
 
