@@ -74,6 +74,22 @@ public class GameView extends View {
     }
 
     /**
+     * Return whether the game in this GameView is over
+     * @return whether the game is over
+     */
+    public boolean isOver() {
+        return gameState.isOver();
+    }
+
+    /**
+     * Return the score of this game
+     * @return the score
+     */
+    public long getScore() {
+        return gameState.getScore();
+    }
+
+    /**
      * Draw the amount of lives remaining
      * @param canvas canvas to draw on
      */

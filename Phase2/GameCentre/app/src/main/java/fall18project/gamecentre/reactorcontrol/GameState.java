@@ -105,6 +105,22 @@ public class GameState implements Serializable {
      */
     public PlayerCharacter getPlayer() {return player;}
 
+    /**
+     * Return whether the game is over, i.e. the player has 0 health remaining
+     * @return whether the game is over
+     */
+    public boolean isOver() {
+        return !player.hasHealth();
+    }
+
+    /**
+     * Return the score of this game
+     * @return the score
+     */
+    public long getScore() {
+        return getPlayer().getScore();
+    }
+
 
     /**
      * Set the current gravity level
