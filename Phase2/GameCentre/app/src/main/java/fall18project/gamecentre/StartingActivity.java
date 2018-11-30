@@ -12,6 +12,7 @@ import com.github.matteobattilana.weather.WeatherView;
 
 import java.util.Random;
 
+import fall18project.gamecentre.game_management.ScoreboardActivity;
 import fall18project.gamecentre.user_management.LoginActivity;
 import fall18project.gamecentre.user_management.LoginManager;
 import fall18project.gamecentre.user_management.NewUserActivity;
@@ -112,6 +113,7 @@ public class StartingActivity extends AppCompatActivity {
 
         registerSignInOutButton();
         registerPlayButton();
+        registerScoresButton();
         setRandomQuote();
     }
 
@@ -132,11 +134,32 @@ public class StartingActivity extends AppCompatActivity {
     }
 
     /**
+     * Register an on-click listener to go to the scoreboard activity
+     */
+    private void registerScoresButton() {
+        Button scoresButton = findViewById(R.id.scores);
+        scoresButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToScoreboard();
+            }
+        });
+    }
+
+    /**
      * Go to the login interface
      */
     private void goToLogin() {
         Intent login = new Intent(this, LoginActivity.class);
         startActivity(login);
+    }
+
+    /**
+     * Go to the scoreboard
+     */
+    private void goToScoreboard() {
+        Intent scoreboard = new Intent(this, ScoreboardActivity.class);
+        startActivity(scoreboard);
     }
 
     /**

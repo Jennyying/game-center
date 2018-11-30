@@ -20,16 +20,11 @@
         app:layout_constraintTop_toTopOf="parent">
 
 
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:backgroundTint="@color/colorMist_900"
-            android:hint="@string/text_hint_email"
-            android:inputType="textEmailAddress"
-            android:textColor="@color/colorMist_900"
-            android:textColorHint="@android:color/darker_gray" />
+            android:hint="@string/text_hint_email" />
 
         <EditText
             android:id="@+id/password"

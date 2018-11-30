@@ -17,7 +17,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import fall18project.gamecentre.R;
-import fall18project.gamecentre.user_management.ScoreboardManager;
+import fall18project.gamecentre.game_management.ScoreboardManager;
 
 /**
  * The game activity.

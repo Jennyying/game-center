@@ -3,7 +3,7 @@ package fall18project.gamecentre.sliding_tiles;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import fall18project.gamecentre.user_management.SessionScore;
+import fall18project.gamecentre.game_management.SessionScore;
 
 /**
  * Manage a board, including swapping tiles, checking for a win, and managing taps.
@@ -164,8 +164,8 @@ public class BoardManager implements Serializable {
      *
      * @return (10 * numTiles * e ^ ( - 0.05 * moves / sideLength))
      */
-    public double getScoreVal() {
-        return 10 * board.numTiles() * Math.exp(-0.05 * moves / board.getSideLength());
+    public long getScoreVal() {
+        return Math.max(0, 10000 - moves);
     }
 
     /**
