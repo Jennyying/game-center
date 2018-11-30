@@ -50,6 +50,21 @@ public class GameManager {
     }
 
     /**
+     * Undo the latest move
+     */
+    public void undo() {
+        game.undoMove();
+    }
+
+    /**
+     * Get how many undos are remaining
+     * @return how many undos are remaining
+     */
+    public int getUndos() {
+        return game.getUndos();
+    }
+
+    /**
      * Alerts the listener a victory has occured
      */
     public void publishWin() {

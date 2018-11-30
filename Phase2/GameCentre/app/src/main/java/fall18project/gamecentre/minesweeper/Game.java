@@ -71,6 +71,32 @@ public class Game {
 
     }
 
+    /**
+     * Undo a move consisting of uncovering the tile passed in
+     * @param uncovered tile which was uncovered
+     */
+    private void undoMove(TileView uncovered) {
+        coverAdjacentBlankTiles(uncovered);
+    }
+
+    /**
+     * Undo a move
+     */
+    public void undoMove() {
+        if(undos > 0 && queuePos > 0) {
+            undoMove(queue[--queuePos % DEFAULT_MAX_UNDOS]);
+            undos--;
+        }
+    }
+
+    /**
+     * Get how many undos are remaining
+     * @return how many undos are remaining
+     */
+    public int getUndos() {
+        return undos;
+    }
+
     private void init() {
         int dimension = board.getDimension();
 
@@ -207,6 +233,59 @@ public class Game {
 
     }
 
+    /**
+     * Search for and cover the blank tiles adjacent to the (uncovered) tile
+     * represeted by tileView.
+     *
+     * @param tileView the given tileView.
+     */
+    public void coverAdjacentBlankTiles(TileView tileView) {
+
+        int x = tileView.getXCoord();
+        int y = tileView.getYCoord();
+
+        Tile tile = boardGrid[y][x];
+
+        // A null tile represents a tile with no adjacent mines
+        if (tile == null) {
+            /* BFS search */
+            Set<TileView> visited = new HashSet<>();
+            Stack<TileView> queue = new Stack<>();
+
+            visited.add(tileView);
+            queue.add(tileView);
+
+            int dimension = boardGrid.length;
+
+            while (!queue.empty()) {
+                TileView currentTile = queue.pop();
+
+                x = currentTile.getXCoord();
+                y = currentTile.getYCoord();
+
+                int xStart = Math.max(0, x - 1);
+                int yStart = Math.max(0, y - 1);
+
+                for (int i = xStart; i < dimension && i <= x + 1; i++) {
+                    for (int j = yStart; j < dimension && j <= y + 1; j++) {
+                        TileView adjacentTileView = tileViewsGrid[j][i];
+                        Tile adjacentTile = boardGrid[j][i];
+
+                        boolean added = visited.add(adjacentTileView);
+
+                        if (added && adjacentTile == null) {
+                            adjacentTileView.setState(TileView.COVERED);
+                            queue.add(adjacentTileView);
+                        }
+                    }
+                }
+            }
+        }
+
+        tileView.setState(TileView.COVERED);
+
+    }
+
     public long getElapsedTime() {
         // If the timer has been started, then add the time since it was started
         // to the saved elapsed time.
@@ -278,7 +357,7 @@ public class Game {
 
                         // Append this to the queue of uncovered tiles
                         queue[queuePos++ % DEFAULT_MAX_UNDOS] = tileView;
-                        
+
                         // Even if a player loses, uncover the tile.
                         state = TileView.UNCOVERED;
                         isAllowed = true;

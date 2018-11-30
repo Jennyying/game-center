@@ -47,8 +47,8 @@ public class GameActivity extends AppCompatActivity implements GameManager.Liste
     Button finishButton;
     @Bind(R.id.reset_button)
     Button resetButton;
-    @Bind(R.id.status_image_view)
-    ImageView statusImageView;
+    @Bind(R.id.undo_button)
+    Button undoButton;
 
     /**
      * The manager for the Minesweeper board
@@ -98,8 +98,8 @@ public class GameActivity extends AppCompatActivity implements GameManager.Liste
         setContentView(R.layout.main_minesweeper);
         ButterKnife.bind(this);
 
-        setupViews();
         setupGame();
+        setupViews();
     }
 
     /**
@@ -134,7 +134,6 @@ public class GameActivity extends AppCompatActivity implements GameManager.Liste
 
                     stopTimer();
                     startTimer();
-                    statusImageDrawable.setLevel(IN_PLAY_LEVEL);
                 } catch (Exception e) {
                     Context context = GameActivity.this;
                     String message = context.getResources().getString(R.string.game_reset_error);
@@ -143,13 +142,22 @@ public class GameActivity extends AppCompatActivity implements GameManager.Liste
             }
         });
 
-        setupStatusImageView();
+        setupUndoView();
     }
 
     /**
      * Sets up the ability of tiles to change from covered to uncovered
      */
-    private void setupStatusImageView() {
+    private void setupUndoView() {
+        undoButton.setText(gameManager.getUndos() + " UNDOS");
+        undoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gameManager.undo();
+                undoButton.setText(gameManager.getUndos() + " UNDOS");
+            }
+        });
+        /*
         float fillPercent = 0.8f;
         int inPlayOuter = getResources().getColor(R.color.blue_grey_300);
         int inPlayInner = getResources().getColor(R.color.blue_grey_600);
@@ -160,6 +168,7 @@ public class GameActivity extends AppCompatActivity implements GameManager.Liste
         statusImageDrawable.addLevel(0, LOST_LEVEL, new ConcentricCirclesDrawable(new int[]{Color.RED, Color.BLACK}, fillPercent));
 
         statusImageView.setBackground(statusImageDrawable);
+        */
     }
 
     @Override
@@ -233,7 +242,6 @@ public class GameActivity extends AppCompatActivity implements GameManager.Liste
     public void onLoss() {
         String message = getResources().getString(R.string.loss_message);
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-        statusImageDrawable.setLevel(LOST_LEVEL);
         long oldScore = gameManager.getElapsedTime();
         long score = (long) (oldScore - Math.exp(1 / oldScore)) * 1000;
         SessionScore sessionScore = new SessionScore(userManager.loadCurrentUserName(), "minesweeper", score);
@@ -244,7 +252,6 @@ public class GameActivity extends AppCompatActivity implements GameManager.Liste
     public void onWin() {
         String message = getResources().getString(R.string.win_message);
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-        statusImageDrawable.setLevel(WON_LEVEL);
         long oldScore = gameManager.getElapsedTime();
         long score = (long) (oldScore + Math.exp(1 / oldScore)) * 1000;
         SessionScore sessionScore = new SessionScore(userManager.loadCurrentUserName(), "minesweeper", score);

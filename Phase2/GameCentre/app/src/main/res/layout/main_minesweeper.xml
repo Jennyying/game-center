@@ -32,8 +32,8 @@
             custom:rightBevelColor="@color/blue_grey_500"
             custom:topBevelColor="@color/blue_grey_400" />
 
-        <ImageView
-            android:id="@+id/status_image_view"
+        <Button
+            android:id="@+id/undo_button"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1" />
@@ -109,4 +109,5 @@
             custom:topBevelColor="@color/blue_grey_400" />
 
     </LinearLayout>
+
 </RelativeLayout>
