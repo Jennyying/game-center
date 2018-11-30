@@ -20,23 +20,52 @@ public class UserManager {
     public static final String DEFAULT_USER_PREFIX = "user_";
 
     /**
+     * The default file to store the current user in
+     */
+    public static final String DEFAULT_CURRENT_USER_STORAGE = "current_user.ser";
+
+    /**
      * The prefix to use for User object serialization files. Might be null
      */
     private String userPrefix;
 
     /**
-     * The context to use for loading files
+     * The file to store the current user in
+     */
+    private String userStorage;
+
+    /**
+     * The context to use for loading files. If null, then the userManager operates entirely in
+     * RAM, and never saves anything to disk, which is only useful in testing
      */
     private Context context;
 
     /**
-     * Construct a new user manager with a given login manager and user file prefix
+     * Construct a new user manager with a given context and user file prefix
+     * @param context context to use to load and store files
+     * @param userPrefix prefix before usernames for files to serialize User objects
+     * @param userStorage storage directory for the current user
+     */
+    public UserManager(Context context, String userPrefix, String userStorage) {
+        this.context = context;
+        this.userPrefix = userPrefix;
+        this.userStorage = userStorage;
+    }
+
+    /**
+     * Construct a new user manager with a given context user file prefix
      * @param context context to use to load and store files
      * @param userPrefix prefix before usernames for files to serialize User objects
      */
     public UserManager(Context context, String userPrefix) {
-        this.context = context;
-        this.userPrefix = userPrefix;
+        this(context, userPrefix, DEFAULT_CURRENT_USER_STORAGE);
+    }
+
+    /**
+     * Construct a user manager with a given context
+     */
+    public UserManager(Context context) {
+        this(context, DEFAULT_USER_PREFIX, DEFAULT_CURRENT_USER_STORAGE);
     }
 
     /**
@@ -91,6 +120,45 @@ public class UserManager {
     }
 
     /**
+     * Load the current user name from disk
+     */
+    public String loadCurrentUserName() {
+        String loaded = null;
+
+        try {
+            InputStream inputStream = context.openFileInput(userStorage);
+            if (inputStream != null) {
+                ObjectInputStream input = new ObjectInputStream(inputStream);
+                loaded = (String)input.readObject();
+                inputStream.close();
+            }
+            if(loaded == null) return null;
+        } catch (FileNotFoundException e) {
+            Log.e("login activity", "File not found: " + e.toString());
+            return null;
+        } catch (IOException e) {
+            Log.e("login activity", "Can not read file: " + e.toString());
+            return null;
+        } catch (ClassNotFoundException e) {
+            Log.e("login activity", "File contained unexpected data type: " + e.toString());
+            return null;
+        }
+        return loaded;
+    }
+
+    /**
+     * Load the current user from disk, and if a corresponding file does not exist on disk, create it
+     */
+    public User loadCurrentUser() {
+        String currentUserName = loadCurrentUserName();
+        if(currentUserName == null) return null;
+        User result = getUser(currentUserName);
+        storeUser(result);
+        return result;
+    }
+
+
+    /**
      * Attempt to load a user with the given username, and if there is none, create one without
      * storing to disk. Throws an exception if the file for userName contains the information of
      * a different user
@@ -115,7 +183,6 @@ public class UserManager {
         if(context == null) return;
         String toStoreTo = userPrefix + user.getUserName() + ".ser";
 
-
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
                     context.openFileOutput(toStoreTo, Context.MODE_PRIVATE));
@@ -126,6 +193,7 @@ public class UserManager {
         }
     }
 
+
     /**
      * Attempt to store a user given by a User object to disk with the current prefix
      * @param user User object to serialize
@@ -134,5 +202,27 @@ public class UserManager {
         storeUser(context, user, userPrefix);
     }
 
+    /**
+     * Set the current user on disk
+     */
+    public void setCurrentUser(String newCurrentUser) {
+        if(context == null) return;
+
+        try {
+            ObjectOutputStream outputStream = new ObjectOutputStream(
+                    context.openFileOutput(userStorage, Context.MODE_PRIVATE));
+            outputStream.writeObject(newCurrentUser);
+            outputStream.close();
+        } catch (IOException e) {
+            Log.e("Exception", "File write failed: " + e.toString());
+        }
+    }
+
+    /**
+     * Set the current user on disk to null
+     */
+    public void resetCurrentUser() {
+        setCurrentUser(null);
+    }
 
 }

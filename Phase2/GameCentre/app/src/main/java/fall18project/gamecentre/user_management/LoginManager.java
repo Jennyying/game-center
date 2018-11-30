@@ -48,6 +48,14 @@ public class LoginManager implements Saveable {
     private String fileName = null;
 
     /**
+     * Initialize a login manager with a given context
+     * @param context context to use
+     */
+    public LoginManager(Context context) {
+        this(context, DEFAULT_FILE_NAME);
+    }
+
+    /**
      * Initialize a login manager with a given context and set a file to store to and attempt
      * to load from. If nothing can be loaded, generate a new map for the password database
      * @param context context to use
