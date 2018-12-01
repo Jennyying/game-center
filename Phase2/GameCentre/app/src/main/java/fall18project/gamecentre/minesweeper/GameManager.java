@@ -43,7 +43,6 @@ public class GameManager {
         // Pass a new Board with new mines placement to a new Game.
         Board board = new Board.Builder().dimension(dimension).numMines(numMines).build();
         game = new Game(this, board);
-
         // The BoardLayoutView posts events to the Game during setup, so there must
         // be an initialized Game before setup occurs.
         boardView.setupBoard(board);

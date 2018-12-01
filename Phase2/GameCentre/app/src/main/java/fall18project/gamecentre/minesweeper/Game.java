@@ -3,7 +3,6 @@ package fall18project.gamecentre.minesweeper;
 import com.squareup.otto.Subscribe;
 
 import java.util.HashSet;
-import java.util.Queue;
 import java.util.Set;
 import java.util.Stack;
 
@@ -73,6 +72,7 @@ public class Game {
 
     /**
      * Undo a move consisting of uncovering the tile passed in
+     *
      * @param uncovered tile which was uncovered
      */
     private void undoMove(TileView uncovered) {
@@ -83,7 +83,7 @@ public class Game {
      * Undo a move
      */
     public void undoMove() {
-        if(undos > 0 && queuePos > 0) {
+        if (undos > 0 && queuePos > 0) {
             undoMove(queue[--queuePos % DEFAULT_MAX_UNDOS]);
             undos--;
             gameFinished = false;
@@ -92,10 +92,15 @@ public class Game {
 
     /**
      * Get how many undos are remaining
+     *
      * @return how many undos are remaining
      */
     public int getUndos() {
         return undos;
+    }
+
+    public void setUndos(int undos) {
+        this.undos = undos;
     }
 
     /**

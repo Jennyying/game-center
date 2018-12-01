@@ -50,18 +50,9 @@ public class BoardManager implements Serializable {
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
             tiles.add(new Tile(tileNum, tileNum == numTiles - 1));
         }
-        boolean notToShuffle = false;
-
-        board = new Board(tiles, sl);
-
-        while (!notToShuffle) {
-            board.shuffleTiles();
-            int inversions = board.inversions();
-            notToShuffle = (board.getSideLength() % 2 == 1) && (inversions % 2 == 0)
-                    || ((board.getSideLength() % 2 == 0) &&
-                    ((board.getSideLength() - board.getBlankTileXCoord()) % 2 == 1)
-                            == (inversions % 2 == 0));
-        }
+        BoardShuffler bs = new BoardShuffler(tiles, numTiles, sl);
+        tiles = bs.shuffle();
+        this.board = new Board(tiles, sl);
 
     }
 
