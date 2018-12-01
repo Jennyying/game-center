@@ -25,6 +25,9 @@
         android:id="@+id/yesButtonLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="10dp"
         android:gravity="center_horizontal"
         android:orientation="vertical"
         android:visibility="visible"
@@ -42,11 +45,12 @@
 
         <Button
             android:id="@+id/yesButton"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/colorPrimary"
-            android:text="@string/text_yes_button"
-            android:textColor="@color/colorAccent" />
+            android:fontFamily="monospace"
+            android:text="@string/text_yes_button" />
 
     </LinearLayout>
 
@@ -54,11 +58,11 @@
         android:id="@+id/newUserLayout"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="10dp"
         android:orientation="vertical"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -105,15 +109,18 @@
                 android:ems="10"
                 android:hint="@string/text_hint_email"
                 android:inputType="textPersonName"
-                android:singleLine="false" />
+                android:singleLine="false"
+                android:typeface="monospace" />
 
             <Button
                 android:id="@+id/confirmUsername"
                 style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="wrap_content"
+                android:layout_width="90dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/text_invalid_username" />
+                android:fontFamily="monospace"
+                android:text="@string/text_invalid_username"
+                android:textSize="18sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -181,18 +188,21 @@
                     android:layout_marginTop="10dp"
                     android:ems="10"
                     android:hint="@string/text_hint_password"
-                    android:inputType="textPassword" />
+                    android:inputType="textPassword"
+                    android:typeface="monospace" />
 
             </LinearLayout>
 
             <Button
                 android:id="@+id/introduction_button"
-                style="@style/Widget.AppCompat.Button.Colored"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:text="@string/text_introduction" />
+                android:text="@string/text_introduction"
+                android:textSize="24sp"
+                android:typeface="monospace" />
 
             <Button
                 android:id="@+id/skip_button"
@@ -200,7 +210,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/text_skip_button" />
+                android:fontFamily="monospace"
+                android:text="@string/text_skip_button"
+                android:textSize="18sp" />
 
         </LinearLayout>
 
