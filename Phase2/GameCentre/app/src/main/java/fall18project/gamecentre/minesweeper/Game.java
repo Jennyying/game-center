@@ -98,6 +98,10 @@ public class Game {
         return undos;
     }
 
+    /**
+     * Initialize the board, register this Game to the event bus and publish the initial game
+     * statistics (flags remaining and elapsed time) to the bus
+     */
     private void init() {
         int dimension = board.getDimension();
 
@@ -112,6 +116,9 @@ public class Game {
         gameManager.publishElapsedTime(elapsedTime);
     }
 
+    /**
+     * Unregister this Game from the event bus
+     */
     public void unregisterFromEventBus() {
         GameActivity.getGameBus().unregister(this);
     }
