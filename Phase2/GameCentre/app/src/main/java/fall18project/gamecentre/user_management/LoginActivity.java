@@ -14,7 +14,7 @@ import android.widget.Toast;
 import java.util.List;
 
 import fall18project.gamecentre.R;
-import fall18project.gamecentre.utilities.WeatherBackground;
+import fall18project.gamecentre.utilities.BackgroundManager;
 
 /**
  * An activity for logging in to an existing account
@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
     /**
      * Background graphics manager (for rain effect and gradient animation)
      */
-    private WeatherBackground background;
+    private BackgroundManager background;
 
     /**
      * Compute the list of usernames in the login manager
@@ -75,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void setUpInterface() {
         ConstraintLayout layout = findViewById(R.id.constraintLayout);
-        background = new WeatherBackground(this, null, layout);
+        background = new BackgroundManager(this, null, layout);
 
         loginButton = findViewById(R.id.login);
         userNameField = findViewById(R.id.username);
