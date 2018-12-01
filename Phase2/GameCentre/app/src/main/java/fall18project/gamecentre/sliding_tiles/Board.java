@@ -134,6 +134,16 @@ public class Board extends Observable implements Serializable, Iterable<Tile>, U
     }
 
     /**
+     * Is a tile the blank tile (false if not in bounds)
+     *
+     * @param id the id of the tile
+     * @return false if id is out of bounds or the tile at id is blank, else true
+     */
+    public boolean isBlank(int id) {
+        return (id < numTiles() && id >= 0) && getTile(id).getId() == numTiles();
+    }
+
+    /**
      * Return an iterator over tiles in the board
      *
      * @return an iterator over tiles

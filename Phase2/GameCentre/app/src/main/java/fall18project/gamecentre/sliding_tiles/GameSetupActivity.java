@@ -54,6 +54,9 @@ public class GameSetupActivity extends AppCompatActivity {
         saveGameToFile(GameActivity.getSaveFilename(userManager.loadCurrentUserName()));
 
         Intent tmp = new Intent(this, GameActivity.class);
+        if(imageSelected != null) {
+            tmp.setData(imageSelected);
+        }
         startActivity(tmp);
     }
 

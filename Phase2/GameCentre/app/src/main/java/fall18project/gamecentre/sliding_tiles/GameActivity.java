@@ -1,7 +1,13 @@
 package fall18project.gamecentre.sliding_tiles;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ViewTreeObserver;
@@ -19,6 +25,7 @@ import java.util.Observer;
 import fall18project.gamecentre.R;
 import fall18project.gamecentre.game_management.GameScoreboardManager;
 import fall18project.gamecentre.user_management.UserManager;
+import fall18project.gamecentre.utilities.ImageSplit;
 
 /**
  * The game activity.
@@ -47,7 +54,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
     public static final int DOWN = 2;
     public static final int LEFT = 3;
     public static final int RIGHT = 4;
-    private static int columnWidth, columnHeight;
+
     /**
      * The board manager.
      */
@@ -67,8 +74,26 @@ public class GameActivity extends AppCompatActivity implements Observer {
      * The buttons to display.
      */
     private ArrayList<Button> tileButtons;
-    // Grid View and calculated column height and width based on device size
+
+    /**
+     * A list of BitmapDrawables to display on the buttons
+     */
+    private ArrayList<BitmapDrawable> bitmapDrawables;
+
+    /**
+     * Grid view
+     */
     private GestureDetectGridView gridView;
+
+    /**
+     * Calculated column height and width
+     */
+    private static int columnWidth, columnHeight;
+
+    /**
+     * The image data to unscramble. If null, we use the default tile backgrounds
+     */
+    private Bitmap imageData = null;
 
     /**
      * Return the temporary filename to save games to
@@ -136,12 +161,28 @@ public class GameActivity extends AppCompatActivity implements Observer {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Uri imageDataUri = getIntent().getData();
+        if(imageDataUri != null) {
+            /*
+                Based off code by zzmilanzz zzmadubashazz found at
+                https://stackoverflow.com/questions/3879992/how-to-get-bitmap-from-an-uri
+             */
+            try {
+                imageData = MediaStore.Images.Media.getBitmap(getContentResolver(), imageDataUri);
+            } catch(Exception e) {
+                Log.e("loading image for board", e.toString());
+                imageData = null;
+            }
+        } else {
+            Log.v("loading image for board","loading default tile icons");
+        }
+
         scoreboardManager = new GameScoreboardManager(this);
         userManager = new UserManager(this);
 
         loadGameFromTempFile();
 
-        createTileButtons(this);
+        createTileButtons();
         setContentView(R.layout.activity_main);
 
         setUpGridView();
@@ -175,33 +216,51 @@ public class GameActivity extends AppCompatActivity implements Observer {
     }
 
     /**
-     * Create the buttons for displaying the tiles.
-     *
-     * @param context the context
+     * Create the buttons to use to display the tiles
      */
-    private void createTileButtons(Context context) {
+    private void createTileButtons() {
         Board board = boardManager.getBoard();
-        tileButtons = new ArrayList<>();
-        for (int row = 0; row != board.getSideLength(); row++) {
-            for (int col = 0; col != board.getSideLength(); col++) {
-                Button tmp = new Button(context);
-                tmp.setBackgroundResource(board.getTile(row, col).getBackground());
-                this.tileButtons.add(tmp);
-            }
+
+        tileButtons = new ArrayList<>(board.numTiles());
+        for(int i = 0; i < board.numTiles(); i++) tileButtons.add(new Button(this));
+
+        if(imageData != null) {
+            bitmapDrawables = ImageSplit.split(this, imageData, board.getSideLength());
         }
+
+        updateTileButtons();
     }
+
+    /**
+     * Create the bitmap drawables to use for the tiles
+     */
 
     /**
      * Update the backgrounds on the buttons to match the tiles.
      */
     private void updateTileButtons() {
         Board board = boardManager.getBoard();
-        int nextPos = 0;
-        for (Button b : tileButtons) {
-            int row = nextPos / board.getSideLength();
-            int col = nextPos % board.getSideLength();
-            b.setBackgroundResource(board.getTile(row, col).getBackground());
-            nextPos++;
+
+        // Sanity checks for array sizes, to aid debugging
+        if(bitmapDrawables != null && bitmapDrawables.size() != board.numTiles()) {
+            throw new RuntimeException(
+                    "Expected " + board.numTiles()
+                            + " tile drawables, but got "
+                            + bitmapDrawables.size());
+        }
+
+
+        for(int i = 0; i < tileButtons.size(); i++) {
+            Button tmp = tileButtons.get(i);
+            if(board.isBlank(i)) {
+                // Remove background to indicate this tile is blank
+                tmp.setBackground(null);
+            } else if(bitmapDrawables == null) {
+                tmp.setBackgroundResource(board.getTile(i).getBackground());
+            } else {
+                tmp.setBackground(bitmapDrawables.get(board.getTile(i).getId()));
+            }
+            tileButtons.set(i, tmp);
         }
     }
 
