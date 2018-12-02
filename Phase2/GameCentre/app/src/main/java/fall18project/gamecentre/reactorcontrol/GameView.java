@@ -59,6 +59,16 @@ public class GameView extends View {
     private Paint paintScore = new Paint();
 
     /**
+     * Paint for displaying the top of the reactor bar
+     */
+    private Paint topBarPaint = new Paint();
+
+    /**
+     * Paint for displaying the bottom of the reactor bar
+     */
+    private Paint bottomBarPaint = new Paint();
+
+    /**
      * A gradient background
      */
     private GradientDrawable gradientBackground;
@@ -74,7 +84,7 @@ public class GameView extends View {
                 new MassivePoint(PlayerCharacter.DEFAULT_PLAYER_MASS, 0, 0),
                 player.getWidth() / 2,
                 player.getHeight() / 2,
-                0, 5
+                1.5, 4
         );
         DamagingBox laserBox =
                 new DamagingBox(1, GameState.MASSLESS_OBJECT, laser.getWidth() / 2, laser.getHeight() / 2);
@@ -87,6 +97,9 @@ public class GameView extends View {
         paintScore.setTextSize(32);
         paintScore.setTypeface(Typeface.MONOSPACE);
         paintScore.setAntiAlias(true);
+
+        topBarPaint.setColor(getResources().getColor(R.color.amber_700, null));
+        bottomBarPaint.setColor(getResources().getColor(R.color.cyan_200, null));
     }
 
     /**
@@ -110,14 +123,20 @@ public class GameView extends View {
     }
 
     /**
-     * Draw the amount of lives remaining
+     * Draw the amount of lives remaining, and the amount of shield remaining
      *
      * @param canvas canvas to draw on
      */
     private void drawLives(Canvas canvas) {
-        canvas.drawText("Cores: " + gameState.getPlayer().getHealth(), 20, 120, paintScore);
+        canvas.drawText(
+                "Cores remaining: " + gameState.getPlayer().getHealth(),
+                20, 120, paintScore);
+        canvas.drawText(
+                "Shield Level: " + (int)(100*gameState.getPlayer().getShield()) + "%",
+                20, 180, paintScore
+        );
         for (int i = 0; i < gameState.getPlayer().getHealth(); i++) {
-            int x = (int) (560 + life.getWidth() * 1.5 * i);
+            int x = (int) (getWidth() - life.getWidth() * (1 + 1.5 * i) - 15);
             int y = 30;
             canvas.drawBitmap(life, x, y, null);
         }
@@ -175,7 +194,21 @@ public class GameView extends View {
      * @param y      y coordinate to draw the center of the player icon at
      */
     private void drawPlayer(Canvas canvas, int x, int y) {
-        if(gradientBackground != null) gradientBackground.setLevel(4 * y);
+        if(gradientBackground != null) gradientBackground.setLevel(y);
+        canvas.drawRect(
+                x - (2*player.getWidth())/6,
+                y - (2*player.getHeight())/6,
+                x + (2*player.getWidth())/6,
+                getHeight(),
+                topBarPaint
+        );
+        canvas.drawRect(
+                x - (2*player.getWidth())/6,
+                0,
+                x + (2*player.getWidth())/6,
+                y - (2*player.getHeight())/6,
+                bottomBarPaint
+        );
         drawCenterBitmap(canvas, player, x, y);
     }
 

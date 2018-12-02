@@ -24,6 +24,10 @@ public class PlayerCharacter extends DestructibleBox implements Serializable {
      */
     private double shield;
     /**
+     * The player's maximum shield
+     */
+    private double maxShield;
+    /**
      * The player's current health
      */
     private int health;
@@ -42,11 +46,12 @@ public class PlayerCharacter extends DestructibleBox implements Serializable {
      * @param centre the given player's starting position and velocity
      * @param rx     the given player's starting x radius
      * @param ry     the given player's starting y radius
-     * @param shield the given player's starting shield
+     * @param shield the given player's starting (max) shield
      * @param health the given player's starting health
      */
     public PlayerCharacter(MassivePoint centre, double rx, double ry, double shield, int health) {
         super(true, centre, rx, ry);
+        this.maxShield = shield;
         this.shield = shield;
         this.health = health;
     }
@@ -115,20 +120,30 @@ public class PlayerCharacter extends DestructibleBox implements Serializable {
      * @param damage damage to do
      */
     public void doDamage(double damage) {
-        if (shield < damage) {
+        if (damage < shield) {
+            shield -= damage;
+        } else {
             damage -= shield;
             shield = 0;
         }
-        decrementHealth((int) damage);
+        decrementHealth((int) Math.ceil(damage));
     }
 
     /**
-     * Get the player's current shield
+     * Get the player's current shield as a proportion of maximum shield
      *
      * @return the player's shield
      */
     public double getShield() {
-        return shield;
+        return shield/maxShield;
+    }
+
+    /**
+     * Recharge the player's current shield for 1 tick
+     */
+    public void rechargeShield() {
+        shield += 0.0005;
+        if(shield > maxShield) shield = maxShield;
     }
 
     /**

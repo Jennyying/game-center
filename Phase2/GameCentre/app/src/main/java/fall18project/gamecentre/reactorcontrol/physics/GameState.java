@@ -201,6 +201,7 @@ public class GameState implements Serializable {
 
         if (!isOver()) {
             player.incrementScore();
+            player.rechargeShield();
             interactWithPlayer();
         }
     }
