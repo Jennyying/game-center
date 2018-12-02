@@ -48,20 +48,23 @@ public class SessionScore implements Serializable, Comparable<SessionScore> {
      * Get the game name associated with a score
      */
     public String getGameName() {
-        return userName;
+        return gameName;
     }
 
     /**
-     * Compare two scores. The scores are ordered by score, and then by alphabetical username order,
-     * but in *descending* order (i.e. the highest score is ranked smallest) to make implementation
-     * of scoreboard operations using NavigableSet easier.
-     * <p>
+     * Compare two scores. The scores are ordered by score in reverse (to make implementation of
+     * scoreboard operations with NavigableSet easier), then by username (alphabetically) and then
+     * by game name (alphabetically)
      * Compatible with equals
      */
     public int compareTo(SessionScore s) {
         if (score > s.score) return -1;
         else if (score < s.score) return 1;
-        else return s.userName.compareTo(userName);
+        else {
+            int cmp = s.userName.compareTo(userName);
+            if(cmp != 0) return cmp;
+            return s.gameName.compareTo(gameName);
+        }
     }
 
     /**
