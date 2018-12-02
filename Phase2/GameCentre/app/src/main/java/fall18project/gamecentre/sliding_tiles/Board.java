@@ -1,11 +1,13 @@
 package fall18project.gamecentre.sliding_tiles;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
+import java.util.Random;
 
 import fall18project.gamecentre.MoveStack;
 import fall18project.gamecentre.Undoable;
@@ -39,16 +41,16 @@ public class Board extends Observable implements Serializable, Iterable<Tile>, U
 
     /**
      * A new board of tiles in row-major order.
-     * Precondition: len(tiles) == sl * sl
+     * Precondition: len(tiles) == sideLength * sideLength
      *
-     * @param tiles the tiles for the board
-     * @param sl    the side length of the board
+     * @param tiles      the tiles for the board
+     * @param sideLength the side length of the board
      */
-    public Board(List<Tile> tiles, int sl) {
-        sideLength = sl;
+    public Board(List<Tile> tiles, int sideLength) {
+        this.sideLength = sideLength;
         this.tiles = new Tile[numTiles()];
 
-        assert (tiles.size() == sl * sl);
+        assert (tiles.size() == sideLength * sideLength);
         int i = 0;
         for (Tile t : tiles) this.tiles[i++] = t;
     }
@@ -252,6 +254,7 @@ public class Board extends Observable implements Serializable, Iterable<Tile>, U
 
     /**
      * Get how many moves can be redone
+     *
      * @return how many moves can be redone
      */
     public int getUndid() {
@@ -260,6 +263,7 @@ public class Board extends Observable implements Serializable, Iterable<Tile>, U
 
     /**
      * Get how many moves can be undone
+     *
      * @return how many moves can be undone
      */
     public int getMoves() {
@@ -298,17 +302,46 @@ public class Board extends Observable implements Serializable, Iterable<Tile>, U
     }
 
     /**
-     * Get Blank Tile x coordinate.
+     * Return a list containing the positions of tiles neighboring the tile at the given position
      */
-    public int getBlankTileXCoord() {
-        int coord = 0;
-        for (int i = 0; i < sideLength; i++) {
-            for (int j = 0; j < sideLength; j++) {
-                if (getTile(i, j).getId() == sideLength * sideLength) {
-                    coord = i + 1;
-                }
-            }
+
+    public List<Integer> getNeighbourTiles(int pos) {
+        List<Integer> neighborPositions = new ArrayList<Integer>();
+
+        if (pos + sideLength < tiles.length) {
+            neighborPositions.add(pos + sideLength);
         }
-        return coord;
+        if (pos - sideLength >= 0) {
+            neighborPositions.add(pos - sideLength);
+        }
+        if (pos + 1 < tiles.length && !(pos + 1 % sideLength == 0)) {
+            neighborPositions.add(pos + 1);
+        }
+        if (pos - 1 >= 0 && !(pos % sideLength == 0)) {
+            neighborPositions.add(pos - 1);
+        }
+        return neighborPositions;
+    }
+
+    /**
+     * Get the position of the blank tile
+     */
+    public int getBlankTilePos(){
+        int i = 0;
+        while (i < tiles.length && !isBlank(i)){
+            i++;
+        }
+        return i;
+    }
+
+    public void shuffleSolvableBoard(){
+        for (int i = 0; i < tiles.length; i++){
+            int pos = getBlankTilePos();
+            List<Integer> neighbourTiles = getNeighbourTiles(pos);
+            Random rand = new Random();
+            int randomPos = neighbourTiles.get(rand.nextInt(neighbourTiles.size()));
+            swapTiles(pos, randomPos);
+        }
     }
 }
+

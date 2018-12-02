@@ -39,30 +39,21 @@ public class BoardManager implements Serializable {
     /**
      * Manage a new shuffled board.
      *
-     * @param sl the side length desired
-     * @param un the username associated with this board
+     * @param sideLength the side length desired
+     * @param userName the username associated with this board
      */
-    public BoardManager(int sl, String un) {
-        username = un;
+    public BoardManager(int sideLength, String userName) {
+        username = userName;
 
         ArrayList<Tile> tiles = new ArrayList<>();
-        int numTiles = sl * sl;
+        int numTiles = sideLength * sideLength;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
             tiles.add(new Tile(tileNum, tileNum == numTiles - 1));
         }
-        boolean notToShuffle = false;
+        board = new Board(tiles, sideLength);
+        board.shuffleSolvableBoard();
 
-        board = new Board(tiles, sl);
-
-        while (!notToShuffle) {
-            board.shuffleTiles();
-            int inversions = board.inversions();
-            notToShuffle = (board.getSideLength() % 2 == 1) && (inversions % 2 == 0)
-                    || ((board.getSideLength() % 2 == 0) &&
-                    ((board.getSideLength() - board.getBlankTileXCoord()) % 2 == 1)
-                            == (inversions % 2 == 0));
         }
-    }
 
     /**
      * Get how many moves can be redone
