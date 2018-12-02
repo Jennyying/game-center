@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/drawable_terminal_gradient"
     tools:context=".IntroductionActivity">
 
     <ImageView
@@ -34,33 +35,41 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="monospace"
-            android:text="@string/text_intro" />
+            android:text="@string/text_intro"
+            android:textColor="@color/colorMist_900" />
 
         <TextView
             android:id="@+id/textView12"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="monospace"
-            android:text="@string/text_sliding" />
+            android:text="@string/text_sliding"
+            android:textColor="@color/colorMist_900" />
 
         <TextView
             android:id="@+id/textView8"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="monospace"
-            android:text="@string/text_mines" />
+            android:text="@string/text_mines"
+            android:textColor="@color/colorMist_900" />
 
         <TextView
             android:id="@+id/textView9"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/text_control"
+            android:textColor="@color/colorMist_900"
             android:typeface="monospace" />
 
         <Button
             android:id="@+id/lets_go_button"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/text_go_to_choose_game" />
+            android:layout_marginTop="15dp"
+            android:fontFamily="monospace"
+            android:text="@string/text_go_to_choose_game"
+            android:textSize="18sp" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

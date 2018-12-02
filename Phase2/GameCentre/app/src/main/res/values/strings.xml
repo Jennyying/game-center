@@ -39,10 +39,10 @@
     <string name="text_hint_gamename">Game</string>
     <string name="text_introduction">[ Start ]</string>
     <string name="text_skip_button">[ Skip ]</string>
-    <string name="text_go_to_sliding_tiles">Reactor View</string>
-    <string name="text_go_to_minesweeper">Reactor Model</string>
-    <string name="text_go_to_reactorcontrol">Reactor Control</string>
-    <string name="text_go_to_choose_game">Let\'s Go</string>
+    <string name="text_go_to_sliding_tiles">[ Reactor View ]</string>
+    <string name="text_go_to_minesweeper">[ Reactor Model ]</string>
+    <string name="text_go_to_reactorcontrol">[ Reactor Control ]</string>
+    <string name="text_go_to_choose_game">[ Let\'s Go ]</string>
 
     <!--Error Messages-->
     <string name="over_flag_limit_error">Mine flag limit reached.  Remove at least one mine flag</string>
@@ -79,4 +79,5 @@
     </string>
     <string name="text_undo_button">Undo</string>
     <string name="text_redo_button">Redo</string>
+    <string name="text_macrosoft_subtitle">Reactor Control Interface</string>
 </resources>
