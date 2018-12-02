@@ -19,7 +19,7 @@ public class SaltAndDigest implements Serializable {
      * @param salt   the salt to use, which can be of any length, though 8 bytes is usually used here
      * @param digest the resulting message digest to be stored with the salt
      */
-    public SaltAndDigest(byte[] salt, byte[] digest) {
+    private SaltAndDigest(byte[] salt, byte[] digest) {
         this.salt = salt;
         this.digest = digest;
     }
