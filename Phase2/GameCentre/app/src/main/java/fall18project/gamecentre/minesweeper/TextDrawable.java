@@ -13,17 +13,42 @@ import android.graphics.drawable.Drawable;
  */
 
 public class TextDrawable extends Drawable {
+    /**
+     *
+     */
     static final float DEFAULT_FILL_PERCENT = 0.75f;
-
+    /**
+     *
+     */
     private String text;
+    /**
+     *
+     */
     private int textColor;
+    /**
+     *
+     */
     private Paint paint;
+    /**
+     *
+     */
     private float fillPercent = DEFAULT_FILL_PERCENT;
 
+    /**
+     *
+     * @param text
+     * @param textColor
+     */
     public TextDrawable(String text, int textColor) {
         this(text, textColor, null);
     }
 
+    /**
+     *
+     * @param text
+     * @param textColor
+     * @param fillPercent
+     */
     public TextDrawable(String text, int textColor, Float fillPercent) {
         this.text = text;
         this.textColor = textColor;
@@ -35,6 +60,9 @@ public class TextDrawable extends Drawable {
         setupDrawObjects();
     }
 
+    /**
+     *
+     */
     private void setupDrawObjects() {
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setColor(textColor);

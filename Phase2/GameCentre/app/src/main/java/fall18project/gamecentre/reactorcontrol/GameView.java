@@ -293,12 +293,12 @@ public class GameView extends View {
     }
 
     /**
-     * Set the background to be the gradient g
-     * @param g the gradient to use as background
+     * Set the background to be the gradient gradientBackground
+     * @param gradientBackground the gradient to use as background
      */
-    public void setGradientBackground(GradientDrawable g) {
-        setBackground(g);
-        gradientBackground = g;
+    public void setGradientBackground(GradientDrawable gradientBackground) {
+        setBackground(gradientBackground);
+        this.gradientBackground = gradientBackground;
     }
 }
 

@@ -8,8 +8,17 @@ import android.util.Log;
  */
 
 public class GameManager {
+    /**
+     *
+     */
     private Listener listener;
+    /**
+     *
+     */
     private BoardView boardView;
+    /**
+     *
+     */
     private Game game;
 
     /**

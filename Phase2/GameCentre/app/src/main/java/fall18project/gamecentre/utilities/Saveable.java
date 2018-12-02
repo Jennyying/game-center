@@ -12,37 +12,37 @@ public interface Saveable {
      *
      * @return the context
      */
-    public Context getContext();
+    Context getContext();
 
     /**
      * Set this object's associated context
      *
      * @param context context to set
      */
-    public void setContext(Context context);
+    void setContext(Context context);
 
     /**
      * Get this object's associated file
      *
      * @return the associated file's name
      */
-    public String getFileName();
+    String getFileName();
 
     /**
      * Set this object's associated file
      *
      * @param fileName file name to set
      */
-    public void setFileName(String fileName);
+    void setFileName(String fileName);
 
     /**
      * Load this object's data from its associated file
      */
-    public void loadFromFile();
+    void loadFromFile();
 
     /**
      * Save this object's data to its associated file
      */
-    public void storeToFile();
+    void storeToFile();
 
 }

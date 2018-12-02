@@ -17,23 +17,11 @@ public class BackgroundManager {
     /**
      * Default enter fade duration in milliseconds
      */
-    public static final int DEFAULT_ENTER_FADE_DURATION = 10000;
+    private static final int DEFAULT_ENTER_FADE_DURATION = 10000;
     /**
      * Default exit fade duration in milliseconds
      */
-    public static final int DEFAULT_EXIT_FADE_DURATION = 10000;
-
-
-    /**
-     * Enter fade duration
-     */
-    private int enterFadeDuration;
-
-    /**
-     * Exit fade duration
-     */
-    private int exitFadeDuration;
-
+    private static final int DEFAULT_EXIT_FADE_DURATION = 10000;
     /**
      * Class for connecting rain direction to sensors. Might be null
      */
@@ -53,13 +41,8 @@ public class BackgroundManager {
      * @param context Context to initialize it to. Should be the activity we're initializing it for
      * @param view    Weather view to configure. Null if none
      * @param layout  Layout to configure the background of. Null if none
-     * @param enterFadeDuration enter fade duration to use
-     * @param exitFadeDuration exit fade duration to use
      */
-    public BackgroundManager(
-            Context context, WeatherView view, ConstraintLayout layout,
-            int enterFadeDuration,int exitFadeDuration
-    ) {
+    public BackgroundManager(Context context, WeatherView view, ConstraintLayout layout) {
         if (view != null) {
             weatherView = view;
             weatherSensor = new WeatherViewSensorEventListener(context, weatherView);
@@ -68,29 +51,14 @@ public class BackgroundManager {
             anim = (AnimationDrawable) layout.getBackground();
             configureBackgroundAnimation();
         }
-        this.enterFadeDuration = enterFadeDuration;
-        this.exitFadeDuration = exitFadeDuration;
-    }
-
-    /**
-     * Initialize a weather background with the default enter and exit fade durations
-     *
-     * @param context Context to initialize it to. Should be the activity we're initializing it for
-     * @param view    Weather view to configure. Null if none
-     * @param layout  Layout to configure the background of. Null if none
-     */
-    public BackgroundManager(
-            Context context, WeatherView view, ConstraintLayout layout
-    ) {
-        this(context, view, layout, DEFAULT_ENTER_FADE_DURATION, DEFAULT_EXIT_FADE_DURATION);
     }
 
     /**
      * Configure the background animation, assuming anim is not null
      */
     private void configureBackgroundAnimation() {
-        anim.setEnterFadeDuration(enterFadeDuration);
-        anim.setExitFadeDuration(exitFadeDuration);
+        anim.setEnterFadeDuration(DEFAULT_ENTER_FADE_DURATION);
+        anim.setExitFadeDuration(DEFAULT_EXIT_FADE_DURATION);
     }
 
     /**

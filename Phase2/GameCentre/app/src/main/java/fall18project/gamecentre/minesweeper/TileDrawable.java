@@ -20,6 +20,9 @@ import fall18project.gamecentre.R;
  */
 
 public class TileDrawable extends Drawable {
+    /**
+     *
+     */
     public static final int REQUIRED_COLOR_COUNT = 5;
     private static final float DEFAULT_FILL_PERCENT = 0.75f;
     private static final int INNER_RECT_COLOR_INDEX = 0;
@@ -28,17 +31,28 @@ public class TileDrawable extends Drawable {
     private static final int RIGHT_BEVEL_COLOR_INDEX = 3;
     private static final int BOTTOM_BEVEL_COLOR_INDEX = 4;
     private float fillPercent = DEFAULT_FILL_PERCENT;
-
+    /**
+     *
+     */
     private int[] colorList;
     private Paint paint;
-
+    /**
+     *
+     */
     private Path topBevelPath;
     private Path leftBevelPath;
     private Path bottomBevelPath;
     private Path righBevelPath;
-
+    /**
+     *
+     */
     private TileDrawableState drawableState;
 
+    /**
+     *
+     * @param colorList
+     * @param fillPercent
+     */
     public TileDrawable(int[] colorList, Float fillPercent) {
         if (fillPercent != null) {
             this.fillPercent = fillPercent;
@@ -49,6 +63,12 @@ public class TileDrawable extends Drawable {
         saveConstantState();
     }
 
+    /**
+     *
+     * @param context
+     * @param attrs
+     * @return
+     */
     public static TileAttributeSet extractAttributes(Context context, AttributeSet attrs) {
         TileAttributeSet tileAttributeSet = null;
 
@@ -71,6 +91,9 @@ public class TileDrawable extends Drawable {
         }
     }
 
+    /**
+     *
+     */
     private void saveConstantState() {
         if (drawableState == null) {
             drawableState = new TileDrawableState();
@@ -79,6 +102,9 @@ public class TileDrawable extends Drawable {
         }
     }
 
+    /**
+     *
+     */
     private void setupDrawObjects() {
         paint = new Paint();
         paint.setStyle(Paint.Style.FILL);
@@ -133,6 +159,11 @@ public class TileDrawable extends Drawable {
         canvas.drawPath(bottomBevelPath, paint);
     }
 
+    /**
+     *
+     * @param bounds
+     * @return
+     */
     private Rect createInnerRect(Rect bounds) {
         float height = bounds.height();
         float width = bounds.width();
@@ -148,6 +179,14 @@ public class TileDrawable extends Drawable {
         return new Rect(left, top, right, bottom);
     }
 
+    /**
+     *
+     * @param path
+     * @param topLeft
+     * @param topRight
+     * @param bottomRight
+     * @param bottomLeft
+     */
     private void setBevelPath(Path path,
                               float[] topLeft,
                               float[] topRight,
@@ -183,6 +222,9 @@ public class TileDrawable extends Drawable {
         return drawableState;
     }
 
+    /**
+     *
+     */
     public static class TileAttributeSet {
         int[] colorArray;
         Float fillPercent;
@@ -206,15 +248,26 @@ public class TileDrawable extends Drawable {
             }
         }
 
+        /**
+         *
+         * @return
+         */
         public int[] getColorArray() {
             return colorArray;
         }
 
+        /**
+         *
+         * @return
+         */
         public Float getFillPercent() {
             return fillPercent;
         }
     }
 
+    /**
+     *
+     */
     private class TileDrawableState extends ConstantState {
         int[] mColorList;
         float mFillPercent;
