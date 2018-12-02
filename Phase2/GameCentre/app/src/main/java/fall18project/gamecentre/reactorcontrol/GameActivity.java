@@ -9,7 +9,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import fall18project.gamecentre.R;
-import fall18project.gamecentre.user_management.GameOverActivity;
 
 public class GameActivity extends AppCompatActivity {
 
@@ -55,17 +54,6 @@ public class GameActivity extends AppCompatActivity {
                 gameView.invalidate();
             }
         }, 0, TIME_INTERVAL);
-    }
-
-    /**
-     * Finish the game, passing the score and game name to GameOverActivity
-     */
-    private void gameOver() {
-        Intent over = new Intent(this, GameOverActivity.class);
-        /*over.putExtra("score", gameView.getScore());
-        over.putExtra("gameName", "reactorControl");
-        over.putExtra("userName", userName);*/
-        startActivity(over);
     }
 
 
