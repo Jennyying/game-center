@@ -78,6 +78,7 @@ public class MoveStack<T> implements Serializable, Undoable {
     public boolean truncate() {
         if (!hasUndos()) return false;
         moves.subList(moves.size() - undid, moves.size()).clear();
+        undid = 0; // There are now no undos remaining
         return true;
     }
 

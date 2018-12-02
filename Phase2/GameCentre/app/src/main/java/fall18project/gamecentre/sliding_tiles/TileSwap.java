@@ -35,7 +35,7 @@ public class TileSwap implements Move, Serializable {
     /**
      * @return whether this is a valid TileSwap
      */
-    public boolean is_valid() {
+    public boolean isValid() {
         return t1 >= 0 && t2 >= 0;
     }
 
