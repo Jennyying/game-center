@@ -1,15 +1,13 @@
 package fall18project.gamecentre.sliding_tiles;
 
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 
@@ -22,6 +20,8 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import fall18project.gamecentre.R;
 import fall18project.gamecentre.game_management.GameScoreboardManager;
 import fall18project.gamecentre.user_management.UserManager;
@@ -48,12 +48,16 @@ public class GameActivity extends AppCompatActivity implements Observer {
     public static final String GAME_NAME = "SlidingTiles";
 
     /**
-     * Constants for swiping directions. Should be an enum, probably.
+     * A handle for the undo button
      */
-    public static final int UP = 1;
-    public static final int DOWN = 2;
-    public static final int LEFT = 3;
-    public static final int RIGHT = 4;
+    @Bind(R.id.undo_button)
+    protected Button undoButton;
+
+    /**
+     * A handle for the redo button
+     */
+    @Bind(R.id.redo_button)
+    protected Button redoButton;
 
     /**
      * The board manager.
@@ -102,7 +106,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
      * @return the temporary filename to save games to
      */
     public static String getTempSaveFilename(String cn) {
-        return SAVE_FILENAME + cn + ".ser";
+        return TEMP_SAVE_FILENAME + cn + ".ser";
     }
 
     /**
@@ -134,26 +138,10 @@ public class GameActivity extends AppCompatActivity implements Observer {
     }
 
     /**
-     * Return the filename to save games to
-     *
-     * @return the filename to save games to
-     */
-    public String getSaveFilename() {
-        return getSaveFilename(userManager.loadCurrentUserName());
-    }
-
-    /**
      * Load the game from the temp file
      */
     private void loadGameFromTempFile() {
         loadGameFromFile(getTempSaveFilename());
-    }
-
-    /**
-     * Load the game from the save file
-     */
-    private void loadGameFromSaveFile() {
-        loadGameFromFile(getSaveFilename());
     }
 
 
@@ -186,16 +174,26 @@ public class GameActivity extends AppCompatActivity implements Observer {
         setContentView(R.layout.activity_main);
 
         setUpGridView();
+
+        ButterKnife.bind(this);
+
+        setUpRedoButton();
+        setUpUndoButton();
     }
 
     /**
      * Set up gridView and the associated board observers
      */
-    protected void setUpGridView() {
+    private void setUpGridView() {
         // Add View to activity
         gridView = findViewById(R.id.grid);
         gridView.setNumColumns(boardManager.getBoard().getSideLength());
         gridView.setBoardManager(boardManager);
+        gridView.setOnUpdate(new Runnable() {
+            public void run() {
+                updateText();
+            }
+        });
         boardManager.getBoard().addObserver(this);
         // Observer sets up desired dimensions as well as calls our display function
         gridView.getViewTreeObserver().addOnGlobalLayoutListener(
@@ -216,6 +214,58 @@ public class GameActivity extends AppCompatActivity implements Observer {
     }
 
     /**
+     * Update the text on the undo button to show the number of undos currently remaining
+     */
+    private void updateUndoButtonText() {
+        String undoButtonText = getString(R.string.text_undo_button, boardManager.getMoves());
+        undoButton.setText(undoButtonText);
+    }
+
+    /**
+     * Update the text on the redo button to show the number of redos currently remaining
+     */
+    private void updateRedoButtonText() {
+        String redoButtonText = getString(R.string.text_redo_button, boardManager.getUndid());
+        redoButton.setText(redoButtonText);
+    }
+
+    /**
+     * Update the text on the undo and redo buttons to show the current number of undos and redos.
+     */
+    private void updateText() {
+        updateUndoButtonText();
+        updateRedoButtonText();
+    }
+
+    /**
+     * Set up the undo button to perform an undo
+     */
+    private void setUpUndoButton() {
+        updateUndoButtonText();
+        undoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boardManager.undo();
+                updateText();
+            }
+        });
+    }
+
+    /**
+     * Set up the redo button to perform a redo
+     */
+    private void setUpRedoButton() {
+        updateRedoButtonText();
+        redoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boardManager.redo();
+                updateText();
+            }
+        });
+    }
+
+    /**
      * Create the buttons to use to display the tiles
      */
     private void createTileButtons() {
@@ -230,10 +280,6 @@ public class GameActivity extends AppCompatActivity implements Observer {
 
         updateTileButtons();
     }
-
-    /**
-     * Create the bitmap drawables to use for the tiles
-     */
 
     /**
      * Update the backgrounds on the buttons to match the tiles.
@@ -317,18 +363,12 @@ public class GameActivity extends AppCompatActivity implements Observer {
     }
 
     /**
-     * Save the board manager to the save file
+     * Save the board manager to the temp file
      */
     public void saveGameToTempFile() {
         saveGameToFile(getTempSaveFilename());
     }
 
-    /**
-     * Save the board manager to the temp file
-     */
-    public void saveGameToSaveFile() {
-        saveGameToFile(getSaveFilename());
-    }
 
     @Override
     public void update(Observable o, Object arg) {

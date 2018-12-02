@@ -17,7 +17,7 @@ import fall18project.gamecentre.user_management.LoginActivity;
 import fall18project.gamecentre.user_management.NewUserActivity;
 import fall18project.gamecentre.user_management.User;
 import fall18project.gamecentre.user_management.UserManager;
-import fall18project.gamecentre.utilities.WeatherBackground;
+import fall18project.gamecentre.utilities.BackgroundManager;
 
 /**
  * The initial activity for the sliding puzzle tile game.
@@ -55,7 +55,7 @@ public class StartingActivity extends AppCompatActivity {
     /**
      * Manager for the background aesthetics of the starting activity
      */
-    private WeatherBackground background;
+    private BackgroundManager background;
     /**
      * Manager and interface for user database
      */
@@ -147,7 +147,7 @@ public class StartingActivity extends AppCompatActivity {
         // Set up the background manager
         WeatherView weatherView = findViewById(R.id.weather_view);
         ConstraintLayout layout = findViewById(R.id.constraintLayout);
-        background = new WeatherBackground(this, weatherView, layout);
+        background = new BackgroundManager(this, weatherView, layout);
 
         // Start animations
         background.start();

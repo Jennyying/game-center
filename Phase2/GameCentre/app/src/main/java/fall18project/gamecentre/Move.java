@@ -9,7 +9,7 @@ public interface Move {
      *
      * @return true if a move is valid, false otherwise
      */
-    public boolean is_valid();
+    public boolean isValid();
 
     /**
      * Invert the move for un-doing

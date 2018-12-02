@@ -250,6 +250,22 @@ public class Board extends Observable implements Serializable, Iterable<Tile>, U
         return true;
     }
 
+    /**
+     * Get how many moves can be redone
+     * @return how many moves can be redone
+     */
+    public int getUndid() {
+        return moves.getUndid();
+    }
+
+    /**
+     * Get how many moves can be undone
+     * @return how many moves can be undone
+     */
+    public int getMoves() {
+        return moves.getMoves();
+    }
+
     @Override
     public String toString() {
         Tile[][] tiles = new Tile[sideLength][sideLength];

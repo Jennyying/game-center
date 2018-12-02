@@ -1,13 +1,10 @@
 package fall18project.gamecentre.minesweeper;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.LevelListDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,18 +21,12 @@ import fall18project.gamecentre.game_management.SessionScore;
 import fall18project.gamecentre.user_management.UserManager;
 
 /**
+ * The game activity for Minesweeper
+ *
  * Code adapted from https://github.com/kgleong/minesweeper.
  */
-
-
-
-/**
- * The game activity
- */
 public class GameActivity extends AppCompatActivity implements GameManager.Listener {
-    static final int IN_PLAY_LEVEL = 0;
-    static final int WON_LEVEL = 1;
-    static final int LOST_LEVEL = 2;
+
     public static Bus gameBus = new Bus();
     @Bind(R.id.board_layout_view)
     BoardView boardView;
@@ -78,10 +69,7 @@ public class GameActivity extends AppCompatActivity implements GameManager.Liste
     /**
      * The tiles of the board
      */
-    private LevelListDrawable statusImageDrawable;
-    /**
-     * The timer for tasks
-     */
+
     private Timer timer;
 
     /**
@@ -148,17 +136,38 @@ public class GameActivity extends AppCompatActivity implements GameManager.Liste
     }
 
     /**
+     * Update the text of the undo button
+     */
+    private void updateUndoButtonText()
+    {
+        String undoButtonText = getString(R.string.text_undo_button, gameManager.getUndos());
+        undoButton.setText(undoButtonText);
+    }
+
+    /**
      * Sets up the ability of tiles to change from covered to uncovered
      */
     private void setupUndoView() {
-        undoButton.setText(gameManager.getUndos() + " UNDOS");
+        updateUndoButtonText();
         undoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 gameManager.undo();
-                undoButton.setText(gameManager.getUndos() + " UNDOS");
+                updateUndoButtonText();
             }
         });
+        /*
+        float fillPercent = 0.8f;
+        int inPlayOuter = getResources().getColor(R.color.blue_grey_300);
+        int inPlayInner = getResources().getColor(R.color.blue_grey_600);
+
+        statusImageDrawable = new LevelListDrawable();
+        statusImageDrawable.addLevel(0, IN_PLAY_LEVEL, new ConcentricCirclesDrawable(new int[]{inPlayOuter, inPlayInner}, fillPercent));
+        statusImageDrawable.addLevel(0, WON_LEVEL, new ConcentricCirclesDrawable(new int[]{Color.GREEN, Color.YELLOW}, fillPercent));
+        statusImageDrawable.addLevel(0, LOST_LEVEL, new ConcentricCirclesDrawable(new int[]{Color.RED, Color.BLACK}, fillPercent));
+
+        statusImageView.setBackground(statusImageDrawable);
+        */
     }
 
     @Override

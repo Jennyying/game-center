@@ -34,9 +34,12 @@
 
         <Button
             android:id="@+id/undo_button"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:fontFamily="monospace"
+            tools:text="[ Undo ]" />
 
         <fall18project.gamecentre.minesweeper.TileTextView
             android:id="@+id/elapsed_time_text_view"

@@ -33,7 +33,7 @@ public class WeatherBackground {
     /**
      * Handle on background animation. Might be null, if we don't have one.
      */
-    private AnimationDrawable animation = null;
+    private AnimationDrawable anim = null;
 
     /**
      * Initialize a weather background
@@ -48,17 +48,17 @@ public class WeatherBackground {
             weatherSensor = new WeatherViewSensorEventListener(context, weatherView);
         }
         if (layout != null) {
-            animation = (AnimationDrawable) layout.getBackground();
+            anim = (AnimationDrawable) layout.getBackground();
             configureBackgroundAnimation();
         }
     }
 
     /**
-     * Configure the background animation, assuming animation is not null
+     * Configure the background animation, assuming anim is not null
      */
     private void configureBackgroundAnimation() {
-        animation.setEnterFadeDuration(DEFAULT_ENTER_FADE_DURATION);
-        animation.setExitFadeDuration(DEFAULT_EXIT_FADE_DURATION);
+        anim.setEnterFadeDuration(DEFAULT_ENTER_FADE_DURATION);
+        anim.setExitFadeDuration(DEFAULT_EXIT_FADE_DURATION);
     }
 
     /**
@@ -72,14 +72,14 @@ public class WeatherBackground {
      * Start the weather and background animations if they exist
      */
     public void start() {
-        if (animation != null && !animation.isRunning()) animation.start();
+        if (anim != null && !anim.isRunning()) anim.start();
     }
 
     /**
      * Pause the weather and background animations if they exist, and pause the sensor
      */
     public void onPause() {
-        if (animation != null && animation.isRunning()) animation.stop();
+        if (anim != null && anim.isRunning()) anim.stop();
         if (weatherSensor != null) weatherSensor.onPause();
     }
 
@@ -87,7 +87,7 @@ public class WeatherBackground {
      * Resume the weather and background animations if they exist, and resume the sensor
      */
     public void onResume() {
-        if (animation != null && !animation.isRunning()) animation.start();
+        if (anim != null && !anim.isRunning()) anim.start();
         if (weatherSensor != null) weatherSensor.onResume();
     }
 }

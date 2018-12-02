@@ -7,9 +7,23 @@ import android.widget.Toast;
 public class MovementController {
 
     /**
-     * Contains the boardmanager passed on by an instance of the game
+     * Contains the boardManager passed on by an instance of the game
      */
     private BoardManager boardManager = null;
+
+    /**
+     * A runnable to call when a tap movement is successfully processed, so as to update any display
+     * elements
+     */
+    private Runnable updateDisplay;
+
+    /**
+     * Set the Runnable to call on display update
+     * @param updateDisplay new value of updateDisplay
+     */
+    public void setUpdateDisplay(Runnable updateDisplay) {
+        this.updateDisplay = updateDisplay;
+    }
 
     public MovementController() {
     }
@@ -24,7 +38,7 @@ public class MovementController {
     }
 
     /**
-     * Processes whether a tap is valid or is a winning tap and displays the relavent information
+     * Processes whether a tap is valid or is a winning tap and displays the relevant information
      * to the user
      *
      * @param context  context of the action
@@ -40,5 +54,6 @@ public class MovementController {
         } else {
             Toast.makeText(context, "Invalid Tap", Toast.LENGTH_SHORT).show();
         }
+        updateDisplay.run();
     }
 }
