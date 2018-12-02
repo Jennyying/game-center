@@ -314,7 +314,7 @@ public class Board extends Observable implements Serializable, Iterable<Tile>, U
         if (pos - sideLength >= 0) {
             neighborPositions.add(pos - sideLength);
         }
-        if (pos + 1 < tiles.length && !(pos + 1 % sideLength == 0)) {
+        if (pos + 1 < tiles.length && !((pos + 1) % sideLength == 0)) {
             neighborPositions.add(pos + 1);
         }
         if (pos - 1 >= 0 && !(pos % sideLength == 0)) {
@@ -335,7 +335,7 @@ public class Board extends Observable implements Serializable, Iterable<Tile>, U
     }
 
     public void shuffleSolvableBoard(){
-        for (int i = 0; i < tiles.length; i++){
+        for (int i = 0; i < tiles.length*tiles.length; i++){
             int pos = getBlankTilePos();
             List<Integer> neighbourTiles = getNeighbourTiles(pos);
             Random rand = new Random();
