@@ -49,9 +49,8 @@ public class GameSetupActivity extends AppCompatActivity {
      * Switch to the GameActivity view to play the game.
      */
     private void switchToGame() {
-        userManager = new UserManager(this);
         boardManager = new BoardManager(getCurrentComplexity(), userManager.loadCurrentUserName());
-        saveGameToFile(GameActivity.getSaveFilename(userManager.loadCurrentUserName()));
+        saveGameToFile(GameActivity.getTempSaveFilename(userManager.loadCurrentUserName()));
 
         Intent tmp = new Intent(this, GameActivity.class);
         if(imageSelected != null) {
@@ -65,6 +64,7 @@ public class GameSetupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_setup);
 
+        userManager = new UserManager(this);
         complexityBar = (SeekBar) findViewById(R.id.seekBar);
         addPlayButtonListener();
         addImageSelector();

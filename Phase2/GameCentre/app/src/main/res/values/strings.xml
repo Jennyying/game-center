@@ -77,7 +77,8 @@
     <string name="text_control">
         Finally, we have the reactor controller, where you can try your hand at controlling the reactor\'s throttle. Hit red hot spots and you\'ll damage a core, hit blue squares and you\'ll increase efficiency
     </string>
-    <string name="text_undo_button">Undo</string>
-    <string name="text_redo_button">Redo</string>
+    <string name="text_undo_button">[ Undo (%1$d) ]</string>
+    <string name="text_redo_button">[ Redo (%1$d) ]</string>
     <string name="text_macrosoft_subtitle">Reactor Control Interface</string>
+    <string name="text_play_game">[ Play ]</string>
 </resources>

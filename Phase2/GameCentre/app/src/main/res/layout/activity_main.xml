@@ -41,14 +41,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/text_undo_button" />
+            tools:text="[ Undo (9) ]" />
 
         <Button
             android:id="@+id/redo_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/text_redo_button" />
+            tools:text="[ Redo (9) ]" />
 
     </LinearLayout>
 

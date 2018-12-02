@@ -65,6 +65,22 @@ public class BoardManager implements Serializable {
     }
 
     /**
+     * Get how many moves can be redone
+     * @return how many moves can be redone
+     */
+    public int getUndid() {
+        return board.getUndid();
+    }
+
+    /**
+     * Get how many moves can be undone
+     * @return how many moves can be undone
+     */
+    public int getMoves() {
+        return board.getMoves();
+    }
+
+    /**
      * Get the username associated with this board
      *
      * @return the username associated with this board

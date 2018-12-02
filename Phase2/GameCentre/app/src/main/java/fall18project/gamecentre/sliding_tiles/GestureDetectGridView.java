@@ -24,7 +24,23 @@ public class GestureDetectGridView extends GridView {
     private boolean mFlingConfirmed = false;
     private float mTouchX;
     private float mTouchY;
-    private BoardManager boardManager;
+
+    /**
+     * Set the runnable to invoke on processing a tap or swipe
+     * @param onUpdate the new runnable to invoke
+     */
+    public void setOnUpdate(Runnable onUpdate) {
+        mController.setUpdateDisplay(onUpdate);
+    }
+
+    /**
+     * Set the board manager for the MovementController to update
+     * @param manager board manager to set
+     */
+    public void setBoardManager(BoardManager manager) {
+        mController.setBoardManager(manager);
+    }
+
 
     public GestureDetectGridView(Context context) {
         super(context);
@@ -66,13 +82,6 @@ public class GestureDetectGridView extends GridView {
                 return true;
             }
 
-            @Override
-            public boolean onFling(MotionEvent e1, MotionEvent e2, float vx, float vy) {
-                if (vx < 0) boardManager.undo();
-                else boardManager.redo();
-                return true;
-            }
-
         });
     }
 
@@ -106,10 +115,5 @@ public class GestureDetectGridView extends GridView {
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         return gDetector.onTouchEvent(ev);
-    }
-
-    public void setBoardManager(BoardManager boardManager) {
-        this.boardManager = boardManager;
-        mController.setBoardManager(boardManager);
     }
 }

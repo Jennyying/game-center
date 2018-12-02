@@ -35,6 +35,20 @@ public class MoveStack<T> implements Serializable, Undoable {
     }
 
     /**
+     * Return how many moves can be undone
+     */
+    public int getMoves() {
+        return moves.size() - undid;
+    }
+
+    /**
+     * Return how many moves have been undone
+     */
+    public int getUndid() {
+        return undid;
+    }
+
+    /**
      * Increments undid and returns whether there are still moves to do
      *
      * @return boolean - returns whether there are still moves to do
