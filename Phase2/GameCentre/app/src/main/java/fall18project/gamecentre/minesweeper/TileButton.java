@@ -12,9 +12,20 @@ import android.util.StateSet;
  */
 
 public class TileButton extends AppCompatButton {
+    /**
+     *
+     */
     static final int COLOR_OFFSET = 40;
+    /**
+     *
+     */
     public static String TAG = TileButton.class.getName();
 
+    /**
+     *
+     * @param context
+     * @param attrs
+     */
     public TileButton(Context context, AttributeSet attrs) {
         super(context, attrs);
 
@@ -29,6 +40,11 @@ public class TileButton extends AppCompatButton {
         }
     }
 
+    /**
+     *
+     * @param attributeSet
+     * @return
+     */
     private StateListDrawable createBackground(TileDrawable.TileAttributeSet attributeSet) {
         StateListDrawable drawable = new StateListDrawable();
 
@@ -43,6 +59,11 @@ public class TileButton extends AppCompatButton {
         return drawable;
     }
 
+    /**
+     *
+     * @param attributeSet
+     * @return
+     */
     private TileDrawable.TileAttributeSet createPressedAttributes(TileDrawable.TileAttributeSet attributeSet) {
 
         int[] colorList = attributeSet.getColorArray();

@@ -45,34 +45,34 @@ public class ScoreboardActivity extends AppCompatActivity {
     /**
      * Display the Scoreboard object passed in. Display nothing if null is passed in
      *
-     * @param u scoreboard to display
+     * @param scoreboard scoreboard to display
      */
-    private void displayScoreboard(Scoreboard u) {
-        if (u == null) {
-            scoreboard.setAdapter(emptyView);
+    private void displayScoreboard(Scoreboard scoreboard) {
+        if (scoreboard == null) {
+            this.scoreboard.setAdapter(emptyView);
             return;
         }
-        scoreboard.setAdapter(new ArrayAdapter<String>(this,
+        this.scoreboard.setAdapter(new ArrayAdapter<String>(this,
                 android.R.layout.simple_dropdown_item_1line,
-                u.getPrintedScores()
+                scoreboard.getPrintedScores()
         ));
     }
 
     /**
      * Display a game filtered scoreboard
      *
-     * @param gf the filter to apply to the game
-     * @param u  the scoreboard to filter
+     * @param gameFile the filter to apply to the game
+     * @param scoreboard  the scoreboard to filter
      */
-    private void displayFilteredScoreboard(String gf, Scoreboard u) {
-        ArrayList<String> filteredScores = new ArrayList<>(u.size());
-        Iterator<SessionScore> stringIterator = u.iterator();
+    private void displayFilteredScoreboard(String gameFile, Scoreboard scoreboard) {
+        ArrayList<String> filteredScores = new ArrayList<>(scoreboard.size());
+        Iterator<SessionScore> stringIterator = scoreboard.iterator();
         while (stringIterator.hasNext()) {
             SessionScore score = stringIterator.next();
-            if (score.getGameName().equals(gf)) filteredScores.add(score.toString());
+            if (score.getGameName().equals(gameFile)) filteredScores.add(score.toString());
         }
 
-        scoreboard.setAdapter(new ArrayAdapter<String>(this,
+        this.scoreboard.setAdapter(new ArrayAdapter<String>(this,
                 android.R.layout.simple_dropdown_item_1line,
                 filteredScores
         ));
@@ -171,17 +171,17 @@ public class ScoreboardActivity extends AppCompatActivity {
      * Update the scoreboard displayed based off the contents of the username field
      */
     public void updateScoreboard() {
-        String s = userNameView.getText().toString();
-        String g = gameNameView.getText().toString();
-        if (s.isEmpty() && g.isEmpty()) {
+        String userName = userNameView.getText().toString();
+        String gameName = gameNameView.getText().toString();
+        if (userName.isEmpty() && gameName.isEmpty()) {
             displayGlobalScoreboard();
-        } else if (s.isEmpty()) {
-            displayScoreboard(scoreboardManager.getScoreboard(g));
+        } else if (userName.isEmpty()) {
+            displayScoreboard(scoreboardManager.getScoreboard(gameName));
         } else {
-            User u = userManager.loadUser(s);
+            User u = userManager.loadUser(userName);
             if (u == null) displayEmptyScoreboard();
-            else if (g.isEmpty()) displayScoreboard(u.getScoreboard());
-            else displayFilteredScoreboard(g, u.getScoreboard());
+            else if (gameName.isEmpty()) displayScoreboard(u.getScoreboard());
+            else displayFilteredScoreboard(gameName, u.getScoreboard());
         }
     }
 

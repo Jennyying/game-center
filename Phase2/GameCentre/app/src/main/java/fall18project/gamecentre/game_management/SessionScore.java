@@ -27,14 +27,14 @@ public class SessionScore implements Serializable, Comparable<SessionScore> {
     /**
      * Create a new SessionScore object for a session of a game
      *
-     * @param un player's username
-     * @param gn game's name
-     * @param sc player's score
+     * @param userName player's username
+     * @param gameName game's name
+     * @param score player's score
      */
-    public SessionScore(String un, String gn, long sc) {
-        userName = un;
-        gameName = gn;
-        score = sc;
+    public SessionScore(String userName, String gameName, long score) {
+        this.userName = userName;
+        this.gameName = gameName;
+        this.score = score;
     }
 
     /**
@@ -58,10 +58,10 @@ public class SessionScore implements Serializable, Comparable<SessionScore> {
      * <p>
      * Compatible with equals
      */
-    public int compareTo(SessionScore s) {
-        if (score > s.score) return -1;
-        else if (score < s.score) return 1;
-        else return s.userName.compareTo(userName);
+    public int compareTo(SessionScore sessionScore) {
+        if (score > sessionScore.score) return -1;
+        else if (score < sessionScore.score) return 1;
+        else return sessionScore.userName.compareTo(userName);
     }
 
     /**

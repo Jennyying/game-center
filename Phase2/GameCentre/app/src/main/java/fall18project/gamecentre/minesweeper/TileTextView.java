@@ -10,8 +10,16 @@ import android.util.Log;
  */
 
 public class TileTextView extends AppCompatTextView {
+    /**
+     *
+     */
     public static String TAG = TileTextView.class.getName();
 
+    /**
+     *
+     * @param context
+     * @param attrs
+     */
     public TileTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
 

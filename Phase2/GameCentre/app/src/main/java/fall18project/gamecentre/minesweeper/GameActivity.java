@@ -79,7 +79,9 @@ public class GameActivity extends AppCompatActivity implements GameManager.Liste
      * The tiles of the board
      */
     private LevelListDrawable statusImageDrawable;
-
+    /**
+     * The timer for tasks
+     */
     private Timer timer;
 
     /**
@@ -157,18 +159,6 @@ public class GameActivity extends AppCompatActivity implements GameManager.Liste
                 undoButton.setText(gameManager.getUndos() + " UNDOS");
             }
         });
-        /*
-        float fillPercent = 0.8f;
-        int inPlayOuter = getResources().getColor(R.color.blue_grey_300);
-        int inPlayInner = getResources().getColor(R.color.blue_grey_600);
-
-        statusImageDrawable = new LevelListDrawable();
-        statusImageDrawable.addLevel(0, IN_PLAY_LEVEL, new ConcentricCirclesDrawable(new int[]{inPlayOuter, inPlayInner}, fillPercent));
-        statusImageDrawable.addLevel(0, WON_LEVEL, new ConcentricCirclesDrawable(new int[]{Color.GREEN, Color.YELLOW}, fillPercent));
-        statusImageDrawable.addLevel(0, LOST_LEVEL, new ConcentricCirclesDrawable(new int[]{Color.RED, Color.BLACK}, fillPercent));
-
-        statusImageView.setBackground(statusImageDrawable);
-        */
     }
 
     @Override

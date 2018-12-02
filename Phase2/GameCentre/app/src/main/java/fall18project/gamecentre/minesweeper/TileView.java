@@ -88,6 +88,9 @@ public class TileView extends View {
         setupListeners();
     }
 
+    /**
+     *
+     */
     private void setupListeners() {
         setOnClickListener(new OnClickListener() {
             @Override
@@ -109,6 +112,9 @@ public class TileView extends View {
         });
     }
 
+    /**
+     *
+     */
     private void setupDrawableBackgrounds() {
         Drawable coveredTile = setupCoveredTile();
         LayerDrawable flaggedMineDrawable = new LayerDrawable(new Drawable[]{coveredTile, new ConcentricCirclesDrawable()});
@@ -120,6 +126,10 @@ public class TileView extends View {
         setBackground(drawableContainer);
     }
 
+    /**
+     *
+     * @return
+     */
     private Drawable setupCoveredTile() {
         int colorInner = Graphics.getColor(getContext(), R.color.blue_grey_200);
         int colorTop = Graphics.getColor(getContext(), R.color.blue_grey_300);
@@ -132,6 +142,10 @@ public class TileView extends View {
         return new TileDrawable(tileColors, null);
     }
 
+    /**
+     *
+     * @param tile
+     */
     public void setupUncoveredTileDrawable(Tile tile) {
         Drawable uncoveredDrawable;
 

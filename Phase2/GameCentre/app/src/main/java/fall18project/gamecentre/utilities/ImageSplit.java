@@ -16,23 +16,23 @@ public class ImageSplit {
      *
      * @param context the context to use for creating new Drawables
      * @param image the image
-     * @param sidelength the side length of the board
+     * @param sideLength the side length of the board
      * @return an ArrayList of Bitmaps
      */
-    public static ArrayList<BitmapDrawable> split(Context context, Bitmap image, int sidelength) {
+    public static ArrayList<BitmapDrawable> split(Context context, Bitmap image, int sideLength) {
 
         int height, width;
 
         ArrayList<BitmapDrawable> images =
-                new ArrayList<>(sidelength * sidelength);
+                new ArrayList<>(sideLength * sideLength);
 
-        height = image.getHeight() / sidelength;
-        width = image.getWidth() / sidelength;
+        height = image.getHeight() / sideLength;
+        width = image.getWidth() / sideLength;
 
         int yCoord = 0;
-        for (int x = 0; x < sidelength; x++) {
+        for (int x = 0; x < sideLength; x++) {
             int xCoord = 0;
-            for (int y = 0; y < sidelength; y++) {
+            for (int y = 0; y < sideLength; y++) {
                 images.add(new BitmapDrawable(
                         context.getResources(),
                         Bitmap.createBitmap(image, xCoord, yCoord, width, height))

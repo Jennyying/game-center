@@ -23,9 +23,9 @@ public class IntroductionActivity extends AppCompatActivity {
         setUpInterface();
 
         userManager = new UserManager(this);
-        User cu = userManager.loadCurrentUser();
-        cu.getSettings().onShownIntroduction();
-        userManager.storeUser(cu);
+        User currentUser = userManager.loadCurrentUser();
+        currentUser.getSettings().onShownIntroduction();
+        userManager.storeUser(currentUser);
     }
 
     /**

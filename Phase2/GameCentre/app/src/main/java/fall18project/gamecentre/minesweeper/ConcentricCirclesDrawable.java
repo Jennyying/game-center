@@ -73,6 +73,9 @@ public class ConcentricCirclesDrawable extends Drawable {
         saveConstantState();
     }
 
+    /**
+     *
+     */
     private void saveConstantState() {
         if (drawableState == null) {
             drawableState = new ConcentricCirclesDrawableState();
@@ -81,6 +84,9 @@ public class ConcentricCirclesDrawable extends Drawable {
         }
     }
 
+    /**
+     *
+     */
     private void setupDrawObjects() {
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setStyle(Paint.Style.FILL);
@@ -98,6 +104,13 @@ public class ConcentricCirclesDrawable extends Drawable {
         }
     }
 
+    /**
+     *
+     * @param bounds
+     * @param radiusPercentage
+     * @param canvas
+     * @param paint
+     */
     private void drawCenteredCircle(Rect bounds, float radiusPercentage, Canvas canvas, Paint paint) {
         float radius = Math.min(bounds.height(), bounds.width()) * radiusPercentage / 2;
         canvas.drawCircle(bounds.centerX(), bounds.centerY(), radius, paint);
