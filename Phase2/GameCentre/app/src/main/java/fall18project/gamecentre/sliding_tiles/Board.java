@@ -301,8 +301,11 @@ public class Board extends Observable implements Serializable, Iterable<Tile>, U
         return inversions;
     }
 
+
     /**
      * Return a list containing the positions of tiles neighboring the tile at the given position
+     * @param pos the position of the tile in the array
+     * @return A list of the neighboring tiles
      */
 
     public List<Integer> getNeighbourTiles(int pos) {
@@ -326,16 +329,21 @@ public class Board extends Observable implements Serializable, Iterable<Tile>, U
     /**
      * Get the position of the blank tile
      */
-    public int getBlankTilePos(){
+    public int getBlankTilePos() {
         int i = 0;
-        while (i < tiles.length && !isBlank(i)){
+        while (i < tiles.length && !isBlank(i)) {
             i++;
         }
         return i;
     }
 
-    public void shuffleSolvableBoard(){
-        for (int i = 0; i < tiles.length*tiles.length; i++){
+    /**
+     * Take a solvable board and randomly swap the blank tile with one of its neighbors a
+     * certain amount of times.
+     */
+
+    public void shuffleSolvableBoard() {
+        for (int i = 0; i < tiles.length * tiles.length; i++) {
             int pos = getBlankTilePos();
             List<Integer> neighbourTiles = getNeighbourTiles(pos);
             Random rand = new Random();
